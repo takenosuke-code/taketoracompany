@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-stone-50 text-slate-800 antialiased;
+    font-family: var(--font-noto), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-cinzel), serif;
+    @apply text-slate-900;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* Subtle texture overlay for washi paper effect */
+  .washi-texture {
+    background-image: 
+      radial-gradient(circle at 1px 1px, rgba(0,0,0,0.02) 1px, transparent 0);
+    background-size: 20px 20px;
+  }
+}
