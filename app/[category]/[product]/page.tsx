@@ -50,9 +50,23 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 export default async function ProductPage({ params }: ProductPageProps) {
   const supabase = createClient();
   
+  // Determine which table to query based on category
+  // Match the logic from [category]/page.tsx
+  let tableName = 'animefigure';
+  if (params.category === 'anime-figures') {
+    tableName = 'animefigure';
+  } else if (params.category.toLowerCase() === 'pokemon') {
+    tableName = 'pokemon';
+  } else if (params.category === 'antique') {
+    tableName = 'antique';
+  } else {
+    // Default to animefigure for other cases
+    tableName = 'animefigure';
+  }
+  
   // Fetch product from Supabase
   const { data: product, error } = await supabase
-    .from('products')
+    .from(tableName)
     .select('*')
     .eq('slug', params.product)
     .single();

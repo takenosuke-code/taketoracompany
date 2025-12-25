@@ -96,10 +96,48 @@ export default function VisitPage() {
 
       {/* Content */}
       <div className="relative z-10">
-        {/* Hero Section: mostly just the image as an atmospheric intro */}
-        <section className="h-[75vh] sm:h-screen px-4 sm:px-6 lg:px-8 flex items-end justify-center pb-10 sm:pb-16">
-          <div className="text-center text-[#F2E8DC]/80 text-xs sm:text-sm tracking-[0.3em] uppercase font-light bg-stone-900/40 backdrop-blur-sm px-4 py-2 rounded-sm">
-            Scroll to discover our Kyoto locations
+        {/* Hero Section with YouTube Shorts - visible immediately */}
+        <section className="min-h-screen px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col items-center justify-center">
+          <div className="max-w-6xl mx-auto w-full">
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-[#D4AF37] mb-6 sm:mb-8 text-center tracking-wide">
+              Experience Taketora
+            </h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-4xl mx-auto">
+              {/* YouTube Short 1 */}
+              <div className="bg-stone-900/70 backdrop-blur-sm border border-[#D4AF37]/20 rounded-lg overflow-hidden shadow-xl">
+                <div className="aspect-[9/16] w-full relative">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src="https://www.youtube.com/embed/kC8viRPTW5A?autoplay=1&mute=1&loop=1&playlist=kC8viRPTW5A&controls=1&modestbranding=1&rel=0"
+                    title="Taketora Experience"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="absolute inset-0"
+                  />
+                </div>
+              </div>
+
+              {/* YouTube Short 2 */}
+              <div className="bg-stone-900/70 backdrop-blur-sm border border-[#D4AF37]/20 rounded-lg overflow-hidden shadow-xl">
+                <div className="aspect-[9/16] w-full relative">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src="https://www.youtube.com/embed/Ow0XaLcdM3o?autoplay=1&mute=1&loop=1&playlist=Ow0XaLcdM3o&controls=1&modestbranding=1&rel=0"
+                    title="Taketora Experience"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="absolute inset-0"
+                  />
+                </div>
+              </div>
+            </div>
+            
+            <div className="text-center mt-8 sm:mt-12 text-[#F2E8DC]/80 text-xs sm:text-sm tracking-[0.3em] uppercase font-light bg-stone-900/40 backdrop-blur-sm px-4 py-2 rounded-sm inline-block">
+              Scroll to discover our Kyoto locations
+            </div>
           </div>
         </section>
 
