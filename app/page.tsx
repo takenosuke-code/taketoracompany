@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { createClient } from '@/utils/supabase/server';
 import ScrollRevealSection from '@/components/ScrollRevealSection';
+import ImageSlideshow from '@/components/ImageSlideshow';
 
 export default async function Homepage() {
   // Keep your existing database connection safe here
@@ -106,6 +107,102 @@ export default async function Homepage() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>
           </div>
+        </section>
+
+        {/* --- STORYTELLING VIDEO SECTION --- */}
+        <section className="relative h-screen w-full flex">
+          {/* Split Video Background - Left Half */}
+          <div className="relative w-1/2 h-full overflow-hidden">
+            <video 
+              autoPlay 
+              loop 
+              muted 
+              playsInline 
+              className="w-full h-full object-cover"
+            >
+              <source 
+                src="https://raemfaxgstoezqgbtdry.supabase.co/storage/v1/object/public/site-assets/heropagepreview.mp4" 
+                type="video/mp4" 
+              />
+            </video>
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-gray-950/80 via-gray-950/70 to-transparent" />
+          </div>
+
+          {/* Split Video Background - Right Half */}
+          <div className="relative w-1/2 h-full overflow-hidden">
+            <video 
+              autoPlay 
+              loop 
+              muted 
+              playsInline 
+              className="w-full h-full object-cover"
+            >
+              <source 
+                src="https://raemfaxgstoezqgbtdry.supabase.co/storage/v1/object/public/site-assets/herpagepreview2.mp4" 
+                type="video/mp4" 
+              />
+            </video>
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-gray-950/80 via-gray-950/70 to-transparent" />
+          </div>
+
+          {/* Storytelling Content - Centered Over Both Videos */}
+          <div className="absolute inset-0 z-10 flex items-center justify-center">
+            <div className="text-center px-4 max-w-5xl mx-auto">
+              <div className="space-y-6">
+                <p className="text-sm md:text-base font-medium tracking-[0.3em] text-[#D4AF37] uppercase">
+                  Our Story
+                </p>
+                <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl text-[#F2E8DC] drop-shadow-2xl tracking-wide mb-8">
+                  TAKETORA
+                </h2>
+                <div className="max-w-3xl mx-auto space-y-4">
+                  <p className="font-light text-[#F2E8DC]/95 text-base md:text-lg lg:text-xl leading-relaxed">
+                    In the heart of Tokyo's vibrant Akihabara district, where tradition meets innovation, 
+                    TAKETORA was born from a passion for preserving Japan's cultural heritage.
+                  </p>
+                  <p className="font-light text-[#F2E8DC]/90 text-sm md:text-base lg:text-lg leading-relaxed">
+                    Each piece in our collection tells a story—from meticulously crafted anime figures that 
+                    capture the essence of modern Japanese pop culture, to timeless antiques that whisper 
+                    tales of ancient craftsmanship. We curate not just products, but experiences that bridge 
+                    the gap between Japan's storied past and its dynamic present.
+                  </p>
+                  <p className="font-light text-[#D4AF37]/90 text-sm md:text-base italic pt-4">
+                    Discover authenticity. Embrace tradition. Experience TAKETORA.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* --- SLIDESHOW SECTION: Showcase Antiques & Atmosphere --- */}
+        <section className="relative py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-10">
+          <ScrollRevealSection>
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-8 sm:mb-12">
+                <h2 className="text-[#D4AF37] text-2xl sm:text-3xl lg:text-4xl font-serif mb-3">
+                  Our Collection
+                </h2>
+                <p className="text-[#F2E8DC]/80 text-sm md:text-base max-w-2xl mx-auto">
+                  Step into our world of carefully curated antiques and collectibles, where every piece 
+                  reflects the timeless beauty of Japanese craftsmanship.
+                </p>
+              </div>
+              <ImageSlideshow
+                images={[
+                  'https://raemfaxgstoezqgbtdry.supabase.co/storage/v1/object/public/site-assets/IMG_8706%20(1).jpg',
+                  'https://raemfaxgstoezqgbtdry.supabase.co/storage/v1/object/public/site-assets/IMG_8736.jpg',
+                  'https://raemfaxgstoezqgbtdry.supabase.co/storage/v1/object/public/site-assets/IMG_8739%20(1).jpg',
+                  'https://raemfaxgstoezqgbtdry.supabase.co/storage/v1/object/public/site-assets/IMG_8741.jpg',
+                  'https://raemfaxgstoezqgbtdry.supabase.co/storage/v1/object/public/site-assets/IMG_8745.jpg',
+                  'https://raemfaxgstoezqgbtdry.supabase.co/storage/v1/object/public/site-assets/IMG_8759.jpg',
+                ]}
+                autoPlayInterval={5000}
+              />
+            </div>
+          </ScrollRevealSection>
         </section>
 
         {/* --- PRODUCT CATEGORY SECTIONS --- */}
