@@ -90,7 +90,7 @@ export default async function Homepage() {
 
             {/* CTA Button */}
             <Link 
-              href={`/${firstCategory}`}
+              href="/collection"
               className="group relative inline-block px-6 sm:px-8 py-2.5 sm:py-3 overflow-hidden border border-[#D4AF37] rounded-sm transition-all duration-300"
             >
               <span className="absolute inset-0 w-full h-full bg-[#D4AF37] opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
