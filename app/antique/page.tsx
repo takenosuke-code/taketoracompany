@@ -93,7 +93,7 @@ export default async function AntiquePage() {
           </h2>
           <p className="text-[#F2E8DC]/75 text-sm sm:text-base md:text-lg font-light max-w-3xl mx-auto leading-relaxed italic">
             Curated selection of authentic Japanese antiques, traditional ceramics, and porcelain. 
-            Each piece embodies Japan's rich cultural heritage and timeless craftsmanship.
+            Each piece embodies Japan&apos;s rich cultural heritage and timeless craftsmanship.
           </p>
           
           {/* Decorative line below description */}
