@@ -159,14 +159,14 @@ export default async function Homepage() {
                 </h2>
                 <div className="max-w-3xl mx-auto space-y-4">
                   <p className="font-light text-[#F2E8DC]/95 text-base md:text-lg lg:text-xl leading-relaxed">
-                    In the heart of Tokyo's vibrant Akihabara district, where tradition meets innovation, 
-                    TAKETORA was born from a passion for preserving Japan's cultural heritage.
+                    In the heart of Tokyo&apos;s vibrant Akihabara district, where tradition meets innovation, 
+                    TAKETORA was born from a passion for preserving Japan&apos;s cultural heritage.
                   </p>
                   <p className="font-light text-[#F2E8DC]/90 text-sm md:text-base lg:text-lg leading-relaxed">
                     Each piece in our collection tells a story—from meticulously crafted anime figures that 
                     capture the essence of modern Japanese pop culture, to timeless antiques that whisper 
                     tales of ancient craftsmanship. We curate not just products, but experiences that bridge 
-                    the gap between Japan's storied past and its dynamic present.
+                    the gap between Japan&apos;s storied past and its dynamic present.
                   </p>
                   <p className="font-light text-[#D4AF37]/90 text-sm md:text-base italic pt-4">
                     Discover authenticity. Embrace tradition. Experience TAKETORA.
@@ -264,8 +264,8 @@ export default async function Homepage() {
                     Antiques
                   </h2>
                   <p className="text-[#F2E8DC]/90 text-sm sm:text-base md:text-lg font-light leading-relaxed flex-grow">
-                    Immerse yourself in Japan's rich cultural heritage with our curated collection of authentic antiques. 
-                    From traditional ceramics and porcelain to vintage artifacts, each piece tells a story of Japan's timeless 
+                    Immerse yourself in Japan&apos;s rich cultural heritage with our curated collection of authentic antiques. 
+                    From traditional ceramics and porcelain to vintage artifacts, each piece tells a story of Japan&apos;s timeless 
                     craftsmanship. Our antiques are sourced directly from Kyoto and surrounding regions, ensuring authenticity 
                     and historical significance for collectors and enthusiasts alike.
                   </p>
@@ -329,11 +329,12 @@ export default async function Homepage() {
                 className="bg-[#2a2a2a] p-3 sm:p-4 rounded-md border border-gray-800 hover:border-[#D4AF37] transition-all duration-300 hover:shadow-lg hover:shadow-[#D4AF37]/20 group"
               >
                 <div className="h-48 sm:h-56 lg:h-64 w-full relative mb-3 sm:mb-4 bg-black/50 overflow-hidden rounded">
-                  <img 
+                  <Image 
                     src={product.image_url || 'https://placehold.co/600x400'} 
                     alt={product.name}
-                    className="w-full h-full object-contain p-1 sm:p-2 group-hover:scale-105 transition-transform duration-300"
-                    style={{ objectFit: 'contain', maxWidth: '100%', maxHeight: '100%' }}
+                    fill
+                    className="object-contain p-1 sm:p-2 group-hover:scale-105 transition-transform duration-300"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                 </div>
                 <h3 className="text-[#F2E8DC] text-lg sm:text-xl font-serif group-hover:text-[#D4AF37] transition-colors duration-300 line-clamp-2">

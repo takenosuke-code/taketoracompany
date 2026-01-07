@@ -59,7 +59,7 @@ export default function ShippingCalculator({ weight }: ShippingCalculatorProps) 
         Free shipping on orders over ¥{freeShippingThreshold.toLocaleString()}
       </p>
       <p className="text-xs text-gray-500 mt-1">
-        All prices in JPY. Customs fees may apply based on your country's regulations.
+        All prices in JPY. Customs fees may apply based on your country&apos;s regulations.
       </p>
     </div>
   );
