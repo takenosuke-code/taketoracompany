@@ -19,6 +19,9 @@ const notoSans = Noto_Sans_JP({
 export const metadata: Metadata = {
   title: "Taketora - Premium Japanese Collectibles",
   description: "Discover authentic premium anime figures and artisan souvenirs in the heart of Tokyo",
+  verification: {
+    google: "8zntccVng7Q4n68XbjNCn5jlx5jAubcc34fw60OrJnc",
+  },
 };
 
 export default async function RootLayout({
