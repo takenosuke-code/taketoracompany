@@ -3,6 +3,15 @@ import Link from "next/link";
 import { Cinzel_Decorative, Noto_Sans_JP } from "next/font/google";
 import { createClient } from '@/utils/supabase/server';
 import "./globals.css";
+import Script from "next/script";
+
+export const metadata: Metadata = {
+  title: "Taketora - Premium Japanese Collectibles",
+  description: "Discover authentic premium anime figures and artisan souvenirs in the heart of Tokyo",
+  verification: {
+    google: "8zntccVng7Q4n68XbjNCn5jlx5jAubcc34fw60OrJnc",
+  },
+};
 
 const cinzel = Cinzel_Decorative({
   weight: ['400', '700'],
@@ -15,14 +24,6 @@ const notoSans = Noto_Sans_JP({
   subsets: ["latin"],
   variable: '--font-noto',
 });
-
-export const metadata: Metadata = {
-  title: "Taketora - Premium Japanese Collectibles",
-  description: "Discover authentic premium anime figures and artisan souvenirs in the heart of Tokyo",
-  verification: {
-    google: "8zntccVng7Q4n68XbjNCn5jlx5jAubcc34fw60OrJnc",
-  },
-};
 
 export default async function RootLayout({
   children,
@@ -39,6 +40,20 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      {/* Google Analytics */}
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
+        `}
+      </Script>
+
       <body className={`${cinzel.variable} ${notoSans.variable} font-sans antialiased bg-stone-50`}>
         {/* Header */}
         <header className="border-b border-stone-200 bg-gradient-to-b from-stone-900 to-stone-800 text-stone-100 sticky top-0 z-50">
