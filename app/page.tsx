@@ -88,16 +88,27 @@ export default async function Homepage() {
               Experience the timeless spirit of Akihabara culture, curated for the discerning collector.
             </p>
 
-            {/* CTA Button */}
-            <Link 
-              href="/collection"
-              className="group relative inline-block px-6 sm:px-8 py-2.5 sm:py-3 overflow-hidden border border-[#D4AF37] rounded-sm transition-all duration-300"
-            >
-              <span className="absolute inset-0 w-full h-full bg-[#D4AF37] opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
-              <span className="relative text-[#D4AF37] tracking-widest text-xs sm:text-sm uppercase font-semibold group-hover:text-[#F2E8DC]">
-                Explore Collection
-              </span>
-            </Link>
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link 
+                href="/collection"
+                className="group relative inline-block px-6 sm:px-8 py-2.5 sm:py-3 overflow-hidden border border-[#D4AF37] rounded-sm transition-all duration-300"
+              >
+                <span className="absolute inset-0 w-full h-full bg-[#D4AF37] opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
+                <span className="relative text-[#D4AF37] tracking-widest text-xs sm:text-sm uppercase font-semibold group-hover:text-[#F2E8DC]">
+                  Explore Collection
+                </span>
+              </Link>
+              <Link 
+                href="/blog"
+                className="group relative inline-block px-6 sm:px-8 py-2.5 sm:py-3 overflow-hidden border border-[#D4AF37] rounded-sm transition-all duration-300"
+              >
+                <span className="absolute inset-0 w-full h-full bg-[#D4AF37] opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
+                <span className="relative text-[#D4AF37] tracking-widest text-xs sm:text-sm uppercase font-semibold group-hover:text-[#F2E8DC]">
+                  Blog
+                </span>
+              </Link>
+            </div>
 
           </div>
 

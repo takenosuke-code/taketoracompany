@@ -1,4 +1,8 @@
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
+
+// Allow dynamic routes (for development and when generateStaticParams fails)
+export const dynamicParams = true;
 
 function getWordPressEndpoint(): string {
   const endpoint = process.env.WORDPRESS_GRAPHQL_ENDPOINT;
@@ -103,15 +107,59 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
   }
 
   return (
-    <main className="max-w-3xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold mb-2">{blog.title}</h1>
-      <p className="text-sm text-gray-500 mb-8">
-        {new Date(blog.date).toLocaleDateString('ja-JP')}
-      </p>
-      <article 
-        className="prose prose-lg"
-        dangerouslySetInnerHTML={{ __html: blog.content }} 
-      />
-    </main>
+    <div className="min-h-screen bg-stone-50">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+        {/* Back Link */}
+        <Link 
+          href="/blog"
+          className="inline-flex items-center gap-2 text-amber-700 hover:text-amber-800 transition-colors duration-300 mb-8 group"
+        >
+          <svg className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          <span className="text-sm font-medium">Back to Blog</span>
+        </Link>
+
+        {/* Article Card */}
+        <article className="bg-white border border-stone-200 rounded-lg p-8 sm:p-10 lg:p-12 shadow-sm">
+          {/* Header */}
+          <header className="mb-8 sm:mb-10">
+            {/* Date */}
+            {blog.date && (
+              <p className="text-amber-700 text-sm font-medium mb-4 tracking-wider uppercase">
+                {new Date(blog.date).toLocaleDateString('en-US', { 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric' 
+                })}
+              </p>
+            )}
+            
+            {/* Title */}
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-slate-900 leading-tight tracking-wide mb-6">
+              {blog.title}
+            </h1>
+            
+            {/* Divider */}
+            <div className="h-px bg-gradient-to-r from-transparent via-stone-200 to-transparent"></div>
+          </header>
+
+          {/* Content */}
+          <div 
+            className="prose prose-lg max-w-none
+              prose-headings:text-slate-900 prose-headings:font-serif
+              prose-p:text-slate-700 prose-p:leading-relaxed
+              prose-a:text-amber-700 prose-a:no-underline hover:prose-a:underline
+              prose-strong:text-slate-900
+              prose-code:text-amber-700 prose-code:bg-stone-100
+              prose-pre:bg-stone-900 prose-pre:border prose-pre:border-stone-200
+              prose-blockquote:border-l-amber-700 prose-blockquote:text-slate-700
+              prose-img:rounded-lg prose-img:border prose-img:border-stone-200
+              prose-hr:border-stone-200"
+            dangerouslySetInnerHTML={{ __html: blog.content }} 
+          />
+        </article>
+      </div>
+    </div>
   );
 }
