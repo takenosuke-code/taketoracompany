@@ -150,6 +150,7 @@ export default async function RootLayout({
               <div>
                 <h4 className="font-medium text-stone-200 mb-4 tracking-wide">Connect</h4>
                 <div className="flex space-x-4">
+              
                   <a 
                     href="https://www.instagram.com/taketora_antiques/" 
                     target="_blank" 
