@@ -1,28 +1,63 @@
 import Link from 'next/link';
 
+function getWordPressEndpoint(): string {
+  const endpoint = process.env.WORDPRESS_GRAPHQL_ENDPOINT;
+  if (!endpoint) {
+    throw new Error('WORDPRESS_GRAPHQL_ENDPOINT environment variable is not set');
+  }
+  // Handle case where env var value accidentally includes the key name
+  if (endpoint.startsWith('WORDPRESS_GRAPHQL_ENDPOINT=')) {
+    return endpoint.replace('WORDPRESS_GRAPHQL_ENDPOINT=', '');
+  }
+  return endpoint;
+}
+
 async function getBlogs() {
-  const res = await fetch(process.env.WORDPRESS_GRAPHQL_ENDPOINT!, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      query: `
-        query GetBlogs {
-          blogs {
-            nodes {
-              title
-              slug
-              date
-              excerpt
+  try {
+    const res = await fetch(getWordPressEndpoint(), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query: `
+          query GetBlogs {
+            allBlog {
+              nodes {
+                id
+                title
+                slug
+                date
+                excerpt
+              }
             }
           }
-        }
-      `,
-    }),
-    next: { revalidate: 60 },
-  });
+        `,
+      }),
+      next: { revalidate: 60 },
+    });
 
-  const { data } = await res.json();
-  return data.blogs.nodes;
+    if (!res.ok) {
+      console.error(`WordPress GraphQL request failed: ${res.status} ${res.statusText}`);
+      return [];
+    }
+
+    const result = await res.json();
+    
+    if (result.errors) {
+      console.error('GraphQL errors:', result.errors);
+      return [];
+    }
+
+    const data = result.data;
+    if (!data || !data.allBlog || !data.allBlog.nodes) {
+      console.error('Unexpected response structure:', result);
+      return [];
+    }
+
+    return data.allBlog.nodes;
+  } catch (error) {
+    console.error('Error fetching blogs:', error);
+    return [];
+  }
 }
 
 export default async function BlogPage() {

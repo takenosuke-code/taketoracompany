@@ -1,47 +1,98 @@
 import { notFound } from 'next/navigation';
 
-async function getBlog(slug: string) {
-  const res = await fetch(process.env.WORDPRESS_GRAPHQL_ENDPOINT!, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      query: `
-        query GetBlog($slug: ID!) {
-          blog(id: $slug, idType: SLUG) {
-            title
-            date
-            content
-          }
-        }
-      `,
-      variables: { slug },
-    }),
-    next: { revalidate: 60 },
-  });
+function getWordPressEndpoint(): string {
+  const endpoint = process.env.WORDPRESS_GRAPHQL_ENDPOINT;
+  if (!endpoint) {
+    throw new Error('WORDPRESS_GRAPHQL_ENDPOINT environment variable is not set');
+  }
+  // Handle case where env var value accidentally includes the key name
+  if (endpoint.startsWith('WORDPRESS_GRAPHQL_ENDPOINT=')) {
+    return endpoint.replace('WORDPRESS_GRAPHQL_ENDPOINT=', '');
+  }
+  return endpoint;
+}
 
-  const { data } = await res.json();
-  return data.blog;
+async function getBlog(slug: string) {
+  try {
+    const res = await fetch(getWordPressEndpoint(), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query: `
+          query GetBlog($slug: ID!) {
+            blog(id: $slug, idType: SLUG) {
+              title
+              date
+              content
+            }
+          }
+        `,
+        variables: { slug },
+      }),
+      next: { revalidate: 60 },
+    });
+
+    if (!res.ok) {
+      console.error(`WordPress GraphQL request failed: ${res.status} ${res.statusText}`);
+      return null;
+    }
+
+    const result = await res.json();
+    
+    if (result.errors) {
+      console.error('GraphQL errors:', result.errors);
+      return null;
+    }
+
+    return result.data?.blog || null;
+  } catch (error) {
+    console.error('Error fetching blog:', error);
+    return null;
+  }
 }
 
 export async function generateStaticParams() {
-  const res = await fetch(process.env.WORDPRESS_GRAPHQL_ENDPOINT!, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      query: `
-        query GetSlugs {
-          blogs {
-            nodes {
-              slug
+  try {
+    const res = await fetch(getWordPressEndpoint(), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query: `
+          query GetSlugs {
+            allBlog {
+              nodes {
+                id
+                slug
+              }
             }
           }
-        }
-      `,
-    }),
-  });
+        `,
+      }),
+    });
 
-  const { data } = await res.json();
-  return data.blogs.nodes.map((blog: any) => ({ slug: blog.slug }));
+    if (!res.ok) {
+      console.error(`WordPress GraphQL request failed: ${res.status} ${res.statusText}`);
+      return [];
+    }
+
+    const result = await res.json();
+    
+    if (result.errors) {
+      console.error('GraphQL errors:', result.errors);
+      return [];
+    }
+
+    const data = result.data;
+    if (!data || !data.allBlog || !data.allBlog.nodes) {
+      console.error('Unexpected response structure:', result);
+      return [];
+    }
+
+    return data.allBlog.nodes.map((blog: any) => ({ slug: blog.slug }));
+  } catch (error) {
+    console.error('Error in generateStaticParams:', error);
+    return [];
+  }
 }
 
 export default async function BlogPostPage({ params }: { params: { slug: string } }) {
