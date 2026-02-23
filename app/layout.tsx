@@ -4,6 +4,8 @@ import { Cinzel_Decorative, Noto_Sans_JP } from "next/font/google";
 import { createClient } from '@/utils/supabase/server';
 import "./globals.css";
 import Script from "next/script";
+import Image from "next/image";
+import taketoraLogo from "@/public/assets/taketora_logo.png";
 
 export const metadata: Metadata = {
   title: "Taketora - Premium Japanese Collectibles",
@@ -61,8 +63,10 @@ export default async function RootLayout({
             <div className="flex justify-between items-center py-2 sm:py-2.5 lg:py-3">
               {/* Logo */}
               <Link href="/" className="flex items-center space-x-2 sm:space-x-3 hover:opacity-80 transition-opacity duration-300">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-amber-600 to-amber-800 rounded-sm flex items-center justify-center">
-                  <span className="text-stone-100 font-bold text-lg sm:text-xl font-serif">竹</span>
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-sm flex items-center justify-center">
+                  <span className="text-stone-100 font-bold text-lg sm:text-xl font-serif">
+                    <Image src={taketoraLogo} alt="Taketora Logo" width={32} height={32} />
+                  </span>
                 </div>
                 <h1 className="font-serif text-xl sm:text-2xl lg:text-3xl tracking-wide text-amber-100">
                   Taketora
