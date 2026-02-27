@@ -8,7 +8,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Taketora. All rights reserved.
           </p>
           <p className="font-noto text-xs text-slate-500 mt-2">
-            Tokyo, Japan
+            Kyoto, Japan
           </p>
         </div>
       </div>

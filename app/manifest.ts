@@ -1,24 +1,25 @@
-import { MetadataRoute } from 'next';
+import { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Taketora - Authentic Japanese Products',
-    short_name: 'Taketora',
-    description: 'Authentic Japanese anime figures and souvenirs direct from Akihabara',
-    start_url: '/',
-    display: 'standalone',
-    background_color: '#ffffff',
-    theme_color: '#2563eb',
+    name: "たけとら - 京都・東山のアンティークショップ | Taketora Antique Shop Kyoto",
+    short_name: "たけとら Taketora",
+    description:
+      "京都・東山区五条坂のアンティークショップ。骨董品、古道具、アニメフィギュア、ポケモンカード。Authentic antique shop in Kyoto Higashiyama.",
+    start_url: "/ja",
+    display: "standalone",
+    background_color: "#fafaf7",
+    theme_color: "#1a1a2e",
     icons: [
       {
-        src: '/icon-192x192.png',
-        sizes: '192x192',
-        type: 'image/png',
+        src: "/icon-192x192.png",
+        sizes: "192x192",
+        type: "image/png",
       },
       {
-        src: '/icon-512x512.png',
-        sizes: '512x512',
-        type: 'image/png',
+        src: "/icon-512x512.png",
+        sizes: "512x512",
+        type: "image/png",
       },
     ],
   };

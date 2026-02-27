@@ -6,7 +6,7 @@ export const categories: Category[] = [
     id: 'anime-figures',
     slug: 'anime-figures',
     name: 'Anime Figures',
-    description: 'Authentic Japanese anime figures directly imported from Akihabara. All items are official releases with original boxes and copyright stickers.',
+    description: 'Authentic Japanese anime figures curated in Kyoto. All items are official releases with original boxes and copyright stickers.',
     image: '/images/anime-figures.jpg',
     subcategories: [
       {
@@ -55,7 +55,7 @@ export const products: Product[] = [
     id: 'luffy-gear-5',
     slug: 'luffy-gear-5',
     name: 'Luffy Gear 5 Figure - Banpresto',
-    description: 'Authentic Banpresto One Piece figure featuring Monkey D. Luffy in his powerful Gear 5 transformation. This premium collectible is a must-have for any One Piece fan. Imported directly from Akihabara, Japan with original box and official copyright sticker. Mint condition, never opened.',
+    description: 'Authentic Banpresto One Piece figure featuring Monkey D. Luffy in his powerful Gear 5 transformation. This premium collectible is a must-have for any One Piece fan. Curated for Taketora Kyoto with original box and official copyright sticker. Mint condition, never opened.',
     category: 'anime-figures',
     subcategory: 'one-piece',
     price: 8500, // JPY
