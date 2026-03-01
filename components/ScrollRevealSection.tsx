@@ -65,6 +65,9 @@ export default function ScrollRevealSection({
   useEffect(() => {
     if (!ref.current) return;
 
+    const el = ref.current;
+
+    // Use a lower effective threshold and rootMargin for better mobile detection
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -74,11 +77,43 @@ export default function ScrollRevealSection({
           }
         });
       },
-      { threshold }
+      {
+        threshold: Math.min(threshold, 0.05),
+        rootMargin: "100px 0px",
+      }
     );
 
-    observer.observe(ref.current);
-    return () => observer.disconnect();
+    observer.observe(el);
+
+    // Fallback: if the element is already in or near the viewport on mount,
+    // make it visible. This handles cases where IntersectionObserver
+    // doesn't fire correctly on some mobile browsers.
+    const checkVisibility = () => {
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      // Element is considered "near viewport" if it's within 150px of the visible area
+      if (rect.top < windowHeight + 150 && rect.bottom > -150) {
+        setIsVisible(true);
+        observer.disconnect();
+      }
+    };
+
+    // Check on mount after a short delay (allow layout to settle)
+    const mountTimer = setTimeout(checkVisibility, 100);
+
+    // Also listen for scroll as a fallback for mobile
+    const handleScroll = () => {
+      checkVisibility();
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(mountTimer);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [threshold]);
 
   const styles = variantStyles[variant];

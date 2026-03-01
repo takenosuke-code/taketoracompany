@@ -75,9 +75,9 @@ export default async function BlogPostPage({
   if (!blog) notFound();
 
   return (
-    <div className="min-h-screen bg-stone-950 relative overflow-hidden">
+    <div className="min-h-screen bg-stone-950 relative">
       {/* Background decoration */}
-      <div className="fixed inset-0 pointer-events-none">
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-20 left-10 w-40 h-40 bg-amber-500/5 rounded-full blur-3xl" />
         <div className="absolute top-60 right-20 w-56 h-56 bg-amber-600/5 rounded-full blur-3xl" />
       </div>

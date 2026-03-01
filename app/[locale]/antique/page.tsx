@@ -106,7 +106,7 @@ export default async function AntiquePage({
   };
 
   return (
-    <div className="min-h-screen bg-stone-950 relative overflow-hidden">
+    <div className="min-h-screen bg-stone-950 relative">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
