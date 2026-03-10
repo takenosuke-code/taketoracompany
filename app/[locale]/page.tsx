@@ -489,8 +489,8 @@ export default async function Homepage({
                   </div>
 
                   {/* Values */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mt-10">
-                    {(["authenticity", "english", "location"] as const).map(
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-10">
+                    {(["english", "location"] as const).map(
                       (key, index) => (
                         <ScrollRevealSection key={key} variant="fade-up" delay={index * 150}>
                           <div className="glass-card p-5 sm:p-6 text-center group hover:border-amber-600/30 transition-all duration-500">
