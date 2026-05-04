@@ -109,7 +109,7 @@ export default async function Homepage({
           muted
           playsInline
           preload="auto"
-          poster={slideshowImages[0].url}
+          poster={`/_next/image?url=${encodeURIComponent(slideshowImages[0].url)}&w=1920&q=70`}
           className="w-full h-full object-cover"
         >
           <source

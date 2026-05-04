@@ -114,7 +114,7 @@ export default function SiteFooter({ locale }: SiteFooterProps) {
             <p className="text-sm font-light text-stone-400 mb-1">
               {t("hoursLabel")}
             </p>
-            <p className="text-sm font-light text-[#D4AF37]/60">
+            <p className="text-sm font-light text-[#D4AF37]/80">
               {t("englishAvailable")}
             </p>
           </div>
@@ -129,7 +129,7 @@ export default function SiteFooter({ locale }: SiteFooterProps) {
             <Link
               href="/"
               locale={isJa ? "en" : "ja"}
-              className="text-xs text-[#D4AF37]/50 hover:text-[#D4AF37] transition-colors duration-300 tracking-wider font-light"
+              className="text-xs text-[#D4AF37]/80 hover:text-[#D4AF37] transition-colors duration-300 tracking-wider font-light"
             >
               {t("switchLang")}
             </Link>
