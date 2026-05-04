@@ -1,10 +1,13 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import { Link } from "@/i18n/routing";
 import { createClient } from "@/utils/supabase/server";
+import { createStaticClient } from "@/utils/supabase/static";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ProductDetail from "@/components/ProductDetail";
+import ProductGallery from "@/components/ProductGallery";
 import CurrencyConverter from "@/components/CurrencyConverter";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
 import JsonLd from "@/components/JsonLd";
@@ -14,6 +17,28 @@ const BASE_URL = "https://taketora-antique.com";
 
 interface ProductPageProps {
   params: { category: string; product: string; locale: string };
+}
+
+const CATEGORIES: Array<{ table: "animefigure" | "pokemon" | "antique"; slug: string }> = [
+  { table: "animefigure", slug: "anime-figures" },
+  { table: "pokemon", slug: "pokemon" },
+  { table: "antique", slug: "antique" },
+];
+
+export async function generateStaticParams() {
+  const supabase = createStaticClient();
+  const results = await Promise.all(
+    CATEGORIES.map(({ table }) => supabase.from(table).select("slug"))
+  );
+
+  const params: Array<{ category: string; product: string }> = [];
+  results.forEach((result, idx) => {
+    const category = CATEGORIES[idx].slug;
+    (result.data || []).forEach((row: { slug: string | null }) => {
+      if (row.slug) params.push({ category, product: row.slug });
+    });
+  });
+  return params;
 }
 
 export async function generateMetadata({
@@ -84,13 +109,20 @@ export default async function ProductPage({ params }: ProductPageProps) {
   else if (category.toLowerCase() === "pokemon") tableName = "pokemon";
   else if (category === "antique") tableName = "antique";
 
-  const { data: product, error } = await supabase
-    .from(tableName)
-    .select("*")
-    .eq("slug", productSlug)
-    .single();
+  const [productResult, relatedResult] = await Promise.all([
+    supabase.from(tableName).select("*").eq("slug", productSlug).single(),
+    supabase
+      .from(tableName)
+      .select("id, slug, name, price, image_url, image")
+      .neq("slug", productSlug)
+      .order("created_at", { ascending: false })
+      .limit(4),
+  ]);
 
+  const { data: product, error } = productResult;
   if (error || !product) notFound();
+
+  const relatedProducts = (relatedResult.data || []).filter((p: any) => p.slug);
 
   const breadcrumbs: BreadcrumbItem[] = [
     { label: t("breadcrumbs.home"), href: `/${locale}` },
@@ -189,62 +221,19 @@ export default async function ProductPage({ params }: ProductPageProps) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 mt-4 sm:mt-8">
           {/* Product Images */}
           <ScrollRevealSection variant="fade-right">
-            <div className="space-y-4">
-              {/* Main image */}
-              <div className="relative aspect-square w-full glass-card overflow-hidden group">
-                {/* Corner accents */}
-                <div className="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-[#D4AF37]/30 rounded-tl-lg z-10" />
-                <div className="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 border-[#D4AF37]/30 rounded-br-lg z-10" />
-
-                {product.image_url || product.image ? (
-                  <div className="w-full h-full flex items-center justify-center p-4 sm:p-6">
-                    <Image
-                      src={product.image_url || product.image}
-                      alt={
-                        isJa
-                          ? `京都たけとら - ${product.name}`
-                          : `${product.name} at Taketora Kyoto`
-                      }
-                      width={1000}
-                      height={1000}
-                      className="max-w-full max-h-full w-auto h-auto object-contain group-hover:scale-105 transition-transform duration-700"
-                      priority
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                    />
-                  </div>
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <span className="text-[#F2E8DC]/30 text-sm">
-                      No image available
-                    </span>
-                  </div>
-                )}
-              </div>
-
-              {/* Thumbnail grid */}
-              {product.images && product.images.length > 0 && (
-                <div className="grid grid-cols-4 gap-2 sm:gap-3">
-                  {product.images.slice(0, 4).map((img: string, idx: number) => (
-                    <div
-                      key={idx}
-                      className="relative aspect-square glass-card overflow-hidden group/thumb cursor-pointer hover:border-amber-600/40 transition-all duration-300"
-                    >
-                      <Image
-                        src={img}
-                        alt={
-                          isJa
-                            ? `${product.name} - 画像 ${idx + 1}`
-                            : `${product.name} - View ${idx + 1}`
-                        }
-                        fill
-                        className="object-cover group-hover/thumb:scale-110 transition-transform duration-500"
-                        sizes="12.5vw"
-                      />
-                    </div>
-                  ))}
-                </div>
+            <ProductGallery
+              images={Array.from(
+                new Set(
+                  [
+                    product.image_url,
+                    product.image,
+                    ...(Array.isArray(product.images) ? product.images : []),
+                  ].filter((u): u is string => typeof u === "string" && u.length > 0)
+                )
               )}
-            </div>
+              productName={product.name}
+              isJa={isJa}
+            />
           </ScrollRevealSection>
 
           {/* Product Details */}
@@ -402,6 +391,65 @@ export default async function ProductPage({ params }: ProductPageProps) {
             </div>
           </ScrollRevealSection>
         </div>
+
+        {/* Related Products */}
+        {relatedProducts.length > 0 && (
+          <ScrollRevealSection variant="fade-up">
+            <section className="mt-16 sm:mt-20 lg:mt-24" aria-labelledby="related-products-heading">
+              <div className="flex items-center gap-4 mb-8 sm:mb-10">
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#D4AF37]/30 to-transparent" />
+                <h2
+                  id="related-products-heading"
+                  className="font-serif text-2xl sm:text-3xl text-[#D4AF37] tracking-wide whitespace-nowrap"
+                >
+                  {isJa ? "関連商品" : "Related Products"}
+                </h2>
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#D4AF37]/30 to-transparent" />
+              </div>
+
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                {relatedProducts.map((p: any) => {
+                  const img = p.image_url || p.image;
+                  return (
+                    <Link
+                      key={p.id}
+                      href={`/${category}/${p.slug}`}
+                      className="product-card group glass-card block overflow-hidden"
+                    >
+                      <div className="aspect-square w-full relative bg-gradient-to-br from-stone-800/30 to-stone-900/30 overflow-hidden">
+                        {img ? (
+                          <Image
+                            src={img}
+                            alt={
+                              isJa
+                                ? `京都たけとら - ${p.name}`
+                                : `${p.name} at Taketora Kyoto`
+                            }
+                            fill
+                            className="object-contain p-3 group-hover:scale-110 transition-transform duration-700"
+                            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-[#F2E8DC]/20 text-xs">
+                            No image
+                          </div>
+                        )}
+                      </div>
+                      <div className="p-3 sm:p-4 space-y-1.5">
+                        <h3 className="font-serif text-sm sm:text-base text-[#F2E8DC] group-hover:text-[#D4AF37] transition-colors duration-300 line-clamp-2 leading-tight">
+                          {p.name}
+                        </h3>
+                        <p className="text-base sm:text-lg text-[#D4AF37] font-serif tracking-wide">
+                          ¥{p.price?.toLocaleString("ja-JP") || "0"}
+                        </p>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </section>
+          </ScrollRevealSection>
+        )}
       </div>
 
       <JsonLd data={jsonLd} />
