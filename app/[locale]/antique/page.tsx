@@ -85,33 +85,8 @@ export default async function AntiquePage({
     { label: t("breadcrumbs.antique"), href: `/${locale}/antique` },
   ];
 
-  // Breadcrumb JSON-LD
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: t("breadcrumbs.home"),
-        item: `${BASE_URL}/${locale}`,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: t("breadcrumbs.antique"),
-        item: `${BASE_URL}/${locale}/antique`,
-      },
-    ],
-  };
-
   return (
     <div className="min-h-screen bg-stone-950 relative">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
-
       {/* Background with image */}
       <div className="fixed inset-0 -z-10">
         <Image

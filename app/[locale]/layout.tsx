@@ -8,6 +8,7 @@ import { locales } from "@/i18n/request";
 import Navigation from "@/components/Navigation";
 import SiteFooter from "@/components/SiteFooter";
 import LoadingScreen from "@/components/LoadingScreen";
+import JsonLd from "@/components/JsonLd";
 import "../globals.css";
 
 const cinzel = Cinzel_Decorative({
@@ -210,12 +211,7 @@ export default async function LocaleLayout({
       >
         <NextIntlClientProvider messages={messages}>
           {/* Structured Data */}
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify(structuredData),
-            }}
-          />
+          <JsonLd data={structuredData} />
 
           {/* Loading Screen (first visit only) */}
           <LoadingScreen />

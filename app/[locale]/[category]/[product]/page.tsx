@@ -7,6 +7,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import ProductDetail from "@/components/ProductDetail";
 import CurrencyConverter from "@/components/CurrencyConverter";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
+import JsonLd from "@/components/JsonLd";
 import { BreadcrumbItem } from "@/types/product";
 
 const BASE_URL = "https://taketora-antique.com";
@@ -403,10 +404,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </div>
       </div>
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
     </div>
   );
 }
