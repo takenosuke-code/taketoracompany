@@ -1,7 +1,13 @@
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/routing";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import JsonLd from "@/components/JsonLd";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
+import { BreadcrumbItem } from "@/types/product";
+
+const BASE_URL = "https://taketora-antique.com";
 
 export const dynamicParams = true;
 
@@ -42,6 +48,15 @@ async function getBlog(slug: string) {
   }
 }
 
+function excerptFromHtml(html: string, max = 160): string {
+  if (!html) return "";
+  const stripped = html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+  if (stripped.length <= max) return stripped;
+  const cut = stripped.slice(0, max);
+  const lastSpace = cut.lastIndexOf(" ");
+  return (lastSpace > 100 ? cut.slice(0, lastSpace) : cut).trim() + "…";
+}
+
 export async function generateStaticParams() {
   try {
     const res = await fetch(getWordPressEndpoint(), {
@@ -62,6 +77,45 @@ export async function generateStaticParams() {
   }
 }
 
+export async function generateMetadata({
+  params: { slug, locale },
+}: {
+  params: { slug: string; locale: string };
+}): Promise<Metadata> {
+  const blog = await getBlog(slug);
+  if (!blog) return { title: "Blog Post Not Found" };
+
+  const description = excerptFromHtml(blog.content || "");
+  const url = `${BASE_URL}/${locale}/blog/${slug}`;
+  const isJa = locale === "ja";
+
+  return {
+    title: blog.title,
+    description,
+    alternates: {
+      canonical: url,
+      languages: {
+        ja: `${BASE_URL}/ja/blog/${slug}`,
+        en: `${BASE_URL}/en/blog/${slug}`,
+      },
+    },
+    openGraph: {
+      title: blog.title,
+      description,
+      url,
+      type: "article",
+      publishedTime: blog.date || undefined,
+      siteName: isJa ? "たけとら Taketora" : "Taketora",
+      locale: isJa ? "ja_JP" : "en_US",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: blog.title,
+      description,
+    },
+  };
+}
+
 export default async function BlogPostPage({
   params: { slug, locale },
 }: {
@@ -74,8 +128,39 @@ export default async function BlogPostPage({
 
   if (!blog) notFound();
 
+  const breadcrumbs: BreadcrumbItem[] = [
+    { label: t("breadcrumbs.home"), href: `/${locale}` },
+    { label: t("breadcrumbs.blog"), href: `/${locale}/blog` },
+    { label: blog.title, href: `/${locale}/blog/${slug}` },
+  ];
+
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: blog.title,
+    datePublished: blog.date || undefined,
+    dateModified: blog.date || undefined,
+    description: excerptFromHtml(blog.content || ""),
+    author: { "@type": "Organization", name: "Taketora" },
+    publisher: {
+      "@type": "Organization",
+      name: "Taketora",
+      logo: {
+        "@type": "ImageObject",
+        url: `${BASE_URL}/assets/taketora_logo.png`,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${BASE_URL}/${locale}/blog/${slug}`,
+    },
+    inLanguage: isJa ? "ja" : "en",
+  };
+
   return (
     <div className="min-h-screen bg-stone-950 relative">
+      <JsonLd data={articleSchema} />
+
       {/* Background decoration */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-20 left-10 w-40 h-40 bg-amber-500/5 rounded-full blur-3xl" />
@@ -83,6 +168,10 @@ export default async function BlogPostPage({
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 pt-20 sm:pt-24">
+        <div className="mb-6 sm:mb-8">
+          <Breadcrumbs items={breadcrumbs} />
+        </div>
+
         <ScrollRevealSection variant="fade-up">
           <Link
             href="/blog"
