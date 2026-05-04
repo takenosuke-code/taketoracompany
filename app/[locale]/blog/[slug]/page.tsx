@@ -11,17 +11,11 @@ const BASE_URL = "https://taketora-antique.com";
 
 export const dynamicParams = true;
 
-function getWordPressEndpoint(): string {
-  const endpoint = process.env.WORDPRESS_GRAPHQL_ENDPOINT;
-  if (!endpoint) throw new Error("WORDPRESS_GRAPHQL_ENDPOINT environment variable is not set");
-  if (endpoint.startsWith("WORDPRESS_GRAPHQL_ENDPOINT="))
-    return endpoint.replace("WORDPRESS_GRAPHQL_ENDPOINT=", "");
-  return endpoint;
-}
-
 async function getBlog(slug: string) {
   try {
-    const res = await fetch(getWordPressEndpoint(), {
+    const endpoint = process.env.WORDPRESS_GRAPHQL_ENDPOINT;
+    if (!endpoint) throw new Error("WORDPRESS_GRAPHQL_ENDPOINT environment variable is not set");
+    const res = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -59,7 +53,9 @@ function excerptFromHtml(html: string, max = 160): string {
 
 export async function generateStaticParams() {
   try {
-    const res = await fetch(getWordPressEndpoint(), {
+    const endpoint = process.env.WORDPRESS_GRAPHQL_ENDPOINT;
+    if (!endpoint) return [];
+    const res = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

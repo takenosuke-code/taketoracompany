@@ -1,14 +1,6 @@
 import { MetadataRoute } from "next";
 import { createClient } from "@/utils/supabase/server";
 
-function getWordPressEndpoint(): string {
-  const endpoint = process.env.WORDPRESS_GRAPHQL_ENDPOINT;
-  if (!endpoint) return "";
-  if (endpoint.startsWith("WORDPRESS_GRAPHQL_ENDPOINT="))
-    return endpoint.replace("WORDPRESS_GRAPHQL_ENDPOINT=", "");
-  return endpoint;
-}
-
 const locales = ["ja", "en"] as const;
 const BASE_URL = "https://taketora-antique.com";
 
@@ -130,7 +122,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Fetch blog posts
   try {
-    const endpoint = getWordPressEndpoint();
+    const endpoint = process.env.WORDPRESS_GRAPHQL_ENDPOINT;
     if (endpoint) {
       const res = await fetch(endpoint, {
         method: "POST",
