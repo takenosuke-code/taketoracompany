@@ -24,28 +24,30 @@ export default function LoadingScreen() {
     }
   }, []);
 
-  // Animate progress bar
+  // Deterministic progress: 0 → 92 over ~2200ms with ease-out cubic.
+  // Cap at 92 until video ready or fallback fires, so the bar never
+  // sits visibly motionless waiting on a slow video load.
   useEffect(() => {
     if (!shouldShow) return;
 
+    const startedAt = Date.now();
+    const DURATION = 2200;
+    const CAP_BEFORE_READY = 92;
+
     progressInterval.current = setInterval(() => {
-      setProgress((prev) => {
-        // Speed up near 70% if video isn't ready, slow crawl
-        if (!videoReady && prev >= 70) return prev + 0.1;
-        // Normal progress
-        if (prev >= 95) return prev;
-        // Accelerating progress
-        const increment = prev < 30 ? 1.5 : prev < 60 ? 1.0 : 0.5;
-        return Math.min(prev + increment, videoReady ? 100 : 70);
-      });
+      const elapsed = Date.now() - startedAt;
+      const t = Math.min(elapsed / DURATION, 1);
+      const eased = 1 - Math.pow(1 - t, 3); // ease-out cubic
+      const target = eased * CAP_BEFORE_READY;
+      setProgress((prev) => (target > prev ? target : prev));
     }, 30);
 
     return () => {
       if (progressInterval.current) clearInterval(progressInterval.current);
     };
-  }, [shouldShow, videoReady]);
+  }, [shouldShow]);
 
-  // When video is ready, push progress to 100
+  // When video is ready, push progress to 100 quickly.
   useEffect(() => {
     if (videoReady && shouldShow) {
       const quickFinish = setInterval(() => {
@@ -54,7 +56,7 @@ export default function LoadingScreen() {
             clearInterval(quickFinish);
             return 100;
           }
-          return prev + 3;
+          return Math.min(prev + 4, 100);
         });
       }, 20);
       return () => clearInterval(quickFinish);
@@ -83,12 +85,14 @@ export default function LoadingScreen() {
     }
   }, [phase]);
 
-  // Fallback: auto-complete after 5 seconds even if video never loads
+  // Fallback: auto-complete after 3 seconds even if video never loads.
+  // Deterministic progress hits 92 at ~2.2s, so 3s leaves a brief moment
+  // visibly at 92 before the quick-finish runs.
   useEffect(() => {
     if (!shouldShow) return;
     const fallback = setTimeout(() => {
       setVideoReady(true);
-    }, 5000);
+    }, 3000);
     return () => clearTimeout(fallback);
   }, [shouldShow]);
 
@@ -115,6 +119,7 @@ export default function LoadingScreen() {
           loop
           muted
           playsInline
+          preload="auto"
           onCanPlayThrough={handleVideoReady}
           onLoadedData={handleVideoReady}
           className="w-full h-full object-cover scale-110"

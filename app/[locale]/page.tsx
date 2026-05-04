@@ -107,6 +107,7 @@ export default async function Homepage({
           loop
           muted
           playsInline
+          preload="auto"
           poster={slideshowImages[0].url}
           className="w-full h-full object-cover"
         >
@@ -431,6 +432,7 @@ export default async function Homepage({
                 loop
                 muted
                 playsInline
+                preload="metadata"
                 className="w-full h-full object-cover"
               >
                 <source
@@ -445,6 +447,7 @@ export default async function Homepage({
                 loop
                 muted
                 playsInline
+                preload="metadata"
                 className="w-full h-full object-cover"
               >
                 <source
