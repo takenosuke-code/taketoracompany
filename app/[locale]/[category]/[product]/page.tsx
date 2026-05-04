@@ -180,7 +180,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         <div className="absolute bottom-40 left-1/4 w-48 h-48 bg-amber-500/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 pt-20 sm:pt-24">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 pt-20 sm:pt-24 pb-40 md:pb-12">
         <div className="mb-6 sm:mb-8">
           <Breadcrumbs items={breadcrumbs} />
         </div>
@@ -329,8 +329,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 )}
               </div>
 
-              {/* Add to cart */}
-              <ProductDetail product={productData} />
+              {/* CTAs */}
+              <ProductDetail product={productData} locale={locale} />
 
               {/* Description */}
               {product.description && (
