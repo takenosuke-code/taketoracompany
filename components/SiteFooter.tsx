@@ -28,7 +28,7 @@ export default function SiteFooter({ locale }: SiteFooterProps) {
             <h3 className="font-serif text-2xl text-gradient-gold mb-4 tracking-wider">
               {t("brand")}
             </h3>
-            <p className="text-sm font-light leading-relaxed text-stone-500 mb-6">
+            <p className="text-sm font-light leading-relaxed text-stone-400 mb-6">
               {t("brandDesc")}
             </p>
             {/* Social */}
@@ -36,7 +36,7 @@ export default function SiteFooter({ locale }: SiteFooterProps) {
               href="https://www.instagram.com/taketora_antiques/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 text-stone-500 hover:text-[#D4AF37] transition-all duration-300 text-sm group"
+              className="inline-flex items-center gap-2.5 text-stone-400 hover:text-[#D4AF37] transition-all duration-300 text-sm group"
             >
               <span className="p-2 rounded-lg bg-amber-500/5 border border-amber-900/10 group-hover:border-amber-700/30 group-hover:bg-amber-500/10 transition-all duration-300">
                 <svg
@@ -66,7 +66,7 @@ export default function SiteFooter({ locale }: SiteFooterProps) {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-stone-500 hover:text-[#D4AF37] transition-colors duration-300 inline-flex items-center gap-2 group"
+                    className="text-stone-400 hover:text-[#D4AF37] transition-colors duration-300 inline-flex items-center gap-2 group"
                   >
                     <span className="w-0 group-hover:w-3 h-px bg-[#D4AF37] transition-all duration-300" />
                     {link.label}
@@ -85,7 +85,7 @@ export default function SiteFooter({ locale }: SiteFooterProps) {
               <li>
                 <Link
                   href="/visit"
-                  className="text-stone-500 hover:text-[#D4AF37] transition-colors duration-300 inline-flex items-center gap-2 group"
+                  className="text-stone-400 hover:text-[#D4AF37] transition-colors duration-300 inline-flex items-center gap-2 group"
                 >
                   <span className="w-0 group-hover:w-3 h-px bg-[#D4AF37] transition-all duration-300" />
                   {nav("visit")}
@@ -94,7 +94,7 @@ export default function SiteFooter({ locale }: SiteFooterProps) {
               <li>
                 <Link
                   href="/blog"
-                  className="text-stone-500 hover:text-[#D4AF37] transition-colors duration-300 inline-flex items-center gap-2 group"
+                  className="text-stone-400 hover:text-[#D4AF37] transition-colors duration-300 inline-flex items-center gap-2 group"
                 >
                   <span className="w-0 group-hover:w-3 h-px bg-[#D4AF37] transition-all duration-300" />
                   {nav("blog")}
@@ -108,10 +108,10 @@ export default function SiteFooter({ locale }: SiteFooterProps) {
             <h4 className="font-medium text-stone-200 mb-5 tracking-wider text-sm uppercase">
               {t("shopInfoTitle")}
             </h4>
-            <address className="text-sm font-light not-italic leading-relaxed text-stone-500 whitespace-pre-line mb-3">
+            <address className="text-sm font-light not-italic leading-relaxed text-stone-400 whitespace-pre-line mb-3">
               {t("address")}
             </address>
-            <p className="text-sm font-light text-stone-500 mb-1">
+            <p className="text-sm font-light text-stone-400 mb-1">
               {t("hoursLabel")}
             </p>
             <p className="text-sm font-light text-[#D4AF37]/60">
@@ -123,7 +123,7 @@ export default function SiteFooter({ locale }: SiteFooterProps) {
         {/* Bottom bar */}
         <div className="mt-12 pt-8 border-t border-stone-800/60">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-xs text-stone-600 font-light">
+            <p className="text-xs text-stone-400 font-light">
               {t("copyright", { year: new Date().getFullYear() })}
             </p>
             <Link

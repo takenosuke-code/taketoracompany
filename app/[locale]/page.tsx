@@ -4,6 +4,7 @@ import { createClient } from "@/utils/supabase/server";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
 import ImageSlideshow from "@/components/ImageSlideshow";
+import LazyVideo from "@/components/LazyVideo";
 
 export default async function Homepage({
   params: { locale },
@@ -427,34 +428,16 @@ export default async function Homepage({
           {/* Split video background */}
           <div className="absolute inset-0">
             <div className="relative w-1/2 h-full float-left overflow-hidden">
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="metadata"
+              <LazyVideo
+                src="https://raemfaxgstoezqgbtdry.supabase.co/storage/v1/object/public/site-assets/heropagepreview.mp4"
                 className="w-full h-full object-cover"
-              >
-                <source
-                  src="https://raemfaxgstoezqgbtdry.supabase.co/storage/v1/object/public/site-assets/heropagepreview.mp4"
-                  type="video/mp4"
-                />
-              </video>
+              />
             </div>
             <div className="relative w-1/2 h-full float-left overflow-hidden">
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="metadata"
+              <LazyVideo
+                src="https://raemfaxgstoezqgbtdry.supabase.co/storage/v1/object/public/site-assets/herpagepreview2.mp4"
                 className="w-full h-full object-cover"
-              >
-                <source
-                  src="https://raemfaxgstoezqgbtdry.supabase.co/storage/v1/object/public/site-assets/herpagepreview2.mp4"
-                  type="video/mp4"
-                />
-              </video>
+              />
             </div>
             {/* Overlays */}
             <div className="absolute inset-0 bg-stone-950/75" />
