@@ -2,7 +2,9 @@ import { Metadata } from "next";
 import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
+import { BreadcrumbItem } from "@/types/product";
 
 const BASE_URL = "https://taketora-antique.com";
 
@@ -98,6 +100,15 @@ export default async function BlogPage({
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 pt-20 sm:pt-24">
+        <div className="mb-6 sm:mb-8">
+          <Breadcrumbs
+            items={[
+              { label: t("breadcrumbs.home"), href: `/${locale}` },
+              { label: t("breadcrumbs.blog"), href: `/${locale}/blog` },
+            ] satisfies BreadcrumbItem[]}
+          />
+        </div>
+
         <ScrollRevealSection variant="fade-up">
           <div className="mb-12 sm:mb-16 text-center">
             <p className="text-xs sm:text-sm text-[#D4AF37]/60 tracking-[0.35em] uppercase font-light mb-3">

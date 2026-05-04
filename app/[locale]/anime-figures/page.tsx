@@ -3,7 +3,9 @@ import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { createClient } from "@/utils/supabase/server";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
+import { BreadcrumbItem } from "@/types/product";
 
 const BASE_URL = "https://taketora-antique.com";
 
@@ -85,6 +87,15 @@ export default async function AnimeFiguresPage({
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 pt-20 sm:pt-24">
+        <div className="mb-4 sm:mb-6">
+          <Breadcrumbs
+            items={[
+              { label: t("breadcrumbs.home"), href: `/${locale}` },
+              { label: t("breadcrumbs.animeFigures"), href: `/${locale}/anime-figures` },
+            ] satisfies BreadcrumbItem[]}
+          />
+        </div>
+
         {/* Page Header */}
         <ScrollRevealSection variant="fade-up">
           <div className="mb-10 sm:mb-14 text-center">
