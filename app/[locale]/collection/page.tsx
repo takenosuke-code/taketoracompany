@@ -6,8 +6,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
 import { BreadcrumbItem } from "@/types/product";
-
-const BASE_URL = "https://taketora-antique.com";
+import { localeUrl, localePath, hreflang } from "@/lib/urls";
 
 export async function generateMetadata({
   params: { locale },
@@ -19,17 +18,13 @@ export async function generateMetadata({
     title: t("title"),
     description: t("description"),
     alternates: {
-      canonical: `${BASE_URL}/${locale}/collection`,
-      languages: {
-        ja: `${BASE_URL}/ja/collection`,
-        en: `${BASE_URL}/en/collection`,
-        "x-default": `${BASE_URL}/ja/collection`,
-      },
+      canonical: localeUrl(locale, "/collection"),
+      languages: hreflang("/collection"),
     },
     openGraph: {
       title: t("title"),
       description: t("description"),
-      url: `${BASE_URL}/${locale}/collection`,
+      url: localeUrl(locale, "/collection"),
       locale: locale === "ja" ? "ja_JP" : "en_US",
     },
   };
@@ -126,8 +121,8 @@ export default async function CollectionPage({
   };
 
   const breadcrumbs: BreadcrumbItem[] = [
-    { label: t("breadcrumbs.home"), href: `/${locale}` },
-    { label: t("breadcrumbs.collection"), href: `/${locale}/collection` },
+    { label: t("breadcrumbs.home"), href: localePath(locale) },
+    { label: t("breadcrumbs.collection"), href: localePath(locale, "/collection") },
   ];
 
   return (

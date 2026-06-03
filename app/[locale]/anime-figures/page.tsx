@@ -6,8 +6,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
 import { BreadcrumbItem } from "@/types/product";
-
-const BASE_URL = "https://taketora-antique.com";
+import { localeUrl, localePath, hreflang } from "@/lib/urls";
 
 export async function generateMetadata({
   params: { locale },
@@ -19,17 +18,13 @@ export async function generateMetadata({
     title: t("title"),
     description: t("description"),
     alternates: {
-      canonical: `${BASE_URL}/${locale}/anime-figures`,
-      languages: {
-        ja: `${BASE_URL}/ja/anime-figures`,
-        en: `${BASE_URL}/en/anime-figures`,
-        "x-default": `${BASE_URL}/ja/anime-figures`,
-      },
+      canonical: localeUrl(locale, "/anime-figures"),
+      languages: hreflang("/anime-figures"),
     },
     openGraph: {
       title: t("title"),
       description: t("description"),
-      url: `${BASE_URL}/${locale}/anime-figures`,
+      url: localeUrl(locale, "/anime-figures"),
       locale: locale === "ja" ? "ja_JP" : "en_US",
     },
   };
@@ -90,8 +85,8 @@ export default async function AnimeFiguresPage({
         <div className="mb-4 sm:mb-6">
           <Breadcrumbs
             items={[
-              { label: t("breadcrumbs.home"), href: `/${locale}` },
-              { label: t("breadcrumbs.animeFigures"), href: `/${locale}/anime-figures` },
+              { label: t("breadcrumbs.home"), href: localePath(locale) },
+              { label: t("breadcrumbs.animeFigures"), href: localePath(locale, "/anime-figures") },
             ] satisfies BreadcrumbItem[]}
           />
         </div>

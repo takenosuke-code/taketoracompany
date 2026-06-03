@@ -5,8 +5,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
 import { BreadcrumbItem } from "@/types/product";
-
-const BASE_URL = "https://taketora-antique.com";
+import { localeUrl, localePath, hreflang } from "@/lib/urls";
 
 export async function generateMetadata({
   params: { locale },
@@ -18,17 +17,13 @@ export async function generateMetadata({
     title: t("title"),
     description: t("description"),
     alternates: {
-      canonical: `${BASE_URL}/${locale}/blog`,
-      languages: {
-        ja: `${BASE_URL}/ja/blog`,
-        en: `${BASE_URL}/en/blog`,
-        "x-default": `${BASE_URL}/ja/blog`,
-      },
+      canonical: localeUrl(locale, "/blog"),
+      languages: hreflang("/blog"),
     },
     openGraph: {
       title: t("title"),
       description: t("description"),
-      url: `${BASE_URL}/${locale}/blog`,
+      url: localeUrl(locale, "/blog"),
       locale: locale === "ja" ? "ja_JP" : "en_US",
     },
   };
@@ -97,8 +92,8 @@ export default async function BlogPage({
         <div className="mb-6 sm:mb-8">
           <Breadcrumbs
             items={[
-              { label: t("breadcrumbs.home"), href: `/${locale}` },
-              { label: t("breadcrumbs.blog"), href: `/${locale}/blog` },
+              { label: t("breadcrumbs.home"), href: localePath(locale) },
+              { label: t("breadcrumbs.blog"), href: localePath(locale, "/blog") },
             ] satisfies BreadcrumbItem[]}
           />
         </div>

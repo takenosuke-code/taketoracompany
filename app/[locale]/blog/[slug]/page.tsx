@@ -6,6 +6,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
 import { BreadcrumbItem } from "@/types/product";
+import { localeUrl, localePath, hreflang } from "@/lib/urls";
 
 const BASE_URL = "https://taketora-antique.com";
 
@@ -82,7 +83,7 @@ export async function generateMetadata({
   if (!blog) return { title: "Blog Post Not Found" };
 
   const description = excerptFromHtml(blog.content || "");
-  const url = `${BASE_URL}/${locale}/blog/${slug}`;
+  const url = localeUrl(locale, `/blog/${slug}`);
   const isJa = locale === "ja";
 
   return {
@@ -90,10 +91,7 @@ export async function generateMetadata({
     description,
     alternates: {
       canonical: url,
-      languages: {
-        ja: `${BASE_URL}/ja/blog/${slug}`,
-        en: `${BASE_URL}/en/blog/${slug}`,
-      },
+      languages: hreflang(`/blog/${slug}`),
     },
     openGraph: {
       title: blog.title,
@@ -125,9 +123,9 @@ export default async function BlogPostPage({
   if (!blog) notFound();
 
   const breadcrumbs: BreadcrumbItem[] = [
-    { label: t("breadcrumbs.home"), href: `/${locale}` },
-    { label: t("breadcrumbs.blog"), href: `/${locale}/blog` },
-    { label: blog.title, href: `/${locale}/blog/${slug}` },
+    { label: t("breadcrumbs.home"), href: localePath(locale) },
+    { label: t("breadcrumbs.blog"), href: localePath(locale, "/blog") },
+    { label: blog.title, href: localePath(locale, `/blog/${slug}`) },
   ];
 
   const articleSchema = {
@@ -148,7 +146,7 @@ export default async function BlogPostPage({
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `${BASE_URL}/${locale}/blog/${slug}`,
+      "@id": localeUrl(locale, `/blog/${slug}`),
     },
     inLanguage: isJa ? "ja" : "en",
   };

@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: "たけとら Taketora",
     description:
       "京都・東山区五条坂のアンティークショップ。骨董品、古道具、アニメフィギュア、ポケモンカード。Authentic antique shop in Kyoto Higashiyama.",
-    start_url: "/ja",
+    start_url: "/",
     display: "standalone",
     background_color: "#fafaf7",
     theme_color: "#1a1a2e",

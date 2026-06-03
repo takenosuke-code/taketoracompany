@@ -6,8 +6,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
 import { BreadcrumbItem } from "@/types/product";
-
-const BASE_URL = "https://taketora-antique.com";
+import { localeUrl, localePath, hreflang } from "@/lib/urls";
 
 export async function generateMetadata({
   params: { locale },
@@ -19,17 +18,13 @@ export async function generateMetadata({
     title: t("title"),
     description: t("description"),
     alternates: {
-      canonical: `${BASE_URL}/${locale}/antique`,
-      languages: {
-        ja: `${BASE_URL}/ja/antique`,
-        en: `${BASE_URL}/en/antique`,
-        "x-default": `${BASE_URL}/ja/antique`,
-      },
+      canonical: localeUrl(locale, "/antique"),
+      languages: hreflang("/antique"),
     },
     openGraph: {
       title: t("title"),
       description: t("description"),
-      url: `${BASE_URL}/${locale}/antique`,
+      url: localeUrl(locale, "/antique"),
       siteName: locale === "ja" ? "たけとら Taketora" : "Taketora",
       locale: locale === "ja" ? "ja_JP" : "en_US",
     },
@@ -81,8 +76,8 @@ export default async function AntiquePage({
   };
 
   const breadcrumbs: BreadcrumbItem[] = [
-    { label: t("breadcrumbs.home"), href: `/${locale}` },
-    { label: t("breadcrumbs.antique"), href: `/${locale}/antique` },
+    { label: t("breadcrumbs.home"), href: localePath(locale) },
+    { label: t("breadcrumbs.antique"), href: localePath(locale, "/antique") },
   ];
 
   return (

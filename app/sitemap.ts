@@ -1,8 +1,8 @@
 import { MetadataRoute } from "next";
 import { createClient } from "@/utils/supabase/server";
+import { localeUrl, hreflang } from "@/lib/urls";
 
 const locales = ["ja", "en"] as const;
-const BASE_URL = "https://taketora-antique.com";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const supabase = createClient();
@@ -23,15 +23,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   for (const locale of locales) {
     for (const page of staticPages) {
       routes.push({
-        url: `${BASE_URL}/${locale}${page.path}`,
+        url: localeUrl(locale, page.path),
         lastModified: new Date(),
         changeFrequency: page.changeFreq,
         priority: page.priority,
         alternates: {
-          languages: {
-            ja: `${BASE_URL}/ja${page.path}`,
-            en: `${BASE_URL}/en${page.path}`,
-          },
+          languages: hreflang(page.path),
         },
       });
     }
@@ -103,15 +100,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       for (const product of productRoutes) {
         const path = `/${product.category}/${product.slug}`;
         routes.push({
-          url: `${BASE_URL}/${locale}${path}`,
+          url: localeUrl(locale, path),
           lastModified: product.lastModified,
           changeFrequency: "weekly",
           priority: 0.7,
           alternates: {
-            languages: {
-              ja: `${BASE_URL}/ja${path}`,
-              en: `${BASE_URL}/en${path}`,
-            },
+            languages: hreflang(path),
           },
         });
       }
@@ -141,15 +135,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
               if (blog.slug) {
                 const path = `/blog/${blog.slug}`;
                 routes.push({
-                  url: `${BASE_URL}/${locale}${path}`,
+                  url: localeUrl(locale, path),
                   lastModified: blog.date ? new Date(blog.date) : new Date(),
                   changeFrequency: "monthly",
                   priority: 0.6,
                   alternates: {
-                    languages: {
-                      ja: `${BASE_URL}/ja${path}`,
-                      en: `${BASE_URL}/en${path}`,
-                    },
+                    languages: hreflang(path),
                   },
                 });
               }

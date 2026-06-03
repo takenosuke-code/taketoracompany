@@ -5,6 +5,7 @@ import { getMessages, getTranslations, setRequestLocale } from "next-intl/server
 import { Cinzel_Decorative, Noto_Sans_JP, Noto_Serif_JP } from "next/font/google";
 import Script from "next/script";
 import { locales } from "@/i18n/request";
+import { localeUrl, hreflang } from "@/lib/urls";
 import Navigation from "@/components/Navigation";
 import SiteFooter from "@/components/SiteFooter";
 import LoadingScreen from "@/components/LoadingScreen";
@@ -47,37 +48,24 @@ export async function generateMetadata({
     description: t("description"),
     metadataBase: new URL(BASE_URL),
     alternates: {
-      canonical: `${BASE_URL}/${locale}`,
-      languages: {
-        ja: `${BASE_URL}/ja`,
-        en: `${BASE_URL}/en`,
-        "x-default": `${BASE_URL}/ja`,
-      },
+      canonical: localeUrl(locale),
+      languages: hreflang(),
     },
     openGraph: {
       title: t("title"),
       description: t("description"),
       type: "website",
-      url: `${BASE_URL}/${locale}`,
+      url: localeUrl(locale),
       siteName: isJa ? "たけとら Taketora" : "Taketora",
       locale: ogLocale,
       alternateLocale: altLocale,
-      images: [
-        {
-          url: `${BASE_URL}/og-image-${locale}.jpg`,
-          width: 1200,
-          height: 630,
-          alt: isJa
-            ? "京都・東山のアンティークショップ たけとら"
-            : "Taketora Antique Shop in Kyoto Higashiyama",
-        },
-      ],
+      // Note: og:image / twitter:image are provided automatically by the
+      // app/[locale]/opengraph-image.tsx file convention (1200x630, per-locale).
     },
     twitter: {
       card: "summary_large_image",
       title: t("title"),
       description: t("description"),
-      images: [`${BASE_URL}/og-image-${locale}.jpg`],
     },
     verification: {
       google: "8zntccVng7Q4n68XbjNCn5jlx5jAubcc34fw60OrJnc",
@@ -109,7 +97,7 @@ function getStructuredData(locale: string) {
     ],
     url: BASE_URL,
     logo: `${BASE_URL}/assets/taketora_logo.png`,
-    image: `${BASE_URL}/og-image-ja.jpg`,
+    image: localeUrl(locale, "/opengraph-image"),
     description: isJa
       ? "京都・東山のアンティークショップ。骨董品、古道具、アニメフィギュア、ポケモンカードなど厳選コレクションを販売。"
       : "Authentic antique shop in Kyoto's Higashiyama district. Japanese antiques, traditional crafts, anime figures & Pokémon cards.",

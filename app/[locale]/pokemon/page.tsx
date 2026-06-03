@@ -6,8 +6,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
 import { BreadcrumbItem } from "@/types/product";
-
-const BASE_URL = "https://taketora-antique.com";
+import { localeUrl, localePath, hreflang } from "@/lib/urls";
 
 export async function generateMetadata({
   params: { locale },
@@ -19,17 +18,13 @@ export async function generateMetadata({
     title: t("title"),
     description: t("description"),
     alternates: {
-      canonical: `${BASE_URL}/${locale}/pokemon`,
-      languages: {
-        ja: `${BASE_URL}/ja/pokemon`,
-        en: `${BASE_URL}/en/pokemon`,
-        "x-default": `${BASE_URL}/ja/pokemon`,
-      },
+      canonical: localeUrl(locale, "/pokemon"),
+      languages: hreflang("/pokemon"),
     },
     openGraph: {
       title: t("title"),
       description: t("description"),
-      url: `${BASE_URL}/${locale}/pokemon`,
+      url: localeUrl(locale, "/pokemon"),
       locale: locale === "ja" ? "ja_JP" : "en_US",
     },
   };
@@ -91,8 +86,8 @@ export default async function PokemonPage({
         <div className="mb-4 sm:mb-6">
           <Breadcrumbs
             items={[
-              { label: t("breadcrumbs.home"), href: `/${locale}` },
-              { label: t("breadcrumbs.pokemon"), href: `/${locale}/pokemon` },
+              { label: t("breadcrumbs.home"), href: localePath(locale) },
+              { label: t("breadcrumbs.pokemon"), href: localePath(locale, "/pokemon") },
             ] satisfies BreadcrumbItem[]}
           />
         </div>

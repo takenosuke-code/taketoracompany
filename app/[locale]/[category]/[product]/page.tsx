@@ -12,8 +12,7 @@ import CurrencyConverter from "@/components/CurrencyConverter";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
 import JsonLd from "@/components/JsonLd";
 import { BreadcrumbItem } from "@/types/product";
-
-const BASE_URL = "https://taketora-antique.com";
+import { localeUrl, localePath, hreflang } from "@/lib/urls";
 
 interface ProductPageProps {
   params: { category: string; product: string; locale: string };
@@ -75,11 +74,8 @@ export async function generateMetadata({
     title,
     description,
     alternates: {
-      canonical: `${BASE_URL}/${locale}/${category}/${productSlug}`,
-      languages: {
-        ja: `${BASE_URL}/ja/${category}/${productSlug}`,
-        en: `${BASE_URL}/en/${category}/${productSlug}`,
-      },
+      canonical: localeUrl(locale, `/${category}/${productSlug}`),
+      languages: hreflang(`/${category}/${productSlug}`),
     },
     openGraph: {
       title: product.name,
@@ -125,7 +121,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const relatedProducts = (relatedResult.data || []).filter((p: any) => p.slug);
 
   const breadcrumbs: BreadcrumbItem[] = [
-    { label: t("breadcrumbs.home"), href: `/${locale}` },
+    { label: t("breadcrumbs.home"), href: localePath(locale) },
     {
       label:
         category === "anime-figures"
@@ -133,11 +129,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
           : category === "pokemon"
           ? t("breadcrumbs.pokemon")
           : t("breadcrumbs.antique"),
-      href: `/${locale}/${category}`,
+      href: localePath(locale, `/${category}`),
     },
     {
       label: product.name,
-      href: `/${locale}/${category}/${productSlug}`,
+      href: localePath(locale, `/${category}/${productSlug}`),
     },
   ];
 
@@ -192,6 +188,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       : undefined,
     offers: {
       "@type": "Offer",
+      url: localeUrl(locale, `/${category}/${productSlug}`),
       price: product.price || 0,
       priceCurrency: "JPY",
       availability:

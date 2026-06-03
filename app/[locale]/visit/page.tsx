@@ -2,8 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
-
-const BASE_URL = "https://taketora-antique.com";
+import { localeUrl, hreflang } from "@/lib/urls";
 
 export async function generateMetadata({
   params: { locale },
@@ -15,17 +14,13 @@ export async function generateMetadata({
     title: t("title"),
     description: t("description"),
     alternates: {
-      canonical: `${BASE_URL}/${locale}/visit`,
-      languages: {
-        ja: `${BASE_URL}/ja/visit`,
-        en: `${BASE_URL}/en/visit`,
-        "x-default": `${BASE_URL}/ja/visit`,
-      },
+      canonical: localeUrl(locale, "/visit"),
+      languages: hreflang("/visit"),
     },
     openGraph: {
       title: t("title"),
       description: t("description"),
-      url: `${BASE_URL}/${locale}/visit`,
+      url: localeUrl(locale, "/visit"),
       locale: locale === "ja" ? "ja_JP" : "en_US",
     },
   };
