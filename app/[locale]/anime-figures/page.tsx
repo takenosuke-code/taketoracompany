@@ -6,7 +6,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
 import { BreadcrumbItem } from "@/types/product";
-import { localeUrl, localePath, hreflang } from "@/lib/urls";
+import { localeUrl, localePath, hreflang, ogMeta } from "@/lib/urls";
 
 export async function generateMetadata({
   params: { locale },
@@ -21,12 +21,7 @@ export async function generateMetadata({
       canonical: localeUrl(locale, "/anime-figures"),
       languages: hreflang("/anime-figures"),
     },
-    openGraph: {
-      title: t("title"),
-      description: t("description"),
-      url: localeUrl(locale, "/anime-figures"),
-      locale: locale === "ja" ? "ja_JP" : "en_US",
-    },
+    ...ogMeta(locale, { title: t("title"), description: t("description"), path: "/anime-figures" }),
   };
 }
 
@@ -134,7 +129,7 @@ export default async function AnimeFiguresPage({
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6">
                         {categoryProducts.map((product: any) => {
-                          const productUrl = product.slug ? `/anime-figures/${product.slug}` : "#";
+                          const productUrl = product.slug ? `/anime-figures/${product.slug}` : "/collection";
                           return (
                             <Link
                               key={product.id}
@@ -206,7 +201,7 @@ export default async function AnimeFiguresPage({
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6">
                     {productsWithoutCategory.map((product: any) => {
-                      const productUrl = product.slug ? `/anime-figures/${product.slug}` : "#";
+                      const productUrl = product.slug ? `/anime-figures/${product.slug}` : "/collection";
                       return (
                         <Link
                           key={product.id}

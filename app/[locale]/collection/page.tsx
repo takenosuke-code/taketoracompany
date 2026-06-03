@@ -6,7 +6,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
 import { BreadcrumbItem } from "@/types/product";
-import { localeUrl, localePath, hreflang } from "@/lib/urls";
+import { localeUrl, localePath, hreflang, ogMeta } from "@/lib/urls";
 
 export async function generateMetadata({
   params: { locale },
@@ -21,12 +21,7 @@ export async function generateMetadata({
       canonical: localeUrl(locale, "/collection"),
       languages: hreflang("/collection"),
     },
-    openGraph: {
-      title: t("title"),
-      description: t("description"),
-      url: localeUrl(locale, "/collection"),
-      locale: locale === "ja" ? "ja_JP" : "en_US",
-    },
+    ...ogMeta(locale, { title: t("title"), description: t("description"), path: "/collection" }),
   };
 }
 
@@ -200,7 +195,7 @@ export default async function CollectionPage({
                                 const productUrl =
                                   product.slug && categorySlug
                                     ? `/${categorySlug}/${product.slug}`
-                                    : "#";
+                                    : "/collection";
 
                                 return (
                                   <Link

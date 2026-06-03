@@ -6,7 +6,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
 import { BreadcrumbItem } from "@/types/product";
-import { localeUrl, localePath, hreflang } from "@/lib/urls";
+import { localeUrl, localePath, hreflang, ogMeta } from "@/lib/urls";
 
 export async function generateMetadata({
   params: { locale },
@@ -21,13 +21,7 @@ export async function generateMetadata({
       canonical: localeUrl(locale, "/antique"),
       languages: hreflang("/antique"),
     },
-    openGraph: {
-      title: t("title"),
-      description: t("description"),
-      url: localeUrl(locale, "/antique"),
-      siteName: locale === "ja" ? "たけとら Taketora" : "Taketora",
-      locale: locale === "ja" ? "ja_JP" : "en_US",
-    },
+    ...ogMeta(locale, { title: t("title"), description: t("description"), path: "/antique" }),
   };
 }
 
@@ -168,7 +162,7 @@ export default async function AntiquePage({
                         {subCategoryProducts.map((product: any) => {
                           const productUrl = product.slug
                             ? `/antique/${product.slug}`
-                            : "#";
+                            : "/collection";
                           return (
                             <Link
                               key={product.id}
@@ -251,7 +245,7 @@ export default async function AntiquePage({
                       {productsWithoutSubcategory.map((product: any) => {
                         const productUrl = product.slug
                           ? `/antique/${product.slug}`
-                          : "#";
+                          : "/collection";
                         return (
                           <Link
                             key={product.id}

@@ -163,13 +163,15 @@ export default function LoadingScreen() {
         <div className="loading-ring-outer absolute w-52 h-52 sm:w-64 sm:h-64" />
         <div className="loading-ring-inner absolute w-44 h-44 sm:w-56 sm:h-56" />
 
-        {/* Title */}
-        <h1
+        {/* Brand wordmark (decorative splash — not the page heading) */}
+        <div
+          role="img"
+          aria-label="TAKETORA"
           className="font-serif text-4xl sm:text-5xl md:text-7xl tracking-[0.3em] text-shimmer drop-shadow-2xl mb-3 loading-text-entrance"
           style={{ animationDelay: "0.3s" }}
         >
           TAKETORA
-        </h1>
+        </div>
 
         {/* Subtitle */}
         <div

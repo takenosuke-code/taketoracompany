@@ -6,7 +6,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
 import { BreadcrumbItem } from "@/types/product";
-import { localeUrl, localePath, hreflang } from "@/lib/urls";
+import { localeUrl, localePath, hreflang, ogMeta } from "@/lib/urls";
 
 export async function generateMetadata({
   params: { locale },
@@ -21,12 +21,7 @@ export async function generateMetadata({
       canonical: localeUrl(locale, "/pokemon"),
       languages: hreflang("/pokemon"),
     },
-    openGraph: {
-      title: t("title"),
-      description: t("description"),
-      url: localeUrl(locale, "/pokemon"),
-      locale: locale === "ja" ? "ja_JP" : "en_US",
-    },
+    ...ogMeta(locale, { title: t("title"), description: t("description"), path: "/pokemon" }),
   };
 }
 
@@ -131,7 +126,7 @@ export default async function PokemonPage({
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6">
                         {categoryProducts.map((product: any) => {
-                          const productUrl = product.slug ? `/pokemon/${product.slug}` : "#";
+                          const productUrl = product.slug ? `/pokemon/${product.slug}` : "/collection";
                           return (
                             <Link
                               key={product.id}

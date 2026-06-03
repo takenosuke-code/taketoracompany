@@ -659,7 +659,7 @@ export default async function Homepage({
 
                   const productUrl = product.slug
                     ? `/${categorySlug}/${product.slug}`
-                    : "#";
+                    : "/collection";
 
                   return (
                     <ScrollRevealSection key={product.id} variant="fade-up" delay={index * 100}>

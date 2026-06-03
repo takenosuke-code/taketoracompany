@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
-import { localeUrl, hreflang } from "@/lib/urls";
+import { localeUrl, hreflang, ogMeta } from "@/lib/urls";
 
 export async function generateMetadata({
   params: { locale },
@@ -17,12 +17,7 @@ export async function generateMetadata({
       canonical: localeUrl(locale, "/visit"),
       languages: hreflang("/visit"),
     },
-    openGraph: {
-      title: t("title"),
-      description: t("description"),
-      url: localeUrl(locale, "/visit"),
-      locale: locale === "ja" ? "ja_JP" : "en_US",
-    },
+    ...ogMeta(locale, { title: t("title"), description: t("description"), path: "/visit" }),
   };
 }
 
@@ -136,9 +131,9 @@ export default async function VisitPage({
                 <p className="text-xs sm:text-sm text-[#D4AF37]/60 tracking-[0.35em] uppercase font-light mb-3">
                   {isJa ? "Experience" : "Experience"}
                 </p>
-                <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-gradient-gold mb-4 tracking-wide">
+                <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-gradient-gold mb-4 tracking-wide">
                   {t("visit.heroTitle")}
-                </h2>
+                </h1>
                 <div className="mt-3 mx-auto w-20 h-0.5 bg-gradient-to-r from-transparent via-[#D4AF37]/60 to-transparent" />
               </div>
             </ScrollRevealSection>

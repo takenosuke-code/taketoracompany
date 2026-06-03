@@ -44,3 +44,36 @@ export function hreflang(path = ""): Record<string, string> {
     "x-default": `${BASE_URL}${path}`,
   };
 }
+
+/**
+ * Complete, consistent Open Graph + Twitter metadata for a page.
+ *
+ * Pages that define their own `openGraph` in generateMetadata replace (rather
+ * than merge with) the layout's — which is why the file-based opengraph-image
+ * is dropped on those routes. Spreading this helper guarantees every page
+ * carries og:image, og:type and og:site_name.
+ */
+export function ogMeta(
+  locale: string,
+  opts: { title: string; description: string; path?: string; type?: "website" | "article" }
+) {
+  const isJa = locale === "ja";
+  const image = localeUrl(locale, "/opengraph-image");
+  return {
+    openGraph: {
+      title: opts.title,
+      description: opts.description,
+      url: localeUrl(locale, opts.path ?? ""),
+      siteName: isJa ? "たけとら Taketora" : "Taketora",
+      type: opts.type ?? ("website" as const),
+      locale: isJa ? "ja_JP" : "en_US",
+      images: [image],
+    },
+    twitter: {
+      card: "summary_large_image" as const,
+      title: opts.title,
+      description: opts.description,
+      images: [image],
+    },
+  };
+}
