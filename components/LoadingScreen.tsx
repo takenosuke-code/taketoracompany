@@ -31,7 +31,7 @@ export default function LoadingScreen() {
     if (!shouldShow) return;
 
     const startedAt = Date.now();
-    const DURATION = 2200;
+    const DURATION = 1200;
     const CAP_BEFORE_READY = 92;
 
     progressInterval.current = setInterval(() => {
@@ -80,19 +80,18 @@ export default function LoadingScreen() {
         setPhase("done");
         document.body.style.overflow = "";
         sessionStorage.setItem("taketora-visited", "true");
-      }, 1200);
+      }, 800);
       return () => clearTimeout(timer);
     }
   }, [phase]);
 
-  // Fallback: auto-complete after 3 seconds even if video never loads.
-  // Deterministic progress hits 92 at ~2.2s, so 3s leaves a brief moment
-  // visibly at 92 before the quick-finish runs.
+  // Fallback: auto-complete after 1.5s even if the video never loads, so the
+  // splash never blocks the hero (and therefore LCP) on a slow connection.
   useEffect(() => {
     if (!shouldShow) return;
     const fallback = setTimeout(() => {
       setVideoReady(true);
-    }, 3000);
+    }, 1500);
     return () => clearTimeout(fallback);
   }, [shouldShow]);
 
@@ -119,7 +118,7 @@ export default function LoadingScreen() {
           loop
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
           onCanPlayThrough={handleVideoReady}
           onLoadedData={handleVideoReady}
           className="w-full h-full object-cover scale-110"

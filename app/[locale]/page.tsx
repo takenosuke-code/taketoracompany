@@ -108,8 +108,10 @@ export default async function Homepage({
           loop
           muted
           playsInline
-          preload="auto"
-          poster={`/_next/image?url=${encodeURIComponent(slideshowImages[0].url)}&w=1920&q=70`}
+          // Don't eagerly download the full background video before the hero
+          // paints; the poster (the LCP image) shows while the video lazy-loads.
+          preload="none"
+          poster={`/_next/image?url=${encodeURIComponent(slideshowImages[0].url)}&w=1280&q=60`}
           className="w-full h-full object-cover"
         >
           <source
@@ -139,8 +141,9 @@ export default async function Homepage({
               <div className="h-px w-12 sm:w-20 bg-gradient-to-l from-transparent to-[#D4AF37]/60" />
             </div>
 
-            {/* Main Title with shimmer */}
-            <h1 className="mb-4 font-serif text-5xl sm:text-6xl md:text-8xl lg:text-9xl text-shimmer drop-shadow-2xl tracking-wider animate-fade-in-up">
+            {/* Main Title with shimmer — no entrance animation so the LCP
+                element paints immediately (it must not start at opacity:0). */}
+            <h1 className="mb-4 font-serif text-5xl sm:text-6xl md:text-8xl lg:text-9xl text-shimmer drop-shadow-2xl tracking-wider">
               {t("hero.title")}
             </h1>
 

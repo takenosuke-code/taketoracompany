@@ -114,9 +114,10 @@ export default async function VisitPage({
               : "Kiyomizu-dera Temple and Kyoto scenery - Taketora Antique Shop"
           }
           fill
+          sizes="100vw"
           className="object-cover"
           priority
-          quality={90}
+          quality={60}
         />
         <div className="absolute inset-0 bg-stone-950/75" />
         <div className="absolute inset-0 bg-gradient-to-b from-stone-950/30 via-transparent to-stone-950/60" />

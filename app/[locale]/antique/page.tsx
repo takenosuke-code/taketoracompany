@@ -86,6 +86,8 @@ export default async function AntiquePage({
               : "Japanese style background - Taketora Kyoto"
           }
           fill
+          sizes="100vw"
+          quality={60}
           className="object-cover opacity-30"
           priority
         />
