@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
+import { SHOPS } from "@/lib/shops";
 
 interface SiteFooterProps {
   locale: string;
@@ -108,8 +109,20 @@ export default function SiteFooter({ locale }: SiteFooterProps) {
             <h4 className="font-medium text-stone-200 mb-5 tracking-wider text-sm uppercase">
               {t("shopInfoTitle")}
             </h4>
-            <address className="text-sm font-light not-italic leading-relaxed text-stone-400 whitespace-pre-line mb-3">
-              {t("address")}
+            <address className="not-italic mb-3">
+              <ul className="space-y-3">
+                {SHOPS.map((shop) => (
+                  <li
+                    key={shop.id}
+                    className="text-sm font-light leading-relaxed text-stone-400"
+                  >
+                    <span className="block text-stone-300">
+                      {isJa ? shop.nameJa : shop.nameEn}
+                    </span>
+                    {isJa ? shop.addressJa : shop.addressEn}
+                  </li>
+                ))}
+              </ul>
             </address>
             <p className="text-sm font-light text-stone-400 mb-1">
               {t("hoursLabel")}

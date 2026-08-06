@@ -6,6 +6,7 @@ import { Cinzel_Decorative, Noto_Sans_JP, Noto_Serif_JP } from "next/font/google
 import Script from "next/script";
 import { locales } from "@/i18n/request";
 import { localeUrl, hreflang } from "@/lib/urls";
+import { SHOPS, OPENING_HOURS } from "@/lib/shops";
 import Navigation from "@/components/Navigation";
 import SiteFooter from "@/components/SiteFooter";
 import LoadingScreen from "@/components/LoadingScreen";
@@ -81,39 +82,37 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-// JSON-LD Structured Data for AntiqueStore
+// JSON-LD Structured Data: Organization + 各店舗の AntiqueStore ノード（@graph）
+// 店舗情報は lib/shops.ts の店舗マスタから生成する。
 function getStructuredData(locale: string) {
   const isJa = locale === "ja";
-  return {
-    "@context": "https://schema.org",
+  const orgId = `${BASE_URL}/#organization`;
+
+  const shopNodes = SHOPS.map((shop) => ({
     "@type": "AntiqueStore",
-    name: "たけとら (Taketora)",
-    alternateName: [
-      "Taketora",
-      "Taketora Antiques",
-      "たけとら",
-      "たけとら アンティークショップ",
-      "Taketora Antique Shop Kyoto",
-    ],
-    url: BASE_URL,
-    logo: `${BASE_URL}/assets/taketora_logo.png`,
+    "@id": `${BASE_URL}/#shop-${shop.id}`,
+    name: isJa ? shop.nameJa : shop.nameEn,
+    parentOrganization: { "@id": orgId },
+    branchOf: { "@id": orgId },
+    url: localeUrl(locale, "/visit"),
     image: localeUrl(locale, "/opengraph-image"),
-    description: isJa
-      ? "京都・東山のアンティークショップ。骨董品、古道具、アニメフィギュア、ポケモンカードなど厳選コレクションを販売。"
-      : "Authentic antique shop in Kyoto's Higashiyama district. Japanese antiques, traditional crafts, anime figures & Pokémon cards.",
+    hasMap: shop.mapsUrl,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "五条橋東6丁目539-49",
-      addressLocality: "京都市東山区",
-      addressRegion: "京都府",
-      postalCode: "605-0848",
+      streetAddress: isJa ? shop.streetAddressJa : shop.streetAddressEn,
+      addressLocality: isJa ? shop.addressLocalityJa : shop.addressLocalityEn,
+      addressRegion: isJa ? "京都府" : "Kyoto",
+      postalCode: shop.postalCode,
       addressCountry: "JP",
     },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 34.9948,
-      longitude: 135.7738,
-    },
+    ...(shop.geo && {
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: shop.geo.latitude,
+        longitude: shop.geo.longitude,
+      },
+    }),
+    // TODO(店舗確認): telephone は各店舗の電話番号が確認でき次第、店舗マスタ経由で追加する
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: [
@@ -125,40 +124,68 @@ function getStructuredData(locale: string) {
         "Saturday",
         "Sunday",
       ],
-      opens: "10:00",
-      closes: "20:00",
+      opens: OPENING_HOURS.opens,
+      closes: OPENING_HOURS.closes,
     },
     priceRange: "¥¥",
     currenciesAccepted: "JPY",
     paymentAccepted: "Cash, Credit Card",
     knowsLanguage: ["ja", "en"],
-    areaServed: {
-      "@type": "City",
-      name: "Kyoto",
-    },
-    sameAs: ["https://www.instagram.com/taketora_antiques/"],
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: isJa ? "たけとらコレクション" : "Taketora Collection",
-      itemListElement: [
-        {
-          "@type": "OfferCatalog",
-          name: isJa ? "骨董品・アンティーク" : "Japanese Antiques",
+  }));
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": orgId,
+        name: "たけとら (Taketora)",
+        alternateName: [
+          "Taketora",
+          "Taketora Antiques",
+          "たけとら",
+          "たけとら アンティークショップ",
+          "Taketora Antique Shop Kyoto",
+        ],
+        url: BASE_URL,
+        logo: `${BASE_URL}/assets/taketora_logo.png`,
+        image: localeUrl(locale, "/opengraph-image"),
+        description: isJa
+          ? "京都に3店舗（高台寺・清水寺・亀屋町）を構えるアンティークショップ。骨董品、古道具、アニメフィギュア、ポケモンカードなど厳選コレクションを販売。"
+          : "Antique shop with three locations in Kyoto — Kodaiji, Kiyomizu and Kameyacho. Japanese antiques, traditional crafts, anime figures & Pokémon cards.",
+        subOrganization: SHOPS.map((shop) => ({
+          "@id": `${BASE_URL}/#shop-${shop.id}`,
+        })),
+        areaServed: {
+          "@type": "City",
+          name: "Kyoto",
         },
-        {
+        sameAs: ["https://www.instagram.com/taketora_antiques/"],
+        hasOfferCatalog: {
           "@type": "OfferCatalog",
-          name: isJa ? "アニメフィギュア" : "Anime Figures",
+          name: isJa ? "たけとらコレクション" : "Taketora Collection",
+          itemListElement: [
+            {
+              "@type": "OfferCatalog",
+              name: isJa ? "骨董品・アンティーク" : "Japanese Antiques",
+            },
+            {
+              "@type": "OfferCatalog",
+              name: isJa ? "アニメフィギュア" : "Anime Figures",
+            },
+            {
+              "@type": "OfferCatalog",
+              name: isJa ? "ポケモンカード" : "Pokémon Cards",
+            },
+            {
+              "@type": "OfferCatalog",
+              name: isJa ? "古道具・古民具" : "Folk Crafts & Vintage Items",
+            },
+          ],
         },
-        {
-          "@type": "OfferCatalog",
-          name: isJa ? "ポケモンカード" : "Pokémon Cards",
-        },
-        {
-          "@type": "OfferCatalog",
-          name: isJa ? "古道具・古民具" : "Folk Crafts & Vintage Items",
-        },
-      ],
-    },
+      },
+      ...shopNodes,
+    ],
   };
 }
 

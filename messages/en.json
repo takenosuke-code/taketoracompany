@@ -2,7 +2,7 @@
   "metadata": {
     "home": {
       "title": "Taketora｜Japanese Antique Shop in Kyoto Higashiyama",
-      "description": "Authentic antique shop in Kyoto's Higashiyama near Kiyomizu-dera. Japanese antiques, crafts, anime figures & Pokémon cards. Open daily 10AM–8PM, English spoken."
+      "description": "Antique shop with three locations in Kyoto — near Kodaiji and Kiyomizu-dera temples. Japanese antiques, crafts, anime figures & Pokémon cards. Open daily 10AM–8PM, English spoken."
     },
     "antique": {
       "title": "Japanese Antiques & Traditional Crafts｜Taketora Kyoto Higashiyama",
@@ -21,8 +21,8 @@
       "description": "Browse Taketora's full collection. Japanese antiques, anime figures, Pokémon cards and more at our Kyoto Higashiyama shop."
     },
     "visit": {
-      "title": "Visit Us｜Taketora Antique Shop - Kyoto Higashiyama, Gojo-zaka",
-      "description": "Find Taketora antique shop in Kyoto's Higashiyama, near Kiyomizu-dera temple on Gojo-zaka slope. Open daily 10AM-8PM. English & Japanese spoken. Map & directions."
+      "title": "Visit Us｜Taketora Antique Shop - 3 Shops in Kyoto (Kodaiji, Kiyomizu, Kameyacho)",
+      "description": "Find Taketora's three antique shops in Kyoto — Kodaiji, Kiyomizu and Kameyacho — an easy stop on the walk between Kiyomizu-dera, Yasaka Shrine and Gion. Open daily 10AM-8PM. English & Japanese spoken. Maps & directions."
     },
     "blog": {
       "title": "Blog｜Taketora Kyoto - Antiques, Collectibles & Japanese Culture",
@@ -110,16 +110,8 @@
   },
   "shopInfo": {
     "title": "Visit Us",
-    "name": "Taketora (たけとら)",
-    "address": "539-49 Gojobashi-Higashi 6-chome, Higashiyama-ku, Kyoto 605-0848, Japan",
     "hours": "10:00 AM – 8:00 PM (Open Daily)",
-    "languages": "Japanese & English",
-    "access": {
-      "title": "Getting Here",
-      "keihan": "10-min walk from Keihan \"Kiyomizu-Gojo\" Station",
-      "bus": "3-min walk from \"Gojo-zaka\" bus stop",
-      "kiyomizu": "5-min walk from Kiyomizu-dera temple"
-    }
+    "languages": "Japanese & English"
   },
   "newArrivals": {
     "title": "New Arrivals",
@@ -183,11 +175,10 @@
   },
   "footer": {
     "brand": "TAKETORA",
-    "brandDesc": "Antique shop on Gojo-zaka, Higashiyama, Kyoto. Japanese antiques, traditional crafts, anime figures & Pokémon cards.",
+    "brandDesc": "Antique shop with three locations in Kyoto — Kodaiji, Kiyomizu and Kameyacho. Japanese antiques, traditional crafts, anime figures & Pokémon cards.",
     "collectionTitle": "Collection",
     "infoTitle": "Information",
     "shopInfoTitle": "Shop Info",
-    "address": "539-49 Gojobashi-Higashi 6-chome,\nHigashiyama-ku, Kyoto 605-0848, Japan",
     "hoursLabel": "Open Daily: 10:00 AM – 8:00 PM",
     "englishAvailable": "English & Japanese spoken",
     "copyright": "© {year} Taketora. All rights reserved.",

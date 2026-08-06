@@ -3,6 +3,7 @@ import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
 import { localeUrl, hreflang, ogMeta } from "@/lib/urls";
+import { SHOPS, directionsUrl } from "@/lib/shops";
 
 export async function generateMetadata({
   params: { locale },
@@ -20,39 +21,6 @@ export async function generateMetadata({
     ...ogMeta(locale, { title: t("title"), description: t("description"), path: "/visit" }),
   };
 }
-
-const shops = [
-  {
-    id: 1,
-    nameJa: "たけとら 高台寺店",
-    nameEn: "Taketora Kodaiji",
-    addressJa: "〒605-0824 京都府京都市東山区南町421-2",
-    addressEn:
-      "421-2 Minamimachi, Higashiyama Ward, Kyoto, 605-0824, Japan",
-    mapsUrl: "https://maps.app.goo.gl/uffSvD9BWBj35SmB6",
-    walkMinsFromKiyomizu: 6,
-  },
-  {
-    id: 2,
-    nameJa: "たけとら 清水寺店",
-    nameEn: "Taketora Kiyomizu",
-    addressJa: "〒605-0848 京都府京都市東山区五条橋東6丁目539-49",
-    addressEn:
-      "6 Chome-539-49 Gojobashihigashi, Higashiyama Ward, Kyoto, 605-0848, Japan",
-    mapsUrl: "",
-    walkMinsFromKiyomizu: 12,
-  },
-  {
-    id: 3,
-    nameJa: "たけとら 亀屋町店",
-    nameEn: "Taketora Kameyacho",
-    addressJa: "〒600-8451 京都府京都市下京区亀屋町51",
-    addressEn:
-      "51 Kameyacho, Shimogyo Ward, Kyoto, 600-8451, Japan",
-    mapsUrl: "",
-    walkMinsFromKiyomizu: 18,
-  },
-];
 
 const attractions = [
   {
@@ -211,11 +179,10 @@ export default async function VisitPage({
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-12">
-                {shops.map((shop, index) => {
+                {SHOPS.map((shop, index) => {
                   const address = isJa ? shop.addressJa : shop.addressEn;
                   const shopName = isJa ? shop.nameJa : shop.nameEn;
-                  const mapsQuery = encodeURIComponent(`${shopName} ${address}`);
-                  const directionsUrl = shop.mapsUrl || `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
+                  const shopDirectionsUrl = directionsUrl(shop, locale);
 
                   return (
                     <ScrollRevealSection key={shop.id} variant="fade-up" delay={index * 150}>
@@ -271,7 +238,7 @@ export default async function VisitPage({
 
                           {/* Directions button */}
                           <a
-                            href={directionsUrl}
+                            href={shopDirectionsUrl}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="mt-auto w-full flex items-center justify-center gap-2 text-sm font-bold tracking-wider text-stone-950 bg-gradient-to-r from-[#D4AF37] to-amber-600 hover:from-[#e0c050] hover:to-amber-500 rounded-lg px-4 py-3 transition-all duration-300 shadow-lg shadow-amber-900/20 hover:shadow-gold-lg hover:-translate-y-0.5"

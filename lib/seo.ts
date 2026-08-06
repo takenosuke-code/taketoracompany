@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 
+// NOTE: このファイルは現在どこからも import されていない（実際のメタデータは
+// messages/*.json の metadata 名前空間から生成される）。削除するか、こちらに
+// 一本化するかは別途検討。内容だけは messages 側と同期させている。
+
 const BASE_URL = "https://taketora-antique.com";
 
 export const PAGE_META = {
@@ -7,12 +11,12 @@ export const PAGE_META = {
     ja: {
       title: "たけとら（Taketora）｜京都・東山のアンティークショップ - 骨董品・古道具・コレクティブル",
       description:
-        "京都・東山区五条坂のアンティークショップ「たけとら」。骨董品、古道具、アニメフィギュア、ポケモンカードなど厳選コレクションを販売。清水寺エリア。営業時間10:00〜20:00、英語対応可。",
+        "京都のアンティークショップ「たけとら」。高台寺・清水寺・亀屋町の3店舗で、骨董品、古道具、アニメフィギュア、ポケモンカードなど厳選コレクションを販売。営業時間10:00〜20:00、英語対応可。",
     },
     en: {
       title: "Taketora｜Antique Shop in Kyoto Higashiyama - Japanese Antiques & Collectibles",
       description:
-        "Authentic antique shop in Kyoto's Higashiyama district near Kiyomizu-dera. Japanese antiques, traditional crafts, anime figures & Pokemon cards. Open daily 10AM-8PM. English spoken.",
+        "Antique shop with three locations in Kyoto — near Kodaiji and Kiyomizu-dera temples. Japanese antiques, traditional crafts, anime figures & Pokemon cards. Open daily 10AM-8PM. English spoken.",
     },
   },
   antique: {
@@ -65,14 +69,14 @@ export const PAGE_META = {
   },
   visit: {
     ja: {
-      title: "アクセス・営業時間｜京都・東山 たけとら アンティークショップ 五条坂",
+      title: "アクセス・営業時間｜京都 たけとら アンティークショップ 全3店舗（高台寺・清水寺・亀屋町）",
       description:
-        "京都・東山区五条坂のアンティークショップたけとらへのアクセス。清水五条駅から徒歩圏内。営業時間10:00-20:00、年中無休。英語対応可。",
+        "京都のアンティークショップたけとら全3店舗（高台寺店・清水寺店・亀屋町店）へのアクセス。清水寺・祇園エリアから徒歩圏内。営業時間10:00-20:00、年中無休。英語対応可。",
     },
     en: {
-      title: "Visit Us｜Taketora Antique Shop - Kyoto Higashiyama, Gojo-zaka",
+      title: "Visit Us｜Taketora Antique Shop - 3 Shops in Kyoto (Kodaiji, Kiyomizu, Kameyacho)",
       description:
-        "Find Taketora antique shop in Kyoto's Higashiyama, near Kiyomizu-dera temple on Gojo-zaka slope. Open daily 10AM-8PM. English & Japanese spoken. Map & directions.",
+        "Find Taketora's three antique shops in Kyoto — Kodaiji, Kiyomizu and Kameyacho — near Kiyomizu-dera temple and Gion. Open daily 10AM-8PM. English & Japanese spoken. Maps & directions.",
     },
   },
   blog: {
