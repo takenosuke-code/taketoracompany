@@ -174,11 +174,6 @@
   .blog-content * {
     color: #e8dcc8 !important;
   }
-  /* WordPress由来の長いURL・英単語が狭い画面で横にはみ出すのを防ぐ */
-  .blog-content {
-    overflow-wrap: break-word;
-    word-break: break-word;
-  }
   .blog-content h1,
   .blog-content h2,
   .blog-content h3,
@@ -260,10 +255,6 @@
   }
   .blog-content table {
     border-collapse: collapse;
-    /* 幅の広い表はページごと横スクロールさせず、表の中だけでスクロールさせる */
-    display: block;
-    max-width: 100%;
-    overflow-x: auto;
   }
   .blog-content th {
     color: #D4AF37 !important;
