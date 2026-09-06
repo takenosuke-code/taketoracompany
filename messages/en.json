@@ -21,8 +21,8 @@
       "description": "Browse Taketora's full collection. Japanese antiques, anime figures, Pokémon cards and more at our Kyoto Higashiyama shop."
     },
     "visit": {
-      "title": "Visit Us｜Taketora Antique Shop - 3 Shops in Kyoto (Kodaiji, Kiyomizu, Kameyacho)",
-      "description": "Find Taketora's three antique shops in Kyoto — Kodaiji, Kiyomizu and Kameyacho — an easy stop on the walk between Kiyomizu-dera, Yasaka Shrine and Gion. Open daily 10AM-8PM. English & Japanese spoken. Maps & directions."
+      "title": "Visit Us｜Taketora Antique Shop - 3 Shops in Kyoto (Kodaiji, Kiyomizu, Shichijo)",
+      "description": "Find Taketora's three antique shops in Kyoto — Kodaiji, Kiyomizu and Shichijo — an easy stop on the walk between Kiyomizu-dera, Yasaka Shrine and Gion. Open daily 10AM-8PM. English & Japanese spoken. Maps & directions."
     },
     "blog": {
       "title": "Blog｜Taketora Kyoto - Antiques, Collectibles & Japanese Culture",
@@ -175,7 +175,7 @@
   },
   "footer": {
     "brand": "TAKETORA",
-    "brandDesc": "Antique shop with three locations in Kyoto — Kodaiji, Kiyomizu and Kameyacho. Japanese antiques, traditional crafts, anime figures & Pokémon cards.",
+    "brandDesc": "Antique shop with three locations in Kyoto — Kodaiji, Kiyomizu and Shichijo. Japanese antiques, traditional crafts, anime figures & Pokémon cards.",
     "collectionTitle": "Collection",
     "infoTitle": "Information",
     "shopInfoTitle": "Shop Info",

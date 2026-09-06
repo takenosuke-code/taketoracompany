@@ -151,8 +151,8 @@ function getStructuredData(locale: string) {
         logo: `${BASE_URL}/assets/taketora_logo.png`,
         image: localeUrl(locale, "/opengraph-image"),
         description: isJa
-          ? "京都に3店舗（高台寺・清水寺・亀屋町）を構えるアンティークショップ。骨董品、古道具、アニメフィギュア、ポケモンカードなど厳選コレクションを販売。"
-          : "Antique shop with three locations in Kyoto — Kodaiji, Kiyomizu and Kameyacho. Japanese antiques, traditional crafts, anime figures & Pokémon cards.",
+          ? "京都に3店舗（高台寺・清水寺・七条）を構えるアンティークショップ。骨董品、古道具、アニメフィギュア、ポケモンカードなど厳選コレクションを販売。"
+          : "Antique shop with three locations in Kyoto — Kodaiji, Kiyomizu and Shichijo. Japanese antiques, traditional crafts, anime figures & Pokémon cards.",
         subOrganization: SHOPS.map((shop) => ({
           "@id": `${BASE_URL}/#shop-${shop.id}`,
         })),

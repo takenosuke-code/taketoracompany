@@ -4,7 +4,7 @@
 // TODO(店舗確認): 住所・徒歩時間は既存サイトの visit ページ定義から移設したもの。
 // 正式な表記・徒歩時間は店舗側に確認すること。
 
-export type ShopId = "kodaiji" | "kiyomizu" | "kameyacho";
+export type ShopId = "kodaiji" | "kiyomizu" | "shichijo";
 
 export interface Shop {
   id: ShopId;
@@ -22,13 +22,13 @@ export interface Shop {
   /**
    * Googleマップへのリンク。空文字にしないこと（リンク切れ防止）。
    * 高台寺店のみ公式の共有リンク。
-   * TODO(店舗確認): 清水寺店・亀屋町店は Google ビジネスプロフィールの
+   * TODO(店舗確認): 清水寺店・七条店は Google ビジネスプロフィールの
    * 共有リンクが取得でき次第、検索URLから差し替える。
    */
   mapsUrl: string;
   /**
    * 検証できた座標のみ設定する（高台寺店は公式共有リンクの解決先から取得）。
-   * TODO(店舗確認): 清水寺店・亀屋町店の座標は未検証のため未設定。
+   * TODO(店舗確認): 清水寺店・七条店の座標は未検証のため未設定。
    */
   geo?: { latitude: number; longitude: number };
   walkMinsFromKiyomizu: number;
@@ -89,20 +89,21 @@ export const SHOPS: Shop[] = [
     walkMinsFromKiyomizu: 12,
   },
   {
-    id: "kameyacho",
-    nameJa: "たけとら 亀屋町店",
-    nameEn: "Taketora Kameyacho",
-    addressJa: "〒600-8451 京都府京都市下京区亀屋町51",
-    addressEn: "51 Kameyacho, Shimogyo Ward, Kyoto, 600-8451, Japan",
-    postalCode: "600-8451",
-    streetAddressJa: "亀屋町51",
-    streetAddressEn: "51 Kameyacho",
-    addressLocalityJa: "京都市下京区",
-    addressLocalityEn: "Shimogyo Ward, Kyoto",
+    id: "shichijo",
+    nameJa: "たけとら 七条店",
+    nameEn: "Taketora Shichijo",
+    addressJa: "〒605-0981 京都府京都市東山区本町6丁目2-3",
+    addressEn: "6 Chome-2-3 Honmachi, Higashiyama Ward, Kyoto, 605-0981, Japan",
+    postalCode: "605-0981",
+    streetAddressJa: "本町6丁目2-3",
+    streetAddressEn: "6 Chome-2-3 Honmachi",
+    addressLocalityJa: "京都市東山区",
+    addressLocalityEn: "Higashiyama Ward, Kyoto",
     // TODO(店舗確認): 公式の共有リンク取得後に差し替え（現状は住所検索URL）
     mapsUrl:
-      "https://www.google.com/maps/search/?api=1&query=Taketora%20Kameyacho%2051%20Kameyacho%2C%20Shimogyo%20Ward%2C%20Kyoto%2C%20600-8451%2C%20Japan",
-    walkMinsFromKiyomizu: 18,
+      "https://www.google.com/maps/search/?api=1&query=Taketora%20Shichijo%206%20Chome-2-3%20Honmachi%2C%20Higashiyama%20Ward%2C%20Kyoto%2C%20605-0981%2C%20Japan",
+    // TODO(店舗確認): 七条店（本町6丁目）までの清水寺からの徒歩時間は要確認
+    walkMinsFromKiyomizu: 20,
   },
 ];
 
