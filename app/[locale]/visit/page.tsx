@@ -3,6 +3,7 @@ import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
 import { localeUrl, hreflang, ogMeta } from "@/lib/urls";
+import { SHOPS, directionsUrl } from "@/lib/shops";
 
 export async function generateMetadata({
   params: { locale },
@@ -20,39 +21,6 @@ export async function generateMetadata({
     ...ogMeta(locale, { title: t("title"), description: t("description"), path: "/visit" }),
   };
 }
-
-const shops = [
-  {
-    id: 1,
-    nameJa: "たけとら 高台寺店",
-    nameEn: "Taketora Kodaiji",
-    addressJa: "〒605-0824 京都府京都市東山区南町421-2",
-    addressEn:
-      "421-2 Minamimachi, Higashiyama Ward, Kyoto, 605-0824, Japan",
-    mapsUrl: "https://maps.app.goo.gl/uffSvD9BWBj35SmB6",
-    walkMinsFromKiyomizu: 6,
-  },
-  {
-    id: 2,
-    nameJa: "たけとら 清水寺店",
-    nameEn: "Taketora Kiyomizu",
-    addressJa: "〒605-0848 京都府京都市東山区五条橋東6丁目539-49",
-    addressEn:
-      "6 Chome-539-49 Gojobashihigashi, Higashiyama Ward, Kyoto, 605-0848, Japan",
-    mapsUrl: "",
-    walkMinsFromKiyomizu: 12,
-  },
-  {
-    id: 3,
-    nameJa: "たけとら 亀屋町店",
-    nameEn: "Taketora Kameyacho",
-    addressJa: "〒600-8451 京都府京都市下京区亀屋町51",
-    addressEn:
-      "51 Kameyacho, Shimogyo Ward, Kyoto, 600-8451, Japan",
-    mapsUrl: "",
-    walkMinsFromKiyomizu: 18,
-  },
-];
 
 const attractions = [
   {
@@ -182,7 +150,7 @@ export default async function VisitPage({
         <section className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
           <ScrollRevealSection variant="scale">
             <div className="max-w-4xl mx-auto">
-              <article className="glass-card p-8 sm:p-10 lg:p-14 shadow-2xl relative overflow-hidden">
+              <article className="glass-card p-6 sm:p-10 lg:p-14 shadow-2xl relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-[#D4AF37]/20 rounded-tl-xl" />
                 <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-[#D4AF37]/20 rounded-br-xl" />
                 <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-gradient-gold mb-6 tracking-wide">
@@ -211,11 +179,10 @@ export default async function VisitPage({
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-12">
-                {shops.map((shop, index) => {
+                {SHOPS.map((shop, index) => {
                   const address = isJa ? shop.addressJa : shop.addressEn;
                   const shopName = isJa ? shop.nameJa : shop.nameEn;
-                  const mapsQuery = encodeURIComponent(`${shopName} ${address}`);
-                  const directionsUrl = shop.mapsUrl || `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
+                  const shopDirectionsUrl = directionsUrl(shop, locale);
 
                   return (
                     <ScrollRevealSection key={shop.id} variant="fade-up" delay={index * 150}>
@@ -250,7 +217,7 @@ export default async function VisitPage({
                           <div className="gold-line mb-5" />
 
                           {/* Info row */}
-                          <div className="flex items-center justify-between gap-2 mb-6">
+                          <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1.5 mb-6">
                             <div className="flex items-center gap-2">
                               <svg className="w-3.5 h-3.5 text-[#D4AF37]/50" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -271,7 +238,7 @@ export default async function VisitPage({
 
                           {/* Directions button */}
                           <a
-                            href={directionsUrl}
+                            href={shopDirectionsUrl}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="mt-auto w-full flex items-center justify-center gap-2 text-sm font-bold tracking-wider text-stone-950 bg-gradient-to-r from-[#D4AF37] to-amber-600 hover:from-[#e0c050] hover:to-amber-500 rounded-lg px-4 py-3 transition-all duration-300 shadow-lg shadow-amber-900/20 hover:shadow-gold-lg hover:-translate-y-0.5"
@@ -329,7 +296,7 @@ export default async function VisitPage({
                       href="https://www.google.com/maps/search/Kiyomizu-dera,+Higashiyama+Ward,+Kyoto/@34.9948,135.7850,15z"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="glass-card px-4 py-2.5 text-[#D4AF37] text-xs sm:text-sm hover:border-amber-700/40 transition-all duration-300 font-light inline-flex items-center gap-2"
+                      className="glass-card px-4 py-3 min-h-[44px] text-[#D4AF37] text-xs sm:text-sm hover:border-amber-700/40 transition-all duration-300 font-light inline-flex items-center gap-2"
                     >
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />

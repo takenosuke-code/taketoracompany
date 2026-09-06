@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
 
 interface ImageSlideshowProps {
@@ -46,16 +46,36 @@ export default function ImageSlideshow({
     setCurrentIndex(index);
   };
 
+  // タッチ操作: スワイプで前後移動、タッチ中は自動再生を止める
+  const touchStartX = useRef<number | null>(null);
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    setIsHovered(true);
+  };
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current !== null) {
+      const delta = e.changedTouches[0].clientX - touchStartX.current;
+      if (Math.abs(delta) > 50) {
+        if (delta < 0) goToNext();
+        else goToPrevious();
+      }
+      touchStartX.current = null;
+    }
+    setIsHovered(false);
+  };
+
   if (!images || images.length === 0) return null;
 
   return (
-    <div 
+    <div
       className={`relative w-full h-full group ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       {/* Main Image Container with Ken Burns */}
-      <div className="relative w-full h-[450px] sm:h-[550px] md:h-[600px] lg:h-[700px] overflow-hidden rounded-2xl border border-amber-900/20 shadow-2xl shadow-black/30">
+      <div className="relative w-full h-[340px] sm:h-[550px] md:h-[600px] lg:h-[700px] overflow-hidden rounded-2xl border border-amber-900/20 shadow-2xl shadow-black/30">
         {images.map((image, index) => (
           <div
             key={index}
@@ -93,7 +113,7 @@ export default function ImageSlideshow({
         <>
           <button
             onClick={goToPrevious}
-            className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-30 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-0 -translate-x-2"
+            className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-30 opacity-100 translate-x-0 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 md:group-hover:translate-x-0 md:-translate-x-2"
             aria-label="Previous image"
           >
             <div className="bg-stone-950/50 hover:bg-stone-950/70 backdrop-blur-md text-[#D4AF37] p-3 sm:p-4 rounded-full transition-all duration-300 hover:scale-110 border border-amber-900/20 hover:border-amber-700/40 hover:shadow-gold">
@@ -104,7 +124,7 @@ export default function ImageSlideshow({
           </button>
           <button
             onClick={goToNext}
-            className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-30 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-0 translate-x-2"
+            className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-30 opacity-100 translate-x-0 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 md:group-hover:translate-x-0 md:translate-x-2"
             aria-label="Next image"
           >
             <div className="bg-stone-950/50 hover:bg-stone-950/70 backdrop-blur-md text-[#D4AF37] p-3 sm:p-4 rounded-full transition-all duration-300 hover:scale-110 border border-amber-900/20 hover:border-amber-700/40 hover:shadow-gold">
@@ -123,7 +143,7 @@ export default function ImageSlideshow({
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className="relative group/dot"
+              className="relative group/dot p-2.5 -m-1.5"
               aria-label={`Go to slide ${index + 1}`}
             >
               <span

@@ -85,6 +85,13 @@ export default function LoadingScreen() {
     }
   }, [phase]);
 
+  // reveal 完了前にアンマウントされた場合でも body のスクロールロックを必ず解除する
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
+
   // Fallback: auto-complete after 1.5s even if the video never loads, so the
   // splash never blocks the hero (and therefore LCP) on a slow connection.
   useEffect(() => {

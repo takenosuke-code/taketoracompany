@@ -34,7 +34,7 @@ export default function CurrencyConverter({ amountJPY }: CurrencyConverterProps)
           <button
             key={currency}
             onClick={() => setSelectedCurrency(currency)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-300 ${
+            className={`px-4 py-2.5 min-h-[44px] rounded-lg text-xs font-medium transition-all duration-300 ${
               selectedCurrency === currency
                 ? 'bg-gradient-to-r from-[#D4AF37] to-amber-600 text-stone-950 shadow-gold'
                 : 'bg-stone-800/60 text-[#F2E8DC]/60 border border-amber-900/15 hover:border-amber-700/30 hover:text-[#F2E8DC]/80'

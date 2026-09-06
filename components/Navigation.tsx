@@ -136,7 +136,9 @@ export default function Navigation({ locale }: NavigationProps) {
         {/* Mobile Menu */}
         <div
           className={`lg:hidden overflow-hidden transition-all duration-500 ease-in-out ${
-            mobileMenuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+            mobileMenuOpen
+              ? "max-h-[calc(100dvh-80px)] overflow-y-auto opacity-100"
+              : "max-h-0 opacity-0"
           }`}
         >
           <nav className="pb-6 pt-2 border-t border-stone-700/50 space-y-1">

@@ -1,10 +1,14 @@
 import { Link } from "@/i18n/routing";
 import Image from "next/image";
-import { createClient } from "@/utils/supabase/server";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
 import ImageSlideshow from "@/components/ImageSlideshow";
 import LazyVideo from "@/components/LazyVideo";
+import { SHOPS, directionsUrl } from "@/lib/shops";
+import { getCatalogProducts, catalogToCard } from "@/lib/catalog";
+
+// 商品・在庫（スマレジ）を60秒ごとに再取得
+export const revalidate = 60;
 
 export default async function Homepage({
   params: { locale },
@@ -15,50 +19,9 @@ export default async function Homepage({
   const t = await getTranslations({ locale });
   const isJa = locale === "ja";
 
-  // Fetch from all tables
-  const supabase = createClient();
-  const [animeResult, pokemonResult, antiqueResult] = await Promise.all([
-    supabase
-      .from("animefigure")
-      .select("*")
-      .order("created_at", { ascending: false })
-      .limit(10),
-    supabase
-      .from("pokemon")
-      .select("*")
-      .order("created_at", { ascending: false })
-      .limit(10),
-    supabase
-      .from("antique")
-      .select("*")
-      .order("created_at", { ascending: false })
-      .limit(10),
-  ]);
-
-  const allProducts: any[] = [];
-  if (animeResult.data) {
-    animeResult.data.forEach((product: any) => {
-      allProducts.push({ ...product, _tableSource: "animefigure" });
-    });
-  }
-  if (pokemonResult.data) {
-    pokemonResult.data.forEach((product: any) => {
-      allProducts.push({ ...product, _tableSource: "pokemon" });
-    });
-  }
-  if (antiqueResult.data) {
-    antiqueResult.data.forEach((product: any) => {
-      allProducts.push({ ...product, _tableSource: "antique" });
-    });
-  }
-
-  allProducts.sort((a, b) => {
-    const dateA = a.created_at ? new Date(a.created_at).getTime() : 0;
-    const dateB = b.created_at ? new Date(b.created_at).getTime() : 0;
-    return dateB - dateA;
-  });
-
-  const products = allProducts.slice(0, 6);
+  // 新着: taketora_app（在庫管理アプリ）の商品マスタから最新6件
+  const catalog = await getCatalogProducts();
+  const products = catalog.slice(0, 6).map(catalogToCard);
 
   // Slideshow alt texts
   const slideshowImages = [
@@ -126,7 +89,9 @@ export default async function Homepage({
       {/* Content */}
       <div className="relative z-10">
         {/* --- HERO SECTION --- */}
-        <section className="h-screen w-full flex items-center justify-center pt-16 sm:pt-20 relative overflow-hidden">
+        {/* h-screen 固定だと縦の短い端末でCTAが overflow-hidden に切られるため、
+            min-h(小さい画面では内容ぶん伸びる)+ svh(iOSのURLバー分を除いた高さ)にする */}
+        <section className="min-h-svh w-full flex items-center justify-center pt-16 sm:pt-20 pb-24 sm:pb-16 relative overflow-hidden">
           {/* Decorative floating orbs */}
           <div className="floating-orb w-64 h-64 bg-amber-500/10 top-20 -left-20" />
           <div className="floating-orb w-48 h-48 bg-amber-400/10 bottom-40 -right-10 animation-delay-2000" style={{ animationDelay: '3s' }} />
@@ -134,11 +99,11 @@ export default async function Homepage({
           <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
             {/* Eyebrow with gold line */}
             <div className="flex items-center justify-center gap-4 mb-6 animate-fade-in">
-              <div className="h-px w-12 sm:w-20 bg-gradient-to-r from-transparent to-[#D4AF37]/60" />
+              <div className="hidden sm:block h-px w-12 sm:w-20 bg-gradient-to-r from-transparent to-[#D4AF37]/60" />
               <p className="text-xs sm:text-sm font-medium tracking-[0.35em] text-[#D4AF37] uppercase">
                 {t("hero.eyebrow")}
               </p>
-              <div className="h-px w-12 sm:w-20 bg-gradient-to-l from-transparent to-[#D4AF37]/60" />
+              <div className="hidden sm:block h-px w-12 sm:w-20 bg-gradient-to-l from-transparent to-[#D4AF37]/60" />
             </div>
 
             {/* Main Title with shimmer — no entrance animation so the LCP
@@ -528,7 +493,7 @@ export default async function Homepage({
         <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-10">
           <ScrollRevealSection variant="scale">
             <div className="max-w-5xl mx-auto">
-              <div className="glass-card p-8 sm:p-10 lg:p-14 relative overflow-hidden">
+              <div className="glass-card p-6 sm:p-10 lg:p-14 relative overflow-hidden">
                 {/* Decorative corner */}
                 <div className="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-[#D4AF37]/20 rounded-tl-xl" />
                 <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-[#D4AF37]/20 rounded-br-xl" />
@@ -543,63 +508,56 @@ export default async function Homepage({
                   <div className="mt-4 mx-auto w-20 h-0.5 bg-gradient-to-r from-transparent via-[#D4AF37]/60 to-transparent" />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                  {/* Info */}
-                  <div className="space-y-5">
-                    <div className="space-y-1">
+                {/* 3店舗（店舗マスタ lib/shops.ts から表示） */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 mb-8">
+                  {SHOPS.map((shop) => (
+                    <div
+                      key={shop.id}
+                      className="flex flex-col gap-3 p-5 rounded-lg bg-amber-500/5 border border-amber-900/10"
+                    >
                       <h3 className="text-[#F2E8DC] font-medium text-sm tracking-wider uppercase">
-                        {t("shopInfo.name")}
+                        {isJa ? shop.nameJa : shop.nameEn}
                       </h3>
                       <p className="text-[#F2E8DC]/65 text-sm font-light leading-relaxed">
-                        {t("shopInfo.address")}
+                        {isJa ? shop.addressJa : shop.addressEn}
                       </p>
-                    </div>
-                    <div className="gold-line" />
-                    <div>
-                      <p className="text-[#F2E8DC]/65 text-sm font-light">
-                        {t("shopInfo.hours")}
+                      <p className="text-[#D4AF37] text-xs font-semibold tracking-wide">
+                        {t("visit.minWalk", { mins: shop.walkMinsFromKiyomizu })}
                       </p>
-                    </div>
-                    <div>
-                      <p className="text-[#F2E8DC]/65 text-sm font-light">
-                        {t("shopInfo.languages")}
-                      </p>
-                    </div>
-                    <div>
                       <a
-                        href="https://www.instagram.com/taketora_antiques/"
+                        href={directionsUrl(shop, locale)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-[#D4AF37] text-sm hover:text-[#F2E8DC] transition-colors duration-300 group"
+                        className="mt-auto inline-flex items-center gap-1.5 text-[#D4AF37] text-sm hover:text-[#F2E8DC] transition-colors duration-300"
                       >
-                        <svg className="w-4 h-4 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                        {t("visit.getDirections")}
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                         </svg>
-                        @taketora_antiques
                       </a>
                     </div>
-                  </div>
+                  ))}
+                </div>
 
-                  {/* Access */}
-                  <div className="space-y-4">
-                    <h3 className="text-[#F2E8DC] font-medium text-sm tracking-wider uppercase">
-                      {t("shopInfo.access.title")}
-                    </h3>
-                    <ul className="space-y-3 text-[#F2E8DC]/65 text-sm font-light">
-                      <li className="flex items-start gap-3 p-3 rounded-lg bg-amber-500/5 border border-amber-900/10">
-                        <span className="text-[#D4AF37] mt-0.5 text-base">🚃</span>
-                        <span>{t("shopInfo.access.keihan")}</span>
-                      </li>
-                      <li className="flex items-start gap-3 p-3 rounded-lg bg-amber-500/5 border border-amber-900/10">
-                        <span className="text-[#D4AF37] mt-0.5 text-base">🚌</span>
-                        <span>{t("shopInfo.access.bus")}</span>
-                      </li>
-                      <li className="flex items-start gap-3 p-3 rounded-lg bg-amber-500/5 border border-amber-900/10">
-                        <span className="text-[#D4AF37] mt-0.5 text-base">⛩️</span>
-                        <span>{t("shopInfo.access.kiyomizu")}</span>
-                      </li>
-                    </ul>
-                  </div>
+                {/* 共通情報（営業時間・言語・Instagram） */}
+                <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-x-8 gap-y-3">
+                  <p className="text-[#F2E8DC]/65 text-sm font-light">
+                    {t("shopInfo.hours")}
+                  </p>
+                  <p className="text-[#F2E8DC]/65 text-sm font-light">
+                    {t("shopInfo.languages")}
+                  </p>
+                  <a
+                    href="https://www.instagram.com/taketora_antiques/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-[#D4AF37] text-sm hover:text-[#F2E8DC] transition-colors duration-300 group"
+                  >
+                    <svg className="w-4 h-4 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg>
+                    @taketora_antiques
+                  </a>
                 </div>
 
                 {/* Google Maps Embed */}
@@ -651,17 +609,8 @@ export default async function Homepage({
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
                 {products?.map((product: any, index: number) => {
-                  let categorySlug = "anime-figures";
-                  if (product._tableSource === "animefigure") {
-                    categorySlug = "anime-figures";
-                  } else if (product._tableSource === "pokemon") {
-                    categorySlug = "pokemon";
-                  } else if (product._tableSource === "antique") {
-                    categorySlug = "antique";
-                  }
-
                   const productUrl = product.slug
-                    ? `/${categorySlug}/${product.slug}`
+                    ? `/anime-figures/${product.slug}`
                     : "/collection";
 
                   return (
