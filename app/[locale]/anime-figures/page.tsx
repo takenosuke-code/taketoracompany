@@ -1,12 +1,15 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
-import { createClient } from "@/utils/supabase/server";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
 import { BreadcrumbItem } from "@/types/product";
 import { localeUrl, localePath, hreflang, ogMeta } from "@/lib/urls";
+import { getCatalogProducts, catalogToCard } from "@/lib/catalog";
+
+// 商品・在庫（スマレジ）を60秒ごとに再取得
+export const revalidate = 60;
 
 export async function generateMetadata({
   params: { locale },
@@ -33,31 +36,24 @@ export default async function AnimeFiguresPage({
   setRequestLocale(locale);
   const t = await getTranslations({ locale });
   const isJa = locale === "ja";
-  const supabase = createClient();
 
-  const { data: products, error } = await supabase
-    .from("animefigure")
-    .select("*")
-    .order("category", { ascending: true });
-
-  if (error) {
-    console.error("Error fetching anime figures:", error);
-  }
+  // taketora_app（在庫管理アプリ）の商品マスタから取得。
+  // catalogToCard が category にシリーズ名を入れるので、シリーズ別にグループ表示される。
+  const catalog = await getCatalogProducts("anime-figures");
+  const products = catalog.map(catalogToCard);
 
   const groupedProducts: Record<string, typeof products> = {};
   const productsWithoutCategory: typeof products = [];
 
-  if (products) {
-    products.forEach((product: any) => {
-      const category = product.category || product.sub_category || product.subcategory;
-      if (category) {
-        if (!groupedProducts[category]) groupedProducts[category] = [];
-        groupedProducts[category].push(product);
-      } else {
-        productsWithoutCategory.push(product);
-      }
-    });
-  }
+  products.forEach((product) => {
+    const category = product.category;
+    if (category) {
+      if (!groupedProducts[category]) groupedProducts[category] = [];
+      groupedProducts[category].push(product);
+    } else {
+      productsWithoutCategory.push(product);
+    }
+  });
 
   const formatCategoryName = (name: string): string => {
     if (!name || name === "other") return isJa ? "その他" : "Other";

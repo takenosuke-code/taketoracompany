@@ -1,11 +1,14 @@
 import { Link } from "@/i18n/routing";
 import Image from "next/image";
-import { createClient } from "@/utils/supabase/server";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
 import ImageSlideshow from "@/components/ImageSlideshow";
 import LazyVideo from "@/components/LazyVideo";
 import { SHOPS, directionsUrl } from "@/lib/shops";
+import { getCatalogProducts, catalogToCard } from "@/lib/catalog";
+
+// 商品・在庫（スマレジ）を60秒ごとに再取得
+export const revalidate = 60;
 
 export default async function Homepage({
   params: { locale },
@@ -16,50 +19,9 @@ export default async function Homepage({
   const t = await getTranslations({ locale });
   const isJa = locale === "ja";
 
-  // Fetch from all tables
-  const supabase = createClient();
-  const [animeResult, pokemonResult, antiqueResult] = await Promise.all([
-    supabase
-      .from("animefigure")
-      .select("*")
-      .order("created_at", { ascending: false })
-      .limit(10),
-    supabase
-      .from("pokemon")
-      .select("*")
-      .order("created_at", { ascending: false })
-      .limit(10),
-    supabase
-      .from("antique")
-      .select("*")
-      .order("created_at", { ascending: false })
-      .limit(10),
-  ]);
-
-  const allProducts: any[] = [];
-  if (animeResult.data) {
-    animeResult.data.forEach((product: any) => {
-      allProducts.push({ ...product, _tableSource: "animefigure" });
-    });
-  }
-  if (pokemonResult.data) {
-    pokemonResult.data.forEach((product: any) => {
-      allProducts.push({ ...product, _tableSource: "pokemon" });
-    });
-  }
-  if (antiqueResult.data) {
-    antiqueResult.data.forEach((product: any) => {
-      allProducts.push({ ...product, _tableSource: "antique" });
-    });
-  }
-
-  allProducts.sort((a, b) => {
-    const dateA = a.created_at ? new Date(a.created_at).getTime() : 0;
-    const dateB = b.created_at ? new Date(b.created_at).getTime() : 0;
-    return dateB - dateA;
-  });
-
-  const products = allProducts.slice(0, 6);
+  // 新着: taketora_app（在庫管理アプリ）の商品マスタから最新6件
+  const catalog = await getCatalogProducts();
+  const products = catalog.slice(0, 6).map(catalogToCard);
 
   // Slideshow alt texts
   const slideshowImages = [
@@ -127,7 +89,9 @@ export default async function Homepage({
       {/* Content */}
       <div className="relative z-10">
         {/* --- HERO SECTION --- */}
-        <section className="h-screen w-full flex items-center justify-center pt-16 sm:pt-20 relative overflow-hidden">
+        {/* h-screen 固定だと縦の短い端末でCTAが overflow-hidden に切られるため、
+            min-h(小さい画面では内容ぶん伸びる)+ svh(iOSのURLバー分を除いた高さ)にする */}
+        <section className="min-h-svh w-full flex items-center justify-center pt-16 sm:pt-20 pb-24 sm:pb-16 relative overflow-hidden">
           {/* Decorative floating orbs */}
           <div className="floating-orb w-64 h-64 bg-amber-500/10 top-20 -left-20" />
           <div className="floating-orb w-48 h-48 bg-amber-400/10 bottom-40 -right-10 animation-delay-2000" style={{ animationDelay: '3s' }} />
@@ -135,11 +99,11 @@ export default async function Homepage({
           <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
             {/* Eyebrow with gold line */}
             <div className="flex items-center justify-center gap-4 mb-6 animate-fade-in">
-              <div className="h-px w-12 sm:w-20 bg-gradient-to-r from-transparent to-[#D4AF37]/60" />
+              <div className="hidden sm:block h-px w-12 sm:w-20 bg-gradient-to-r from-transparent to-[#D4AF37]/60" />
               <p className="text-xs sm:text-sm font-medium tracking-[0.35em] text-[#D4AF37] uppercase">
                 {t("hero.eyebrow")}
               </p>
-              <div className="h-px w-12 sm:w-20 bg-gradient-to-l from-transparent to-[#D4AF37]/60" />
+              <div className="hidden sm:block h-px w-12 sm:w-20 bg-gradient-to-l from-transparent to-[#D4AF37]/60" />
             </div>
 
             {/* Main Title with shimmer — no entrance animation so the LCP
@@ -529,7 +493,7 @@ export default async function Homepage({
         <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-10">
           <ScrollRevealSection variant="scale">
             <div className="max-w-5xl mx-auto">
-              <div className="glass-card p-8 sm:p-10 lg:p-14 relative overflow-hidden">
+              <div className="glass-card p-6 sm:p-10 lg:p-14 relative overflow-hidden">
                 {/* Decorative corner */}
                 <div className="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-[#D4AF37]/20 rounded-tl-xl" />
                 <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-[#D4AF37]/20 rounded-br-xl" />
@@ -645,17 +609,8 @@ export default async function Homepage({
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
                 {products?.map((product: any, index: number) => {
-                  let categorySlug = "anime-figures";
-                  if (product._tableSource === "animefigure") {
-                    categorySlug = "anime-figures";
-                  } else if (product._tableSource === "pokemon") {
-                    categorySlug = "pokemon";
-                  } else if (product._tableSource === "antique") {
-                    categorySlug = "antique";
-                  }
-
                   const productUrl = product.slug
-                    ? `/${categorySlug}/${product.slug}`
+                    ? `/anime-figures/${product.slug}`
                     : "/collection";
 
                   return (

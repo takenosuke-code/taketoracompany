@@ -1,12 +1,10 @@
 import { MetadataRoute } from "next";
-import { createClient } from "@/utils/supabase/server";
 import { localeUrl, hreflang } from "@/lib/urls";
+import { getCatalogProducts, CATALOG_CATEGORY } from "@/lib/catalog";
 
 const locales = ["ja", "en"] as const;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const supabase = createClient();
-
   const routes: MetadataRoute.Sitemap = [];
 
   // Static pages for each locale
@@ -34,74 +32,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  // Fetch products from Supabase
+  // 商品ページ: taketora_app（在庫管理アプリ）の商品マスタから生成
   try {
-    const [animeResult, pokemonResult, antiqueResult] = await Promise.all([
-      supabase.from("animefigure").select("slug, updated_at, created_at"),
-      supabase.from("pokemon").select("slug, updated_at, created_at"),
-      supabase.from("antique").select("slug, updated_at, created_at"),
-    ]);
-
-    const productRoutes: Array<{
-      slug: string;
-      category: string;
-      lastModified: Date;
-    }> = [];
-
-    if (animeResult.data) {
-      animeResult.data.forEach((p) => {
-        if (p.slug) {
-          productRoutes.push({
-            slug: p.slug,
-            category: "anime-figures",
-            lastModified: p.updated_at
-              ? new Date(p.updated_at)
-              : p.created_at
-              ? new Date(p.created_at)
-              : new Date(),
-          });
-        }
-      });
-    }
-
-    if (pokemonResult.data) {
-      pokemonResult.data.forEach((p) => {
-        if (p.slug) {
-          productRoutes.push({
-            slug: p.slug,
-            category: "pokemon",
-            lastModified: p.updated_at
-              ? new Date(p.updated_at)
-              : p.created_at
-              ? new Date(p.created_at)
-              : new Date(),
-          });
-        }
-      });
-    }
-
-    if (antiqueResult.data) {
-      antiqueResult.data.forEach((p) => {
-        if (p.slug) {
-          productRoutes.push({
-            slug: p.slug,
-            category: "antique",
-            lastModified: p.updated_at
-              ? new Date(p.updated_at)
-              : p.created_at
-              ? new Date(p.created_at)
-              : new Date(),
-          });
-        }
-      });
-    }
-
+    const products = await getCatalogProducts();
     for (const locale of locales) {
-      for (const product of productRoutes) {
-        const path = `/${product.category}/${product.slug}`;
+      for (const product of products) {
+        const path = `/${CATALOG_CATEGORY}/${product.slug}`;
         routes.push({
           url: localeUrl(locale, path),
-          lastModified: product.lastModified,
+          lastModified: product.updatedAt
+            ? new Date(product.updatedAt)
+            : product.createdAt
+            ? new Date(product.createdAt)
+            : new Date(),
           changeFrequency: "weekly",
           priority: 0.7,
           alternates: {

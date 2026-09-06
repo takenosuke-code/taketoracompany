@@ -1,12 +1,15 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
-import { createClient } from "@/utils/supabase/server";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
 import { BreadcrumbItem } from "@/types/product";
 import { localeUrl, localePath, hreflang, ogMeta } from "@/lib/urls";
+import { getCatalogProducts, catalogToCard } from "@/lib/catalog";
+
+// 商品・在庫（スマレジ）を60秒ごとに再取得
+export const revalidate = 60;
 
 export async function generateMetadata({
   params: { locale },
@@ -33,34 +36,25 @@ export default async function AntiquePage({
   setRequestLocale(locale);
   const t = await getTranslations({ locale });
   const isJa = locale === "ja";
-  const supabase = createClient();
 
-  const { data: products, error } = await supabase
-    .from("antique")
-    .select("*")
-    .order("category", { ascending: true });
-
-  if (error) {
-    console.error("Error fetching antique products:", error);
-  }
+  // taketora_app の商品マスタから取得（現状 antique カテゴリは未使用のため空になる）
+  const catalog = await getCatalogProducts("antique");
+  const products = catalog.map(catalogToCard);
 
   const groupedProducts: Record<string, typeof products> = {};
   const productsWithoutSubcategory: typeof products = [];
 
-  if (products) {
-    products.forEach((product: any) => {
-      const category =
-        product.category || product.sub_category || product.subcategory;
-      if (category) {
-        if (!groupedProducts[category]) {
-          groupedProducts[category] = [];
-        }
-        groupedProducts[category].push(product);
-      } else {
-        productsWithoutSubcategory.push(product);
+  products.forEach((product) => {
+    const category = product.category;
+    if (category) {
+      if (!groupedProducts[category]) {
+        groupedProducts[category] = [];
       }
-    });
-  }
+      groupedProducts[category].push(product);
+    } else {
+      productsWithoutSubcategory.push(product);
+    }
+  });
 
   const formatSubcategoryName = (slug: string): string => {
     return slug
@@ -76,8 +70,10 @@ export default async function AntiquePage({
 
   return (
     <div className="min-h-screen bg-stone-950 relative">
-      {/* Background with image */}
-      <div className="fixed inset-0 -z-10">
+      {/* Background with image
+          -z-10 だと親(bg-stone-950)の背面に回って画像が一切表示されなかったため、
+          visit ページと同じ z-0(背景) / z-10(コンテンツ) の構成にする */}
+      <div className="fixed inset-0 z-0">
         <Image
           src="https://raemfaxgstoezqgbtdry.supabase.co/storage/v1/object/public/site-assets/wafustyle.png"
           alt={
@@ -89,7 +85,6 @@ export default async function AntiquePage({
           sizes="100vw"
           quality={60}
           className="object-cover opacity-30"
-          priority
         />
         <div className="absolute inset-0 bg-gradient-to-b from-stone-950/70 via-stone-950/60 to-stone-950/80" />
       </div>

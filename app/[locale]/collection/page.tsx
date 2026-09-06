@@ -1,12 +1,15 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
-import { createClient } from "@/utils/supabase/server";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ScrollRevealSection from "@/components/ScrollRevealSection";
 import { BreadcrumbItem } from "@/types/product";
 import { localeUrl, localePath, hreflang, ogMeta } from "@/lib/urls";
+import { getCatalogProducts, catalogToCard } from "@/lib/catalog";
+
+// 商品・在庫（スマレジ）を60秒ごとに再取得
+export const revalidate = 60;
 
 export async function generateMetadata({
   params: { locale },
@@ -37,44 +40,21 @@ export default async function CollectionPage({
   setRequestLocale(locale);
   const t = await getTranslations({ locale });
   const isJa = locale === "ja";
-  const supabase = createClient();
 
-  const [animeFiguresResult, pokemonCardsResult, antiquesResult] =
-    await Promise.all([
-      supabase.from("animefigure").select("*").order("category", { ascending: true }),
-      supabase.from("pokemon").select("*").order("category", { ascending: true }),
-      supabase.from("antique").select("*").order("category", { ascending: true }),
-    ]);
+  // taketora_app（在庫管理アプリ）の商品マスタから全商品を取得。
+  // 現状は全商品 anime-figures 扱いで、シリーズ名ごとにグループ表示する。
+  const catalog = await getCatalogProducts();
+  const cards = catalog.map(catalogToCard);
 
   const groupedProducts: Record<string, Record<string, any[]>> = {};
 
-  if (animeFiguresResult.data && animeFiguresResult.data.length > 0) {
+  if (cards.length > 0) {
     groupedProducts["anime-figures"] = {};
-    animeFiguresResult.data.forEach((product: any) => {
+    cards.forEach((product) => {
       const category = product.category || "other";
       if (!groupedProducts["anime-figures"][category])
         groupedProducts["anime-figures"][category] = [];
       groupedProducts["anime-figures"][category].push(product);
-    });
-  }
-
-  if (pokemonCardsResult.data && pokemonCardsResult.data.length > 0) {
-    groupedProducts["pokemon"] = {};
-    pokemonCardsResult.data.forEach((product: any) => {
-      const category = product.category || "other";
-      if (!groupedProducts["pokemon"][category])
-        groupedProducts["pokemon"][category] = [];
-      groupedProducts["pokemon"][category].push(product);
-    });
-  }
-
-  if (antiquesResult.data && antiquesResult.data.length > 0) {
-    groupedProducts["antique"] = {};
-    antiquesResult.data.forEach((product: any) => {
-      const category = product.category || "other";
-      if (!groupedProducts["antique"][category])
-        groupedProducts["antique"][category] = [];
-      groupedProducts["antique"][category].push(product);
     });
   }
 

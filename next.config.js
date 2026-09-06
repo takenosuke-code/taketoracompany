@@ -12,7 +12,8 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'raemfaxgstoezqgbtdry.supabase.co',
+        // サイト用アセット(raemfaxgstoezqgbtdry)と taketora_app の商品写真の両方を許可
+        hostname: '*.supabase.co',
       },
       {
         protocol: 'https',
