@@ -53,7 +53,7 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
               ) : (
                 <Link
                   href={item.href}
-                  className="text-[#F2E8DC]/40 hover:text-[#D4AF37] transition-colors duration-300 truncate max-w-[120px] sm:max-w-none font-light"
+                  className="text-[#F2E8DC]/40 hover:text-[#D4AF37] transition-colors duration-300 truncate max-w-[120px] sm:max-w-none font-light inline-flex items-center py-2 -my-2 px-1 -mx-1"
                   title={item.label}
                 >
                   {index === 0 ? (

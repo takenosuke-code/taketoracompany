@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import { Link, usePathname } from "@/i18n/routing";
 import { SHOPS } from "@/lib/shops";
 
 interface SiteFooterProps {
@@ -12,6 +12,7 @@ export default function SiteFooter({ locale }: SiteFooterProps) {
   const t = useTranslations("footer");
   const nav = useTranslations("nav");
   const isJa = locale === "ja";
+  const pathname = usePathname();
 
   return (
     <footer className="relative z-20 bg-stone-950 text-stone-300 overflow-hidden">
@@ -67,7 +68,7 @@ export default function SiteFooter({ locale }: SiteFooterProps) {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-stone-400 hover:text-[#D4AF37] transition-colors duration-300 inline-flex items-center gap-2 group"
+                    className="text-stone-400 hover:text-[#D4AF37] transition-colors duration-300 inline-flex items-center gap-2 group py-1.5 -my-1.5"
                   >
                     <span className="w-0 group-hover:w-3 h-px bg-[#D4AF37] transition-all duration-300" />
                     {link.label}
@@ -86,7 +87,7 @@ export default function SiteFooter({ locale }: SiteFooterProps) {
               <li>
                 <Link
                   href="/visit"
-                  className="text-stone-400 hover:text-[#D4AF37] transition-colors duration-300 inline-flex items-center gap-2 group"
+                  className="text-stone-400 hover:text-[#D4AF37] transition-colors duration-300 inline-flex items-center gap-2 group py-1.5 -my-1.5"
                 >
                   <span className="w-0 group-hover:w-3 h-px bg-[#D4AF37] transition-all duration-300" />
                   {nav("visit")}
@@ -95,7 +96,7 @@ export default function SiteFooter({ locale }: SiteFooterProps) {
               <li>
                 <Link
                   href="/blog"
-                  className="text-stone-400 hover:text-[#D4AF37] transition-colors duration-300 inline-flex items-center gap-2 group"
+                  className="text-stone-400 hover:text-[#D4AF37] transition-colors duration-300 inline-flex items-center gap-2 group py-1.5 -my-1.5"
                 >
                   <span className="w-0 group-hover:w-3 h-px bg-[#D4AF37] transition-all duration-300" />
                   {nav("blog")}
@@ -140,9 +141,9 @@ export default function SiteFooter({ locale }: SiteFooterProps) {
               {t("copyright", { year: new Date().getFullYear() })}
             </p>
             <Link
-              href="/"
+              href={pathname}
               locale={isJa ? "en" : "ja"}
-              className="text-xs text-[#D4AF37]/80 hover:text-[#D4AF37] transition-colors duration-300 tracking-wider font-light"
+              className="text-xs text-[#D4AF37]/80 hover:text-[#D4AF37] transition-colors duration-300 tracking-wider font-light inline-flex items-center min-h-[44px] px-2 -mx-2"
             >
               {t("switchLang")}
             </Link>

@@ -124,7 +124,7 @@ export default async function BlogPage({
               <ScrollRevealSection key={blog.id || blog.slug} variant="fade-up" delay={index * 100}>
                 <Link
                   href={`/blog/${blog.slug}`}
-                  className="product-card group glass-card block overflow-hidden h-full"
+                  className="product-card group glass-card flex flex-col overflow-hidden h-full"
                 >
                   {blog.blogs?.blogpreview?.node?.sourceUrl && (
                     <div className="relative w-full h-48 sm:h-56 overflow-hidden">

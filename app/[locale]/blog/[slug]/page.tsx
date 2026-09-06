@@ -189,7 +189,7 @@ export default async function BlogPostPage({
         </ScrollRevealSection>
 
         <ScrollRevealSection variant="fade-up" delay={100}>
-          <article className="glass-card p-8 sm:p-10 lg:p-14 relative overflow-hidden">
+          <article className="glass-card p-5 sm:p-10 lg:p-14 relative overflow-hidden">
             {/* Corner accents */}
             <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-[#D4AF37]/15 rounded-tl-xl" />
             <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-[#D4AF37]/15 rounded-br-xl" />
