@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Link, usePathname } from "@/i18n/routing";
@@ -10,14 +9,15 @@ interface NavigationProps {
   locale: string;
 }
 
+/** 看板（ロゴ）を中央に置き、その下に小さな文字のメニューを1行で並べる */
 export default function Navigation({ locale }: NavigationProps) {
   const t = useTranslations("nav");
-  const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const isJa = locale === "ja";
   const otherLocale = isJa ? "en" : "ja";
 
   const navLinks = [
+    { href: "/" as const, label: t("home") },
     { href: "/collection" as const, label: t("collection") },
     { href: "/anime-figures" as const, label: t("animeFigures") },
     { href: "/pokemon" as const, label: t("pokemon") },
@@ -27,112 +27,60 @@ export default function Navigation({ locale }: NavigationProps) {
   ];
 
   const isActive = (href: string) =>
-    pathname === href || pathname.startsWith(`${href}/`);
+    href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-wall/95 supports-[backdrop-filter]:bg-wall/90">
+    <header className="mx-auto max-w-site px-4 sm:px-6">
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-2 focus:z-50 focus:rounded focus:bg-ink focus:px-3 focus:py-2 focus:text-white"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-2 focus:z-50 focus:bg-white focus:px-3 focus:py-1"
       >
         {t("skip")}
       </a>
-      <div className="mx-auto flex max-w-shop items-center justify-between gap-6 px-4 py-2.5 sm:px-6">
-        <Link href="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
-          <Image
-            src={taketoraLogo}
-            alt=""
-            width={44}
-            height={44}
-            priority
-            className="h-11 w-11"
-          />
-          <span className="flex flex-col leading-none">
-            <span className="text-[22px] font-black tracking-[0.08em]">
-              {isJa ? "猛虎" : "Taketora"}
-            </span>
-            <span className="mt-1 text-[11px] font-bold text-ink-soft">
-              {isJa ? "たけとら　京都・東山" : "Antiques in Kyoto"}
-            </span>
-          </span>
+
+      <div className="flex justify-end pt-3 text-[12px]">
+        <Link href={pathname || "/"} locale={otherLocale} lang={otherLocale} className="text-link">
+          {t("switchLang")}
         </Link>
-
-        <nav aria-label={t("menuLabel")} className="hidden items-center gap-1 lg:flex">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              aria-current={isActive(link.href) ? "page" : undefined}
-              className={`rounded px-3 py-2 text-[14px] font-bold ${
-                isActive(link.href)
-                  ? "text-ink underline decoration-pine decoration-[3px] underline-offset-[10px]"
-                  : "text-ink-soft hover:text-ink"
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <Link
-            href={pathname || "/"}
-            locale={otherLocale}
-            className="ml-3 rounded border border-line px-3 py-1.5 text-[13px] font-bold text-ink hover:border-ink"
-            lang={otherLocale}
-          >
-            {t("switchLang")}
-          </Link>
-        </nav>
-
-        <button
-          type="button"
-          className="flex min-h-[44px] items-center gap-2 rounded border border-line px-3 text-[14px] font-bold lg:hidden"
-          onClick={() => setOpen((v) => !v)}
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-        >
-          <span aria-hidden="true" className="flex w-4 flex-col gap-[3px]">
-            <span className="h-[2px] bg-ink" />
-            <span className="h-[2px] bg-ink" />
-            <span className="h-[2px] bg-ink" />
-          </span>
-          {open ? t("close") : t("menu")}
-        </button>
       </div>
 
-      {open && (
-        <nav
-          id="mobile-menu"
-          aria-label={t("menuLabel")}
-          className="border-t border-line bg-wall lg:hidden"
-        >
-          <ul className="mx-auto max-w-shop px-4 py-2 sm:px-6">
-            {navLinks.map((link) => (
-              <li key={link.href} className="border-b border-line last:border-b-0">
-                <Link
-                  href={link.href}
-                  aria-current={isActive(link.href) ? "page" : undefined}
-                  onClick={() => setOpen(false)}
-                  className={`flex min-h-[52px] items-center text-[16px] font-bold ${
-                    isActive(link.href) ? "text-ink" : "text-ink-soft"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-            <li>
+      <Link href="/" className="mx-auto mt-1 flex w-fit flex-col items-center pb-4">
+        <Image
+          src={taketoraLogo}
+          alt=""
+          width={88}
+          height={88}
+          priority
+          className="h-[72px] w-[72px] sm:h-[88px] sm:w-[88px]"
+        />
+        <span className="mt-2 text-[18px] font-bold tracking-[0.2em]">
+          {isJa ? "アンティークショップ猛虎" : "Taketora Antiques"}
+        </span>
+        <span className="text-[11px] tracking-[0.2em] text-ink-soft">
+          {isJa ? "たけとら　京都・東山" : "Higashiyama, Kyoto"}
+        </span>
+      </Link>
+
+      <nav
+        aria-label={t("menuLabel")}
+        className="border-y border-dotted border-rule"
+      >
+        <ul className="flex flex-wrap justify-center gap-x-1 px-1 py-1 text-[13px]">
+          {navLinks.map((link) => (
+            <li key={link.href}>
               <Link
-                href={pathname || "/"}
-                locale={otherLocale}
-                lang={otherLocale}
-                onClick={() => setOpen(false)}
-                className="flex min-h-[52px] items-center text-[16px] font-bold text-sky-700"
+                href={link.href}
+                aria-current={isActive(link.href) ? "page" : undefined}
+                className={`block whitespace-nowrap px-2 py-1.5 sm:px-2.5 sm:py-2 ${
+                  isActive(link.href) ? "font-bold text-ink" : "text-ink-soft hover:text-ink"
+                }`}
               >
-                {t("switchLang")}
+                {link.label}
               </Link>
             </li>
-          </ul>
-        </nav>
-      )}
+          ))}
+        </ul>
+      </nav>
     </header>
   );
 }

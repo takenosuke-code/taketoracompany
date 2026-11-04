@@ -1,12 +1,11 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Link } from "@/i18n/routing";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ProductDetail from "@/components/ProductDetail";
 import ProductGallery from "@/components/ProductGallery";
 import CurrencyConverter from "@/components/CurrencyConverter";
-import ProductShelf, { formatYen } from "@/components/ProductShelf";
+import ProductGrid, { formatYen } from "@/components/ProductGrid";
 import JsonLd from "@/components/JsonLd";
 import { BreadcrumbItem } from "@/types/product";
 import { localeUrl, localePath, hreflang } from "@/lib/urls";
@@ -118,13 +117,25 @@ export default async function ProductPage({ params }: ProductPageProps) {
     },
   ];
 
-  // 商品の情報（taketora_app の商品マスタの属性）
-  const specs: Array<{ label: string; value: string }> = [];
+  // 商品情報（taketora_app の商品マスタの属性）
+  const specs: Array<{ label: string; value: React.ReactNode }> = [];
+  specs.push({
+    label: t("product.price"),
+    value: (
+      <>
+        <span className="text-[16px] font-bold">{formatYen(product.price)}</span>
+        <CurrencyConverter amountJPY={product.price ?? 0} note={t("product.approxNote")} />
+      </>
+    ),
+  });
+  if (product.conditionRank) specs.push({ label: t("product.condition"), value: product.conditionRank });
+  specs.push({
+    label: t("product.stock"),
+    value: available ? t("product.inStock") : t("product.soldOut"),
+  });
   if (product.series) specs.push({ label: t("product.series"), value: product.series });
   if (product.character) specs.push({ label: t("product.character"), value: product.character });
   if (product.maker) specs.push({ label: t("product.maker"), value: product.maker });
-  if (product.conditionRank)
-    specs.push({ label: t("product.condition"), value: product.conditionRank });
   specs.push({ label: t("product.code"), value: product.slug });
 
   const tags = [product.character, product.series, product.maker].filter(
@@ -153,71 +164,43 @@ export default async function ProductPage({ params }: ProductPageProps) {
   };
 
   return (
-    <div className="mx-auto max-w-shop px-4 pb-36 pt-5 sm:px-6 md:pb-20">
+    <div className="pt-3">
       <Breadcrumbs items={breadcrumbs} />
 
-      <div className="mt-8 grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
+      <div className="mt-6 grid gap-8 md:grid-cols-[420px_1fr]">
         <ProductGallery
           images={product.imageUrl ? [product.imageUrl] : []}
           productName={product.name}
           isJa={isJa}
         />
 
-        <div className="space-y-6">
-          <div>
-            <p className="text-[14px] font-bold text-ink-soft">
-              {product.series || t("product.categoryName")}
-            </p>
-            <h1 className="mt-1 text-[26px] font-black leading-[1.4] sm:text-[32px]">{product.name}</h1>
-          </div>
-
-          <div className="flex flex-wrap items-end gap-x-5 gap-y-2">
-            <p className="text-[40px] font-black leading-none">{formatYen(product.price)}</p>
-            <p className="pb-1 text-[15px] font-bold">
-              {available ? (
-                <span>{t("product.inStock")}</span>
-              ) : (
-                <span className="rounded-sm bg-ink px-2 py-0.5 text-white">{t("product.soldOut")}</span>
-              )}
-              {product.conditionRank && (
-                <span className="ml-4 text-ink-soft">
-                  {t("product.condition")} {product.conditionRank}
-                </span>
-              )}
-            </p>
-          </div>
-
-          <CurrencyConverter
-            amountJPY={product.price ?? 0}
-            label={t("product.approx")}
-            note={t("product.approxNote")}
-          />
-
-          <ProductDetail locale={locale} />
-
-          <section aria-labelledby="specs">
-            <h2 id="specs" className="text-[18px] font-black">
-              {t("product.specs")}
-            </h2>
-            <dl className="mt-3 border-t border-line text-[15px]">
+        <div>
+          <h1 className="border-b border-dotted border-rule pb-2 text-[17px]">{product.name}</h1>
+          <table className="mt-3 w-full border-collapse bg-white text-[13px]">
+            <tbody>
               {specs.map((spec) => (
-                <div key={spec.label} className="grid grid-cols-[8rem_1fr] gap-4 border-b border-line py-2.5">
-                  <dt className="font-bold text-ink-soft">{spec.label}</dt>
-                  <dd>{spec.value}</dd>
-                </div>
+                <tr key={spec.label} className="border-b border-dotted border-rule last:border-b-0">
+                  <th scope="row" className="w-[7.5rem] px-3 py-2.5 text-left align-top font-bold">
+                    {spec.label}
+                  </th>
+                  <td className="px-3 py-2.5">{spec.value}</td>
+                </tr>
               ))}
-            </dl>
-          </section>
+            </tbody>
+          </table>
+          <div className="mt-5">
+            <ProductDetail locale={locale} />
+          </div>
         </div>
       </div>
 
       {relatedProducts.length > 0 && (
-        <section className="mt-20" aria-labelledby="related">
-          <h2 id="related" className="text-[24px] font-black">
+        <section className="mt-14" aria-labelledby="related">
+          <h2 id="related" className="sec-title">
             {t("product.related")}
           </h2>
-          <div className="mt-6">
-            <ProductShelf products={relatedProducts} locale={locale} category={category} wide={false} />
+          <div className="mt-5">
+            <ProductGrid products={relatedProducts} locale={locale} category={category} />
           </div>
         </section>
       )}

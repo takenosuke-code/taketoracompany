@@ -30,89 +30,82 @@
     }
   },
   "nav": {
+    "home": "Home",
     "collection": "All items",
     "animeFigures": "Figures",
     "pokemon": "Pokémon cards",
     "antiques": "Antiques",
-    "visit": "Shops & directions",
+    "visit": "Shops & access",
     "blog": "Blog",
     "switchLang": "日本語",
-    "menu": "Menu",
-    "close": "Close",
-    "menuLabel": "Main menu",
+    "menuLabel": "Menu",
     "skip": "Skip to content"
   },
   "home": {
     "h1": "Taketora, an antique shop in Higashiyama, Kyoto",
-    "lead": "Old pottery on one shelf.\nAnime figures on the next.",
-    "body": "We run three shops in Higashiyama, Kyoto. Right next to the shelves of Kiyomizu and Kutani ware, iron kettles and hanging scrolls, you'll find One Piece and Dragon Ball figures and boxes of Pokémon cards. Old or new, pick up anything that catches your eye.",
-    "open": "Open every day, 10:00–20:00. English spoken.",
-    "ctaShops": "Shops & directions",
-    "ctaItems": "See what's in stock",
-    "whatTitle": "What we sell",
-    "antique": {
-      "name": "Antiques & old tools",
-      "body": "Kiyomizu, Imari and Kutani ware. Tea bowls, tea caddies and other tea ceremony tools, iron kettles, old chests, hanging scrolls and ukiyo-e prints.",
-      "link": "About our antiques"
-    },
-    "figures": {
-      "name": "Anime figures",
-      "body": "Mostly prize figures, stacked along whole walls. Second-hand pieces are graded by condition.",
-      "link": "See figures in stock"
-    },
-    "pokemon": {
-      "name": "Pokémon cards",
-      "body": "Sealed booster boxes and more. Looking for something specific? DM us on Instagram and we'll check.",
-      "link": "About Pokémon cards"
-    },
-    "newTitle": "Just in",
-    "newNote": "Synced with our in-store stock every minute.",
+    "intro1": "We sell Japanese antiques (Kiyomizu ware and other pottery, tea ceremony tools, old household tools, hanging scrolls), plus anime figures and Pokémon cards.",
+    "intro2": "We have three shops in Higashiyama: Kodaiji, Kiyomizu and Shichijo. Please drop in.",
+    "hours": "Open 10:00–20:00, every day",
+    "english": "English OK",
+    "mapBtn": "Maps & access",
+    "shopsTitle": "Our shops",
+    "newTitle": "New arrivals",
     "newAll": "See all items",
-    "shopsTitle": "Our three shops",
-    "shopsIntro": "All three are in Higashiyama, Kyoto, within walking distance of Kiyomizu-dera.",
-    "firstTitle": "Before you visit",
-    "first1": "Our staff speak English.",
-    "first2": "We can hold items or ship overseas. Ask us by Instagram DM.",
-    "first3": "Looking for a specific item? DM us to check stock before you come.",
-    "instagram": "See our Instagram"
+    "itemsTitle": "What we sell",
+    "items": [
+      "Pottery (Kiyomizu, Imari, Kutani ware)",
+      "Tea ceremony tools",
+      "Old household tools (iron kettles, chests)",
+      "Scrolls, ukiyo-e prints, folding screens",
+      "Anime figures",
+      "Pokémon cards"
+    ],
+    "contactTitle": "Contact",
+    "contact": "For holds, overseas shipping or stock questions, send us a DM on Instagram.",
+    "instagramBtn": "See our Instagram",
+    "englishTitle": "日本語",
+    "englishBody": "日本語のページはこちら。",
+    "slidePick": "Show photo {n}",
+    "categoriesTitle": "Categories"
   },
   "shops": {
-    "minWalk": "{mins} min walk from Kiyomizu-dera",
-    "walkShort": "{mins} min walk",
-    "fromKiyomizu": "From Kiyomizu-dera",
-    "directions": "Directions in Google Maps",
-    "hours": "Every day, 10:00–20:00",
+    "walk": "{mins} min walk from Kiyomizu-dera",
+    "mapBtn": "Google Maps",
     "address": "Address",
-    "hoursLabel": "Hours"
+    "hoursLabel": "Hours",
+    "hours": "10:00–20:00, every day",
+    "access": "From Kiyomizu-dera",
+    "walkShort": "{mins} min walk",
+    "name": "Shop"
   },
   "collection": {
     "title": "All items",
-    "intro": "Items on our shelves that have been entered into our stock system. Stock updates every minute.",
-    "categories": "Browse by category",
+    "intro": "Items on our shelves that are registered in our stock system. Stock updates every minute.",
+    "categories": "Categories",
     "other": "Other",
     "count": "{count} items",
     "emptyTitle": "No items are listed online right now.",
-    "emptyBody": "Our shelves are still full. If you're after something specific, DM us on Instagram to check stock."
+    "emptyBody": "For stock in the shop, send us a DM on Instagram."
   },
   "animeFigures": {
-    "title": "Anime figures",
-    "intro": "Figures from our shelves, grouped by series. Second-hand pieces are graded S to C by condition.",
+    "title": "Figures",
+    "intro": "Figures in the shop, grouped by series. Second-hand items are graded S to C by condition.",
     "emptyTitle": "No figures are listed online right now.",
-    "emptyBody": "Our shelves are still full. If you're after a particular figure, DM us on Instagram to check stock."
+    "emptyBody": "For stock in the shop, send us a DM on Instagram."
   },
   "pokemonPage": {
     "title": "Pokémon cards",
-    "intro": "We sell sealed booster boxes and more in store.",
-    "emptyTitle": "Pokémon cards aren't listed online.",
-    "emptyBody": "Come and look in store, or DM us on Instagram to check stock."
+    "intro": "We sell sealed booster boxes and more in the shop.",
+    "emptyTitle": "Pokémon cards are not listed online.",
+    "emptyBody": "Please check in the shop, or send us a DM on Instagram."
   },
   "antiquePage": {
-    "title": "Antiques & old tools",
-    "intro": "Pottery, tea ceremony tools, old household tools, hanging scrolls and more.",
-    "kindsTitle": "What you'll find",
+    "title": "Antiques",
+    "intro": "Pottery, tea ceremony tools, old household tools, scrolls and more. Antiques are not listed online, so please come and see them in the shop.",
+    "kindsTitle": "What we sell",
     "kinds": {
       "ceramics": {
-        "name": "Ceramics",
+        "name": "Pottery",
         "examples": "Kiyomizu, Imari and Kutani ware"
       },
       "tea": {
@@ -120,30 +113,31 @@
         "examples": "Tea bowls, tea caddies, natsume, water jars"
       },
       "folk": {
-        "name": "Folk crafts & old tools",
+        "name": "Old household tools",
         "examples": "Woodwork, iron kettles, old chests"
       },
       "art": {
-        "name": "Art & calligraphy",
+        "name": "Art",
         "examples": "Hanging scrolls, ukiyo-e prints, folding screens"
       }
-    },
-    "emptyTitle": "Antiques aren't listed online.",
-    "emptyBody": "Come and see them, and pick them up, at the shop."
+    }
   },
   "visit": {
-    "title": "Shops & directions",
-    "intro": "Taketora has three shops in Higashiyama, Kyoto, all within walking distance of Kiyomizu-dera.",
+    "title": "Shops & access",
+    "intro": "We have three shops in Higashiyama, Kyoto. All are within walking distance of Kiyomizu-dera.",
     "videosTitle": "Inside the shop",
-    "videosIntro": "Short videos filmed inside the shop.",
-    "firstTitle": "Before you visit"
+    "noteTitle": "Before you visit",
+    "notes": [
+      "Our staff speak English.",
+      "We can hold items or ship overseas. Ask us by Instagram DM.",
+      "Looking for something specific? DM us to check stock before you come."
+    ]
   },
   "blog": {
     "title": "Blog",
-    "intro": "Notes on new arrivals, antiques and old tools, and the neighborhood around the shop.",
     "back": "Back to the blog",
     "emptyTitle": "No posts yet.",
-    "emptyBody": "We also post new arrivals on Instagram."
+    "emptyBody": "You can also see the shop on Instagram."
   },
   "product": {
     "inStock": "In stock",
@@ -153,35 +147,35 @@
     "character": "Character",
     "maker": "Maker",
     "code": "Item code",
+    "price": "Price",
+    "stock": "Stock",
+    "name": "Item",
     "specs": "Details",
-    "visitStore": "Shops & directions",
+    "visitStore": "Shops & access",
     "ask": "Ask on Instagram",
-    "note": "This item is sold in store. For holds or overseas shipping, DM us on Instagram.",
+    "askShort": "DM on Instagram",
+    "note": "This item is sold in the shop. For holds or overseas shipping, send us a DM on Instagram.",
     "approx": "Approximate price",
     "approxNote": "Rough conversion at a fixed rate. Payment is in Japanese yen.",
     "related": "More items",
     "notFound": "Item not found",
-    "categoryName": "Anime figures",
-    "askShort": "DM on Instagram"
+    "categoryName": "Figures"
   },
   "common": {
-    "instagram": "DM us on Instagram",
-    "shops": "Shops & directions"
+    "instagram": "DM on Instagram",
+    "shops": "Shops & access"
   },
   "footer": {
-    "hours": "Open every day, 10:00–20:00",
-    "english": "English spoken",
-    "shopsTitle": "Shops",
-    "pagesTitle": "Pages",
+    "hours": "Open 10:00–20:00, every day",
     "copyright": "© {year} Taketora"
   },
   "breadcrumbs": {
     "home": "Home",
     "antique": "Antiques",
-    "animeFigures": "Anime figures",
+    "animeFigures": "Figures",
     "pokemon": "Pokémon cards",
     "collection": "All items",
-    "visit": "Shops & directions",
+    "visit": "Shops & access",
     "blog": "Blog"
   }
 }

@@ -24,24 +24,16 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
     <>
       <JsonLd data={schema} />
       <nav aria-label="Breadcrumb" className="overflow-x-auto">
-        <ol className="flex min-w-max items-center text-[13px] text-ink-soft">
+        <ol className="flex min-w-max items-center text-[12px] text-ink-soft">
           {items.map((item, index) => (
             <li key={item.href} className="flex items-center">
-              {index > 0 && (
-                <span aria-hidden="true" className="mx-2 text-[#9aa0a5]">
-                  /
-                </span>
-              )}
+              {index > 0 && <span aria-hidden="true" className="mx-1.5">＞</span>}
               {index === items.length - 1 ? (
-                <span
-                  aria-current="page"
-                  className="max-w-[16rem] truncate font-bold text-ink"
-                  title={item.label}
-                >
+                <span aria-current="page" className="max-w-[14rem] truncate" title={item.label}>
                   {item.label}
                 </span>
               ) : (
-                <Link href={item.href} className="py-2 underline-offset-4 hover:text-ink hover:underline">
+                <Link href={item.href} className="underline underline-offset-2 hover:no-underline">
                   {item.label}
                 </Link>
               )}

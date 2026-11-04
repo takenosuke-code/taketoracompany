@@ -2,11 +2,10 @@ import { Metadata } from "next";
 import { Link } from "@/i18n/routing";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import PageHeader from "@/components/PageHeader";
-import ProductShelf, { EmptyShelf, groupBySeries } from "@/components/ProductShelf";
+import ProductGrid, { EmptyNote, groupBySeries } from "@/components/ProductGrid";
 import { localeUrl, localePath, hreflang, ogMeta } from "@/lib/urls";
 import { getCatalogProducts, CATALOG_CATEGORY } from "@/lib/catalog";
 import { INSTAGRAM_URL } from "@/lib/shops";
-import { PHOTOS, photoAlt } from "@/lib/photos";
 
 // 商品・在庫（スマレジ）を60秒ごとに再取得
 export const revalidate = 60;
@@ -54,51 +53,43 @@ export default async function CollectionPage({
           { label: t("breadcrumbs.collection"), href: localePath(locale, "/collection") },
         ]}
         title={t("collection.title")}
-        intro={<p>{t("collection.intro")}</p>}
+        intro={<p className="text-center text-[13px]">{t("collection.intro")}</p>}
       >
-        <nav aria-label={t("collection.categories")} className="mt-6 flex flex-wrap gap-2">
+        <nav aria-label={t("collection.categories")} className="mt-4 flex flex-wrap justify-center gap-2">
           {categories.map((c) => (
-            <Link
-              key={c.href}
-              href={c.href}
-              className="rounded border border-line px-3 py-1.5 text-[14px] font-bold hover:border-ink"
-            >
+            <Link key={c.href} href={c.href} className="s-btn">
               {c.label}
             </Link>
           ))}
         </nav>
       </PageHeader>
 
-      <div className="mx-auto max-w-shop px-4 pb-20 pt-10 sm:px-6">
+      <div className="mt-10">
         {groups.length > 0 ? (
-          <div className="space-y-16">
+          <div className="space-y-12">
             {groups.map((g) => (
               <section key={g.series} aria-label={g.series}>
-                <h2 className="flex items-baseline gap-3 text-[20px] font-black">
+                <h2 className="border-l-4 border-wood pl-2 text-[14px] font-bold">
                   {g.series}
-                  <span className="text-[14px] font-bold text-ink-soft">
+                  <span className="ml-2 text-[12px] font-normal text-ink-soft">
                     {t("collection.count", { count: g.items.length })}
                   </span>
                 </h2>
                 <div className="mt-4">
-                  <ProductShelf products={g.items} locale={locale} category={CATALOG_CATEGORY} />
+                  <ProductGrid products={g.items} locale={locale} category={CATALOG_CATEGORY} />
                 </div>
               </section>
             ))}
           </div>
         ) : (
-          <EmptyShelf
-            title={t("collection.emptyTitle")}
-            body={t("collection.emptyBody")}
-            photo={{ src: PHOTOS.aisle.src, alt: photoAlt(PHOTOS.aisle, locale) }}
-          >
-            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="btn">
+          <EmptyNote title={t("collection.emptyTitle")} body={t("collection.emptyBody")}>
+            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="s-btn">
               {t("common.instagram")}
             </a>
-            <Link href="/visit" className="btn-line">
+            <Link href="/visit" className="s-btn">
               {t("common.shops")}
             </Link>
-          </EmptyShelf>
+          </EmptyNote>
         )}
       </div>
     </>

@@ -2,28 +2,23 @@ import { convertCurrency, getCurrencySymbol } from "@/lib/currency";
 
 interface CurrencyConverterProps {
   amountJPY: number;
-  label: string;
   note: string;
 }
 
-/** 海外のお客さま向けに、外貨での目安を並べて出す（固定レート） */
-export default function CurrencyConverter({ amountJPY, label, note }: CurrencyConverterProps) {
+/** 海外のお客さま向けの外貨の目安（固定レート） */
+export default function CurrencyConverter({ amountJPY, note }: CurrencyConverterProps) {
   if (!amountJPY) return null;
-  const currencies = ["USD", "EUR", "GBP"];
+  const text = ["USD", "EUR", "GBP"]
+    .map(
+      (c) =>
+        `${getCurrencySymbol(c)}${convertCurrency(amountJPY, c).toLocaleString("en-US", {
+          maximumFractionDigits: 0,
+        })}`
+    )
+    .join(" / ");
   return (
-    <div className="text-[14px]">
-      <p className="font-bold text-ink-soft">{label}</p>
-      <p className="mt-0.5 font-bold">
-        {currencies
-          .map(
-            (c) =>
-              `${getCurrencySymbol(c)}${convertCurrency(amountJPY, c).toLocaleString("en-US", {
-                maximumFractionDigits: 0,
-              })}`
-          )
-          .join("　")}
-      </p>
-      <p className="mt-0.5 text-[12px] text-ink-soft">{note}</p>
-    </div>
+    <span className="block text-[12px] text-ink-soft">
+      {text}（{note}）
+    </span>
   );
 }

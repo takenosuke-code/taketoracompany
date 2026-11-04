@@ -4,117 +4,74 @@
 
 @layer base {
   html {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
   }
 
-  @media (prefers-reduced-motion: no-preference) {
-    html {
-      scroll-behavior: smooth;
-    }
-  }
-
   body {
-    @apply bg-wall text-ink font-maru;
-    font-weight: 500;
-    line-height: 1.85;
-    letter-spacing: 0.03em;
-  }
-
-  /* 見出し・ナビ・ボタンなど短い文字列は、かなの字間を詰めて組む */
-  h1,
-  h2,
-  h3,
-  h4,
-  nav,
-  button,
-  dt,
-  .btn,
-  .btn-line,
-  .shelf-tag {
-    font-feature-settings: "palt" 1;
+    @apply bg-paper text-ink font-jp;
+    font-size: 14px;
+    line-height: 2;
+    letter-spacing: 0.05em;
   }
 
   h1,
   h2,
   h3,
   h4 {
-    @apply text-ink font-maru;
-    line-height: 1.35;
-    letter-spacing: 0.02em;
+    font-weight: 700;
+    line-height: 1.6;
   }
 
   a {
-    text-underline-offset: 0.25em;
+    text-underline-offset: 3px;
   }
 
   :focus-visible {
-    outline: 3px solid #1d5e86;
+    outline: 2px solid #6b4a2b;
     outline-offset: 2px;
-  }
-
-  ::selection {
-    background: #aeddf3;
-    color: #22262a;
   }
 }
 
 @layer components {
-  /* 棚板。商品や写真をこの上に「置く」。列の間にすき間を作らなければ横につながる */
-  .shelf {
-    height: 12px;
-    background: #d3af7c;
-    border-bottom: 4px solid #b58a52;
+  /* 見出し: 中央寄せの小さな文字に点線を引くだけ */
+  .sec-title {
+    @apply border-b border-dotted border-rule pb-2 text-center text-[15px] font-bold;
   }
 
-  /* 本文中のリンク */
+  /* 小さな枠つきボタン（Google MAP / お店の行き方 など） */
+  .s-btn {
+    @apply inline-flex min-h-[40px] items-center justify-center border border-[#8A7D6E] bg-white px-4 text-[13px] leading-tight text-ink hover:bg-[#f7f4ee];
+  }
+
   .text-link {
-    @apply text-sky-700 underline decoration-1 hover:decoration-2;
+    @apply text-wood underline hover:no-underline;
   }
 
-  /* ボタン（主） */
-  .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-md bg-ink px-5 py-3 text-[15px] font-bold text-white min-h-[48px] hover:bg-[#3a4046];
-  }
-
-  /* ボタン（従） */
-  .btn-line {
-    @apply inline-flex items-center justify-center gap-2 rounded-md border-2 border-ink bg-wall px-5 py-3 text-[15px] font-bold text-ink min-h-[48px] hover:bg-sky-50;
-  }
-
-  /* 棚札（商品名と値段の札） */
-  .shelf-tag {
-    @apply block px-3 pt-3 pb-1;
+  /* 点線の区切り */
+  .dotted {
+    @apply border-dotted border-rule;
   }
 
   /* ブログ本文 */
   .blog-content {
-    @apply text-ink text-[17px];
-    line-height: 2;
+    @apply text-[15px];
+    line-height: 2.1;
   }
   .blog-content h2 {
-    @apply text-2xl font-bold mt-12 mb-4 pb-2 border-b-2 border-pine;
+    @apply mb-3 mt-10 border-b border-dotted border-rule pb-1 text-[17px];
   }
   .blog-content h3 {
-    @apply text-xl font-bold mt-10 mb-3;
-  }
-  .blog-content h4 {
-    @apply text-lg font-bold mt-8 mb-2;
+    @apply mb-2 mt-8 text-[15px];
   }
   .blog-content p {
-    @apply mb-6;
+    @apply mb-5;
   }
   .blog-content a {
-    @apply text-sky-700 underline;
-  }
-  .blog-content strong,
-  .blog-content b {
-    font-weight: 700;
+    @apply text-wood underline;
   }
   .blog-content ul,
   .blog-content ol {
-    @apply mb-6 pl-6;
+    @apply mb-5 pl-6;
   }
   .blog-content ul {
     list-style: disc;
@@ -122,41 +79,20 @@
   .blog-content ol {
     list-style: decimal;
   }
-  .blog-content li {
-    @apply mb-1;
-  }
-  .blog-content li::marker {
-    color: #b58a52;
+  .blog-content img {
+    @apply my-6 h-auto max-w-full;
   }
   .blog-content blockquote {
-    @apply my-8 border-l-4 border-sky-200 bg-sky-50 px-5 py-4;
-  }
-  .blog-content blockquote p:last-child {
-    @apply mb-0;
-  }
-  .blog-content img {
-    @apply my-8 h-auto max-w-full rounded;
-  }
-  .blog-content figure {
-    @apply my-8;
-  }
-  .blog-content figcaption {
-    @apply mt-2 text-sm text-ink-soft;
+    @apply my-6 border-l-2 border-rule pl-4 text-ink-soft;
   }
   .blog-content hr {
-    @apply my-12 border-line;
-  }
-  .blog-content code {
-    @apply rounded bg-pine-light px-1.5 py-0.5 text-[0.9em];
+    @apply my-10 border-dotted border-rule;
   }
   .blog-content table {
-    @apply my-8 w-full border-collapse text-[15px];
+    @apply my-6 w-full border-collapse text-[13px];
   }
   .blog-content th,
   .blog-content td {
-    @apply border border-line px-3 py-2 text-left align-top;
-  }
-  .blog-content th {
-    @apply bg-pine-light font-bold;
+    @apply border border-rule bg-white px-3 py-2 text-left align-top;
   }
 }

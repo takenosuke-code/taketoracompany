@@ -30,6 +30,7 @@
     }
   },
   "nav": {
+    "home": "ホーム",
     "collection": "商品一覧",
     "animeFigures": "フィギュア",
     "pokemon": "ポケモンカード",
@@ -37,79 +38,71 @@
     "visit": "店舗・アクセス",
     "blog": "ブログ",
     "switchLang": "English",
-    "menu": "メニュー",
-    "close": "閉じる",
-    "menuLabel": "メインメニュー",
+    "menuLabel": "メニュー",
     "skip": "本文へ移動"
   },
   "home": {
-    "h1": "京都・東山のアンティークショップ たけとら",
-    "lead": "器の棚の、\nとなりに\nフィギュアの棚。",
-    "body": "京都・東山に3つの店があります。清水焼や九谷の器、鉄瓶、掛け軸が並ぶ棚のすぐ隣に、ワンピースやドラゴンボールのフィギュアと、ポケモンカードのBOX。古いものも新しいものも、気になったら手に取ってみてください。",
-    "open": "毎日 10:00〜20:00 営業。英語での接客もできます。",
-    "ctaShops": "店舗と行き方",
-    "ctaItems": "商品一覧を見る",
-    "whatTitle": "置いているもの",
-    "antique": {
-      "name": "骨董・古道具",
-      "body": "清水焼、伊万里、九谷の器。茶碗や棗などの茶道具、鉄瓶、古箪笥、掛け軸、浮世絵。",
-      "link": "骨董・古道具のページへ"
-    },
-    "figures": {
-      "name": "アニメフィギュア",
-      "body": "プライズフィギュアを中心に、壁一面に並べています。中古品には状態ランクをつけています。",
-      "link": "フィギュアの在庫を見る"
-    },
-    "pokemon": {
-      "name": "ポケモンカード",
-      "body": "未開封のBOXなどを置いています。お探しのものがあれば、InstagramのDMで在庫を確認できます。",
-      "link": "ポケモンカードのページへ"
-    },
-    "newTitle": "最近入った商品",
-    "newNote": "店頭の在庫と1分ごとに同期しています。",
-    "newAll": "商品一覧へ",
-    "shopsTitle": "3つの店",
-    "shopsIntro": "どの店も京都市東山区にあり、清水寺から歩いて行けます。",
-    "firstTitle": "はじめて来られる方へ",
-    "first1": "英語で接客できます。English is fine.",
-    "first2": "お取り置きや海外発送は、InstagramのDMでご相談ください。",
-    "first3": "お探しの商品があれば、来店前にDMで在庫を確認できます。",
-    "instagram": "Instagramを見る"
+    "h1": "京都・東山のアンティークショップ　猛虎（たけとら）",
+    "intro1": "清水焼などの器や茶道具、古道具、掛け軸といった骨董品と、アニメのフィギュア、ポケモンカードを扱っています。",
+    "intro2": "東山区に高台寺店・清水寺店・七条店の3店舗があります。お気軽にお立ち寄りください。",
+    "hours": "営業時間：10:00〜20:00（年中無休）",
+    "english": "English OK",
+    "mapBtn": "地図・アクセス",
+    "shopsTitle": "店舗のご案内",
+    "newTitle": "新入荷",
+    "newAll": "商品一覧を見る",
+    "itemsTitle": "取扱品目",
+    "items": [
+      "陶磁器（清水焼・伊万里・九谷など）",
+      "茶道具",
+      "古民具・古道具（鉄瓶・古箪笥など）",
+      "書画（掛け軸・浮世絵・屏風など）",
+      "アニメフィギュア",
+      "ポケモンカード"
+    ],
+    "contactTitle": "お問い合わせ",
+    "contact": "お取り置き・海外発送のご相談や在庫の確認は、InstagramのDMで承ります。",
+    "instagramBtn": "Instagramを見る",
+    "englishTitle": "English",
+    "englishBody": "English OK. We can hold items and ship overseas. Please send us a DM on Instagram.",
+    "slidePick": "写真{n}を表示",
+    "categoriesTitle": "カテゴリ"
   },
   "shops": {
-    "minWalk": "清水寺から徒歩{mins}分",
-    "walkShort": "徒歩{mins}分",
-    "fromKiyomizu": "清水寺から",
-    "directions": "Googleマップで行き方を見る",
-    "hours": "毎日 10:00〜20:00（年中無休）",
+    "walk": "清水寺から徒歩{mins}分",
+    "mapBtn": "Google MAP",
     "address": "住所",
-    "hoursLabel": "営業時間"
+    "hoursLabel": "営業時間",
+    "hours": "10:00〜20:00（年中無休）",
+    "access": "清水寺から",
+    "walkShort": "徒歩{mins}分",
+    "name": "店名"
   },
   "collection": {
     "title": "商品一覧",
-    "intro": "店頭に並んでいる商品のうち、在庫管理システムに登録したものを載せています。在庫は1分ごとに更新されます。",
-    "categories": "カテゴリから探す",
+    "intro": "店頭に並んでいる商品のうち、在庫管理システムに登録したものを掲載しています。在庫は1分ごとに更新されます。",
+    "categories": "カテゴリ",
     "other": "シリーズ未登録",
     "count": "{count}点",
-    "emptyTitle": "サイトに載っている商品は、いまはありません。",
-    "emptyBody": "店頭には商品が並んでいます。お探しのものがあれば、InstagramのDMで在庫をお問い合わせください。"
+    "emptyTitle": "現在、サイトに掲載している商品はありません。",
+    "emptyBody": "店頭の在庫は、InstagramのDMでお問い合わせください。"
   },
   "animeFigures": {
-    "title": "アニメフィギュア",
-    "intro": "店頭にあるフィギュアを、シリーズごとに並べています。中古品には状態ランク（S〜C）をつけています。",
-    "emptyTitle": "サイトに載っているフィギュアは、いまはありません。",
-    "emptyBody": "店頭にはフィギュアが並んでいます。お探しのものがあれば、InstagramのDMで在庫をお問い合わせください。"
+    "title": "フィギュア",
+    "intro": "店頭にあるフィギュアをシリーズごとに掲載しています。中古品は状態をランク（S〜C）で表示しています。",
+    "emptyTitle": "現在、サイトに掲載しているフィギュアはありません。",
+    "emptyBody": "店頭の在庫は、InstagramのDMでお問い合わせください。"
   },
   "pokemonPage": {
     "title": "ポケモンカード",
     "intro": "未開封のBOXなどを店頭で販売しています。",
-    "emptyTitle": "ポケモンカードはサイトに載せていません。",
-    "emptyBody": "在庫は店頭で見ていただくか、InstagramのDMでお問い合わせください。"
+    "emptyTitle": "ポケモンカードはサイトに掲載していません。",
+    "emptyBody": "在庫は店頭でご確認いただくか、InstagramのDMでお問い合わせください。"
   },
   "antiquePage": {
     "title": "骨董・古道具",
-    "intro": "器や茶道具、古道具、掛け軸などを扱っています。",
-    "kindsTitle": "主に扱っているもの",
+    "intro": "陶磁器、茶道具、古民具・古道具、書画などを扱っています。骨董・古道具はサイトに掲載していませんので、店頭でご覧ください。",
+    "kindsTitle": "取扱品目",
     "kinds": {
       "ceramics": {
         "name": "陶磁器",
@@ -127,58 +120,59 @@
         "name": "書画・美術品",
         "examples": "掛け軸、浮世絵、屏風など"
       }
-    },
-    "emptyTitle": "骨董・古道具はサイトに載せていません。",
-    "emptyBody": "店頭で、実物を手に取ってご覧ください。"
+    }
   },
   "visit": {
     "title": "店舗・アクセス",
-    "intro": "たけとらは京都市東山区に3店舗あります。どの店も清水寺から歩いて行けます。",
-    "videosTitle": "店内の様子",
-    "videosIntro": "店の中を撮った短い動画です。",
-    "firstTitle": "はじめて来られる方へ"
+    "intro": "京都市東山区に3店舗あります。どの店舗も清水寺から歩いて行けます。",
+    "videosTitle": "店内動画",
+    "noteTitle": "ご来店の際に",
+    "notes": [
+      "英語での接客ができます。English OK.",
+      "お取り置き・海外発送のご相談は、InstagramのDMで承ります。",
+      "お探しの商品がある場合は、ご来店前にDMで在庫をご確認いただけます。"
+    ]
   },
   "blog": {
     "title": "ブログ",
-    "intro": "入荷した品物や、骨董・古道具のこと、店のまわりのことを書いています。",
-    "back": "ブログ一覧に戻る",
+    "back": "ブログ一覧へ戻る",
     "emptyTitle": "まだ記事がありません。",
-    "emptyBody": "入荷の様子はInstagramでも紹介しています。"
+    "emptyBody": "店の様子はInstagramでもご覧いただけます。"
   },
   "product": {
     "inStock": "在庫あり",
     "soldOut": "売り切れ",
-    "condition": "状態",
+    "condition": "状態ランク",
     "series": "シリーズ",
     "character": "キャラクター",
     "maker": "メーカー",
     "code": "商品コード",
-    "specs": "商品の情報",
-    "visitStore": "店舗と行き方を見る",
-    "ask": "Instagramで問い合わせる",
-    "note": "この商品は店頭で販売しています。お取り置きや海外発送は、InstagramのDMでご相談ください。",
+    "price": "価格",
+    "stock": "在庫",
+    "name": "商品名",
+    "specs": "商品情報",
+    "visitStore": "店舗・アクセス",
+    "ask": "Instagramで問い合わせ",
+    "askShort": "InstagramでDM",
+    "note": "店頭販売の商品です。お取り置き・海外発送のご相談はInstagramのDMで承ります。",
     "approx": "外貨での目安",
-    "approxNote": "固定レートで計算した目安です。お支払いは日本円です。",
+    "approxNote": "固定レートでの目安です。お支払いは日本円になります。",
     "related": "ほかの商品",
     "notFound": "商品が見つかりません",
-    "categoryName": "アニメフィギュア",
-    "askShort": "InstagramでDM"
+    "categoryName": "フィギュア"
   },
   "common": {
-    "instagram": "InstagramでDMする",
-    "shops": "店舗と行き方"
+    "instagram": "InstagramでDM",
+    "shops": "店舗・アクセス"
   },
   "footer": {
-    "hours": "毎日 10:00〜20:00（年中無休）",
-    "english": "英語での接客もできます",
-    "shopsTitle": "店舗",
-    "pagesTitle": "ページ",
+    "hours": "営業時間 10:00〜20:00（年中無休）",
     "copyright": "© {year} Taketora"
   },
   "breadcrumbs": {
     "home": "ホーム",
     "antique": "骨董・古道具",
-    "animeFigures": "アニメフィギュア",
+    "animeFigures": "フィギュア",
     "pokemon": "ポケモンカード",
     "collection": "商品一覧",
     "visit": "店舗・アクセス",

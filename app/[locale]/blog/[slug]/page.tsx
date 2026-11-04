@@ -151,31 +151,31 @@ export default async function BlogPostPage({
   };
 
   return (
-    <article className="mx-auto max-w-shop px-4 pb-20 pt-5 sm:px-6">
+    <article className="pt-3">
       <JsonLd data={articleSchema} />
       <Breadcrumbs items={breadcrumbs} />
 
-      <div className="mx-auto mt-10 max-w-[42rem]">
-        <header className="border-b-2 border-pine pb-6">
+      <div className="mx-auto mt-8 max-w-[40rem]">
+        <header className="border-b border-dotted border-rule pb-3">
           {blog.date && (
-            <time dateTime={blog.date} className="text-[14px] font-bold text-ink-soft">
+            <time dateTime={blog.date} className="text-[12px] text-ink-soft">
               {new Date(blog.date).toLocaleDateString(isJa ? "ja-JP" : "en-US", {
                 year: "numeric",
-                month: "long",
-                day: "numeric",
+                month: "2-digit",
+                day: "2-digit",
               })}
             </time>
           )}
-          <h1 className="mt-2 text-[28px] font-black leading-[1.4] sm:text-[36px]">{blog.title}</h1>
+          <h1 className="text-[18px]">{blog.title}</h1>
         </header>
 
-        <div className="blog-content mt-8" dangerouslySetInnerHTML={{ __html: blog.content }} />
+        <div className="blog-content mt-6" dangerouslySetInnerHTML={{ __html: blog.content }} />
 
-        <div className="mt-14 border-t border-line pt-6">
-          <Link href="/blog" className="text-link text-[15px] font-bold">
+        <p className="mt-12 text-center">
+          <Link href="/blog" className="s-btn">
             {t("blog.back")}
           </Link>
-        </div>
+        </p>
       </div>
     </article>
   );

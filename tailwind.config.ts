@@ -1,10 +1,6 @@
 import type { Config } from 'tailwindcss';
 
-// 配色は実店舗から取っている:
-//   wall  … 店内の白い壁
-//   pine  … 商品を並べている白木の棚板
-//   board … 看板の板の色
-//   sky   … 看板の顔イラストの水色
+// 京都の個人店のサイトにならって、紙のような地色・こげ茶の文字・点線の区切りだけで組む。
 const config: Config = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -14,33 +10,26 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        wall: '#FFFFFF',
+        paper: '#EEE9DF',
         ink: {
-          DEFAULT: '#22262A',
-          soft: '#565C62',
+          DEFAULT: '#3B332B',
+          soft: '#6B6157',
         },
-        line: '#E1E3E0',
-        pine: {
-          DEFAULT: '#D3AF7C',
-          edge: '#B58A52',
-          light: '#F4EBDD',
-        },
-        board: {
-          DEFAULT: '#6B4A2B',
-          text: '#F3EBDD',
-          soft: '#DCCDB6',
-        },
-        sky: {
-          50: '#EEF8FD',
-          200: '#AEDDF3',
-          700: '#1D5E86',
-        },
+        rule: '#B9AE9F',
+        wood: '#6B4A2B',
       },
       fontFamily: {
-        maru: ['var(--font-maru)', 'Hiragino Maru Gothic ProN', 'sans-serif'],
+        jp: [
+          'var(--font-jp)',
+          'Hiragino Kaku Gothic ProN',
+          'Hiragino Sans',
+          'Yu Gothic',
+          'Meiryo',
+          'sans-serif',
+        ],
       },
       maxWidth: {
-        shop: '76rem',
+        site: '920px',
       },
     },
   },

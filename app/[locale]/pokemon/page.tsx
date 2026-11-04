@@ -2,7 +2,8 @@ import { Metadata } from "next";
 import { Link } from "@/i18n/routing";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import PageHeader from "@/components/PageHeader";
-import ProductShelf, { EmptyShelf } from "@/components/ProductShelf";
+import Image from "next/image";
+import ProductGrid, { EmptyNote } from "@/components/ProductGrid";
 import { localeUrl, localePath, hreflang, ogMeta } from "@/lib/urls";
 import { getCatalogProducts } from "@/lib/catalog";
 import { INSTAGRAM_URL } from "@/lib/shops";
@@ -47,25 +48,32 @@ export default async function PokemonPage({
           { label: t("breadcrumbs.pokemon"), href: localePath(locale, "/pokemon") },
         ]}
         title={t("pokemonPage.title")}
-        intro={<p>{t("pokemonPage.intro")}</p>}
+        intro={<p className="text-center text-[13px]">{t("pokemonPage.intro")}</p>}
       />
 
-      <div className="mx-auto max-w-shop px-4 pb-20 pt-10 sm:px-6">
+      <div className="relative mx-auto mt-6 aspect-[4/3] max-w-[520px]">
+        <Image
+          src={PHOTOS.pokemonShelf.src}
+          alt={photoAlt(PHOTOS.pokemonShelf, locale)}
+          fill
+          priority
+          sizes="(max-width: 560px) 100vw, 520px"
+          className="object-cover"
+        />
+      </div>
+
+      <div className="mt-10">
         {products.length > 0 ? (
-          <ProductShelf products={products} locale={locale} category="pokemon" />
+          <ProductGrid products={products} locale={locale} category="pokemon" />
         ) : (
-          <EmptyShelf
-            title={t("pokemonPage.emptyTitle")}
-            body={t("pokemonPage.emptyBody")}
-            photo={{ src: PHOTOS.pokemonShelf.src, alt: photoAlt(PHOTOS.pokemonShelf, locale) }}
-          >
-            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="btn">
+          <EmptyNote title={t("pokemonPage.emptyTitle")} body={t("pokemonPage.emptyBody")}>
+            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="s-btn">
               {t("common.instagram")}
             </a>
-            <Link href="/visit" className="btn-line">
+            <Link href="/visit" className="s-btn">
               {t("common.shops")}
             </Link>
-          </EmptyShelf>
+          </EmptyNote>
         )}
       </div>
     </>

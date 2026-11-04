@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
-import { Zen_Maru_Gothic } from "next/font/google";
+import { Noto_Sans_JP } from "next/font/google";
 import Script from "next/script";
 import { locales } from "@/i18n/request";
 import { localeUrl, hreflang } from "@/lib/urls";
@@ -12,11 +12,11 @@ import SiteFooter from "@/components/SiteFooter";
 import JsonLd from "@/components/JsonLd";
 import "../globals.css";
 
-// 看板の手描き文字に近い、丸みのあるゴシック1書体で全体を組む
-const maru = Zen_Maru_Gothic({
-  weight: ["400", "500", "700", "900"],
+// 個人店のサイトらしく、ふつうのゴシック体で組む（Mac/iPhone はヒラギノが優先される）
+const jp = Noto_Sans_JP({
+  weight: ["400", "700"],
   subsets: ["latin"],
-  variable: "--font-maru",
+  variable: "--font-jp",
   display: "swap",
 });
 
@@ -211,7 +211,7 @@ export default async function LocaleLayout({
       </Script>
 
       <body
-        className={`${maru.variable} font-maru bg-wall text-ink`}
+        className={`${jp.variable} font-jp bg-paper text-ink`}
       >
         <NextIntlClientProvider messages={messages}>
           {/* Structured Data */}
@@ -221,7 +221,7 @@ export default async function LocaleLayout({
           <Navigation locale={locale} />
 
           {/* Main Content */}
-          <main id="main" className="min-h-[60vh]">{children}</main>
+          <main id="main" className="mx-auto min-h-[50vh] max-w-site px-4 pb-16 sm:px-6">{children}</main>
 
           {/* Footer */}
           <SiteFooter locale={locale} />
