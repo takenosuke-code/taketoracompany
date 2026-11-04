@@ -123,7 +123,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     label: t("product.price"),
     value: (
       <>
-        <span className="text-[16px] font-bold">{formatYen(product.price)}</span>
+        <span className="text-[26px] font-black leading-none text-tag">{formatYen(product.price)}</span>
         <CurrencyConverter amountJPY={product.price ?? 0} note={t("product.approxNote")} />
       </>
     ),
@@ -164,10 +164,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
   };
 
   return (
-    <div className="pt-3">
+    <div className="mx-auto max-w-site px-4 pt-4 sm:px-6">
       <Breadcrumbs items={breadcrumbs} />
 
-      <div className="mt-6 grid gap-8 md:grid-cols-[420px_1fr]">
+      <div className="mt-6 grid gap-8 md:grid-cols-[440px_1fr]">
         <ProductGallery
           images={product.imageUrl ? [product.imageUrl] : []}
           productName={product.name}
@@ -175,12 +175,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
         />
 
         <div>
-          <h1 className="border-b border-dotted border-rule pb-2 text-[17px]">{product.name}</h1>
-          <table className="mt-3 w-full border-collapse bg-white text-[13px]">
+          <h1 className="text-[20px] font-black leading-snug sm:text-[24px]">{product.name}</h1>
+          <table className="mt-4 w-full border-collapse border border-line bg-white text-[14px]">
             <tbody>
               {specs.map((spec) => (
-                <tr key={spec.label} className="border-b border-dotted border-rule last:border-b-0">
-                  <th scope="row" className="w-[7.5rem] px-3 py-2.5 text-left align-top font-bold">
+                <tr key={spec.label} className="border-b border-line last:border-b-0">
+                  <th scope="row" className="w-[7.5rem] bg-mist px-3 py-2.5 text-left align-top font-bold">
                     {spec.label}
                   </th>
                   <td className="px-3 py-2.5">{spec.value}</td>
@@ -196,11 +196,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
       {relatedProducts.length > 0 && (
         <section className="mt-14" aria-labelledby="related">
-          <h2 id="related" className="sec-title">
+          <h2 id="related" className="bar-title">
             {t("product.related")}
           </h2>
           <div className="mt-5">
-            <ProductGrid products={relatedProducts} locale={locale} category={category} />
+            <ProductGrid products={relatedProducts} locale={locale} category={category} cols={4} />
           </div>
         </section>
       )}

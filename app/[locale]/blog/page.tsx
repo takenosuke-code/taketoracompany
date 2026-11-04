@@ -90,23 +90,23 @@ export default async function BlogPage({
         title={t("blog.title")}
       />
 
-      <div className="mt-6">
+      <div className="mx-auto mt-6 max-w-site px-4 sm:px-6">
         {blogs.length === 0 ? (
-          <div className="mx-auto max-w-[40rem] bg-white px-5 py-6 text-center">
+          <div className="border border-line bg-mist px-5 py-7 text-center">
             <p className="font-bold">{t("blog.emptyTitle")}</p>
             <p className="mt-2 text-[13px] text-ink-soft">{t("blog.emptyBody")}</p>
             <p className="mt-4">
-              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="s-btn">
+              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="btn-sub">
                 Instagram @taketora_antiques
               </a>
             </p>
           </div>
         ) : (
-          <ul className="mx-auto max-w-[44rem]">
+          <ul className="max-w-[48rem] border-t border-line">
             {blogs.map((blog: any) => {
               const thumb = blog.blogs?.blogpreview?.node?.sourceUrl as string | undefined;
               return (
-                <li key={blog.id || blog.slug} className="border-b border-dotted border-rule">
+                <li key={blog.id || blog.slug} className="border-b border-line">
                   <Link href={`/blog/${blog.slug}`} className="group flex items-center gap-4 py-4">
                     <div className="relative h-[72px] w-[96px] shrink-0 bg-white">
                       {thumb && (

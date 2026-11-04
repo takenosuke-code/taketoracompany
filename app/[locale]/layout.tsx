@@ -14,7 +14,7 @@ import "../globals.css";
 
 // 個人店のサイトらしく、ふつうのゴシック体で組む（Mac/iPhone はヒラギノが優先される）
 const jp = Noto_Sans_JP({
-  weight: ["400", "700"],
+  weight: ["400", "700", "900"],
   subsets: ["latin"],
   variable: "--font-jp",
   display: "swap",
@@ -211,7 +211,7 @@ export default async function LocaleLayout({
       </Script>
 
       <body
-        className={`${jp.variable} font-jp bg-paper text-ink`}
+        className={`${jp.variable} font-jp bg-white text-ink`}
       >
         <NextIntlClientProvider messages={messages}>
           {/* Structured Data */}
@@ -221,7 +221,7 @@ export default async function LocaleLayout({
           <Navigation locale={locale} />
 
           {/* Main Content */}
-          <main id="main" className="mx-auto min-h-[50vh] max-w-site px-4 pb-16 sm:px-6">{children}</main>
+          <main id="main" className="min-h-[50vh] pb-16">{children}</main>
 
           {/* Footer */}
           <SiteFooter locale={locale} />

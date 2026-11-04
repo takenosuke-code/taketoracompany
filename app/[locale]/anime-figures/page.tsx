@@ -47,10 +47,10 @@ export default async function AnimeFiguresPage({
           { label: t("breadcrumbs.animeFigures"), href: localePath(locale, "/anime-figures") },
         ]}
         title={t("animeFigures.title")}
-        intro={<p className="text-center text-[13px]">{t("animeFigures.intro")}</p>}
+        intro={<p>{t("animeFigures.intro")}</p>}
       >
         {groups.length > 1 && (
-          <ul className="mt-4 flex flex-wrap justify-center gap-x-4 gap-y-1 text-[13px]">
+          <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-[14px]">
             {groups.map((g, i) => (
               <li key={g.series}>
                 <a href={`#series-${i}`} className="text-link">
@@ -62,14 +62,15 @@ export default async function AnimeFiguresPage({
         )}
       </PageHeader>
 
-      <div className="mt-10">
+      <div className="mx-auto max-w-site px-4 sm:px-6">
+      <div className="mt-8">
         {groups.length > 0 ? (
           <div className="space-y-12">
             {groups.map((g, i) => (
               <section key={g.series} id={`series-${i}`} className="scroll-mt-4" aria-label={g.series}>
-                <h2 className="border-l-4 border-wood pl-2 text-[14px] font-bold">
+                <h2 className="flex items-baseline gap-2 border-b-2 border-ink pb-1 text-[17px] font-black">
                   {g.series}
-                  <span className="ml-2 text-[12px] font-normal text-ink-soft">
+                  <span className="text-[13px] font-bold text-ink-soft">
                     {t("collection.count", { count: g.items.length })}
                   </span>
                 </h2>
@@ -81,14 +82,15 @@ export default async function AnimeFiguresPage({
           </div>
         ) : (
           <EmptyNote title={t("animeFigures.emptyTitle")} body={t("animeFigures.emptyBody")}>
-            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="s-btn">
+            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="btn-sub">
               {t("common.instagram")}
             </a>
-            <Link href="/visit" className="s-btn">
+            <Link href="/visit" className="btn-sub">
               {t("common.shops")}
             </Link>
           </EmptyNote>
         )}
+      </div>
       </div>
     </>
   );

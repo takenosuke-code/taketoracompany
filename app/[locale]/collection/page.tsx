@@ -53,25 +53,26 @@ export default async function CollectionPage({
           { label: t("breadcrumbs.collection"), href: localePath(locale, "/collection") },
         ]}
         title={t("collection.title")}
-        intro={<p className="text-center text-[13px]">{t("collection.intro")}</p>}
+        intro={<p>{t("collection.intro")}</p>}
       >
-        <nav aria-label={t("collection.categories")} className="mt-4 flex flex-wrap justify-center gap-2">
+        <nav aria-label={t("collection.categories")} className="mt-4 flex flex-wrap gap-2">
           {categories.map((c) => (
-            <Link key={c.href} href={c.href} className="s-btn">
+            <Link key={c.href} href={c.href} className="btn-sub">
               {c.label}
             </Link>
           ))}
         </nav>
       </PageHeader>
 
-      <div className="mt-10">
+      <div className="mx-auto max-w-site px-4 sm:px-6">
+      <div className="mt-8">
         {groups.length > 0 ? (
           <div className="space-y-12">
             {groups.map((g) => (
               <section key={g.series} aria-label={g.series}>
-                <h2 className="border-l-4 border-wood pl-2 text-[14px] font-bold">
+                <h2 className="flex items-baseline gap-2 border-b-2 border-ink pb-1 text-[17px] font-black">
                   {g.series}
-                  <span className="ml-2 text-[12px] font-normal text-ink-soft">
+                  <span className="text-[13px] font-bold text-ink-soft">
                     {t("collection.count", { count: g.items.length })}
                   </span>
                 </h2>
@@ -83,14 +84,15 @@ export default async function CollectionPage({
           </div>
         ) : (
           <EmptyNote title={t("collection.emptyTitle")} body={t("collection.emptyBody")}>
-            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="s-btn">
+            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="btn-sub">
               {t("common.instagram")}
             </a>
-            <Link href="/visit" className="s-btn">
+            <Link href="/visit" className="btn-sub">
               {t("common.shops")}
             </Link>
           </EmptyNote>
         )}
+      </div>
       </div>
     </>
   );

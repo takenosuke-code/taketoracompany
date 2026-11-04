@@ -3,7 +3,7 @@ import { Link } from "@/i18n/routing";
 import { CatalogProduct, isInStock } from "@/lib/catalog";
 
 export function formatYen(price: number | null): string {
-  return price == null ? "—" : `${price.toLocaleString("ja-JP")}円`;
+  return price == null ? "—" : `¥${price.toLocaleString("ja-JP")}`;
 }
 
 interface ProductGridProps {
@@ -11,47 +11,50 @@ interface ProductGridProps {
   locale: string;
   /** 商品ページのカテゴリ部分（/anime-figures/<slug> の anime-figures） */
   category: string;
+  /** 1列あたりの最大数（広い画面） */
+  cols?: 4 | 5;
 }
 
-/** 商品の一覧。白地の写真・商品名・価格だけの、店のサイトによくある並べ方 */
-export default function ProductGrid({ products, locale, category }: ProductGridProps) {
+/** 商品一覧。トレカ店の通販ページのように、写真・商品名・赤い価格を枠で並べる */
+export default function ProductGrid({ products, locale, category, cols = 5 }: ProductGridProps) {
   const isJa = locale === "ja";
+  const wide = cols === 5 ? "lg:grid-cols-5" : "lg:grid-cols-4";
   return (
-    <ul className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4">
+    <ul className={`grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3 md:grid-cols-4 ${wide}`}>
       {products.map((p) => {
         const inStock = isInStock(p);
         return (
           <li key={p.id}>
-            <Link href={`/${category}/${p.slug}`} className="group block">
+            <Link href={`/${category}/${p.slug}`} className="group flex h-full flex-col border border-line bg-white p-2 hover:border-ink">
               <div className="relative aspect-square bg-white">
                 {p.imageUrl ? (
                   <Image
                     src={p.imageUrl}
                     alt={p.name}
                     fill
-                    className="object-contain p-2"
-                    sizes="(max-width: 640px) 50vw, 200px"
+                    className={`object-contain ${inStock ? "" : "opacity-40"}`}
+                    sizes="(max-width: 640px) 50vw, 220px"
                   />
                 ) : (
-                  <span className="absolute inset-0 flex items-center justify-center text-[12px] text-ink-soft">
+                  <span className="absolute inset-0 flex items-center justify-center bg-mist text-[12px] text-ink-soft">
                     {isJa ? "写真なし" : "No photo"}
                   </span>
                 )}
                 {!inStock && (
-                  <span className="absolute left-0 top-0 bg-ink px-1.5 text-[11px] leading-[1.8] text-white">
-                    {isJa ? "売り切れ" : "Sold out"}
+                  <span className="absolute inset-x-0 top-1/2 -translate-y-1/2 bg-ink/85 py-1 text-center text-[13px] font-bold text-white">
+                    {isJa ? "売り切れ" : "SOLD OUT"}
                   </span>
                 )}
               </div>
-              <p className="mt-1.5 line-clamp-2 text-[12px] leading-[1.6] group-hover:underline">{p.name}</p>
-              <p className="text-[13px] font-bold">
-                {formatYen(p.price)}
+              <p className="mt-2 line-clamp-2 text-[13px] font-bold leading-snug group-hover:underline">{p.name}</p>
+              <div className="mt-auto flex items-end justify-between gap-2 pt-1.5">
+                <p className="text-[17px] font-black leading-none text-tag">{formatYen(p.price)}</p>
                 {p.conditionRank && (
-                  <span className="ml-2 text-[11px] font-normal text-ink-soft">
+                  <span className="shrink-0 rounded-sm border border-ink-soft px-1 text-[11px] font-bold leading-[1.6] text-ink-soft">
                     {isJa ? `ランク${p.conditionRank}` : `Rank ${p.conditionRank}`}
                   </span>
                 )}
-              </p>
+              </div>
             </Link>
           </li>
         );
@@ -63,10 +66,10 @@ export default function ProductGrid({ products, locale, category }: ProductGridP
 /** 商品が載っていないときの案内 */
 export function EmptyNote({ title, body, children }: { title: string; body: string; children?: React.ReactNode }) {
   return (
-    <div className="mx-auto max-w-[40rem] bg-white px-5 py-6 text-center">
-      <p className="font-bold">{title}</p>
-      <p className="mt-2 text-[13px] text-ink-soft">{body}</p>
-      {children && <div className="mt-4 flex flex-wrap justify-center gap-2">{children}</div>}
+    <div className="border border-line bg-mist px-5 py-7 text-center">
+      <p className="text-[16px] font-bold">{title}</p>
+      <p className="mt-2 text-[14px] text-ink-soft">{body}</p>
+      {children && <div className="mt-5 flex flex-wrap justify-center gap-2">{children}</div>}
     </div>
   );
 }

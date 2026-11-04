@@ -30,43 +30,71 @@
     }
   },
   "nav": {
-    "home": "Home",
     "collection": "All items",
-    "animeFigures": "Figures",
     "pokemon": "Pokémon cards",
+    "animeFigures": "Figures",
     "antiques": "Antiques",
     "visit": "Shops & access",
     "blog": "Blog",
     "switchLang": "日本語",
     "menuLabel": "Menu",
-    "skip": "Skip to content"
+    "skip": "Skip to content",
+    "hoursBar": "Open 10:00–20:00, every day",
+    "englishOk": "English OK",
+    "tagline": "Pokémon cards, figures & antiques | Higashiyama, Kyoto"
   },
   "home": {
     "h1": "Taketora, an antique shop in Higashiyama, Kyoto",
-    "intro1": "We sell Japanese antiques (Kiyomizu ware and other pottery, tea ceremony tools, old household tools, hanging scrolls), plus anime figures and Pokémon cards.",
-    "intro2": "We have three shops in Higashiyama: Kodaiji, Kiyomizu and Shichijo. Please drop in.",
-    "hours": "Open 10:00–20:00, every day",
-    "english": "English OK",
-    "mapBtn": "Maps & access",
-    "shopsTitle": "Our shops",
+    "intro": "We sell sealed Pokémon card booster boxes, anime figures, and Japanese antiques such as Kiyomizu ware and old tools. Three shops in Higashiyama: Kodaiji, Kiyomizu and Shichijo.",
+    "slidePick": "Show banner {n}",
+    "banners": {
+      "pokemon": {
+        "title": "Pokémon cards",
+        "sub": "Sealed booster boxes in store"
+      },
+      "figures": {
+        "title": "Anime figures",
+        "sub": "Used items graded by condition"
+      },
+      "antique": {
+        "title": "Antiques",
+        "sub": "Kiyomizu ware, tea tools, old tools"
+      },
+      "shops": {
+        "title": "3 shops in Higashiyama",
+        "sub": "From 6 min walk from Kiyomizu-dera"
+      }
+    },
+    "catTitle": "Shop by category",
+    "cats": {
+      "pokemon": {
+        "name": "Pokémon cards",
+        "note": "Sealed boxes and more"
+      },
+      "figures": {
+        "name": "Anime figures",
+        "note": "Mostly prize figures"
+      },
+      "antique": {
+        "name": "Antiques",
+        "note": "Pottery, tea tools, old tools"
+      }
+    },
+    "pokeTitle": "Pokémon cards",
+    "pokeBody1": "We sell sealed booster boxes and more in store.",
+    "pokeBody2": "To check stock, hold an item or ask about overseas shipping, send us a DM on Instagram.",
+    "pokeLink": "About Pokémon cards",
     "newTitle": "New arrivals",
-    "newAll": "See all items",
-    "itemsTitle": "What we sell",
-    "items": [
-      "Pottery (Kiyomizu, Imari, Kutani ware)",
-      "Tea ceremony tools",
-      "Old household tools (iron kettles, chests)",
-      "Scrolls, ukiyo-e prints, folding screens",
-      "Anime figures",
-      "Pokémon cards"
+    "newAll": "See all",
+    "shopsTitle": "Our shops",
+    "firstTitle": "Before you visit",
+    "first": [
+      "Our staff speak English.",
+      "We can hold items or ship overseas. Ask us by Instagram DM.",
+      "Looking for something specific? DM us to check stock before you come."
     ],
-    "contactTitle": "Contact",
-    "contact": "For holds, overseas shipping or stock questions, send us a DM on Instagram.",
     "instagramBtn": "See our Instagram",
-    "englishTitle": "日本語",
-    "englishBody": "日本語のページはこちら。",
-    "slidePick": "Show photo {n}",
-    "categoriesTitle": "Categories"
+    "mapBtn": "Shops & access"
   },
   "shops": {
     "walk": "{mins} min walk from Kiyomizu-dera",
@@ -166,7 +194,7 @@
     "shops": "Shops & access"
   },
   "footer": {
-    "hours": "Open 10:00–20:00, every day",
+    "hours": "Open 10:00–20:00, every day / English OK",
     "copyright": "© {year} Taketora"
   },
   "breadcrumbs": {

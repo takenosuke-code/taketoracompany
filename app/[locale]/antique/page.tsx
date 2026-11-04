@@ -50,9 +50,10 @@ export default async function AntiquePage({
           { label: t("breadcrumbs.antique"), href: localePath(locale, "/antique") },
         ]}
         title={t("antiquePage.title")}
-        intro={<p className="text-center text-[13px]">{t("antiquePage.intro")}</p>}
+        intro={<p>{t("antiquePage.intro")}</p>}
       />
 
+      <div className="mx-auto max-w-site px-4 sm:px-6">
       <div className="mt-6 grid grid-cols-2 gap-3">
         {[PHOTOS.potteryShelves, PHOTOS.windowShelf].map((ph, i) => (
           <div key={ph.src} className="relative aspect-[4/3]">
@@ -61,7 +62,7 @@ export default async function AntiquePage({
               alt={photoAlt(ph, locale)}
               fill
               priority={i === 0}
-              sizes="(max-width: 920px) 50vw, 436px"
+              sizes="(max-width: 1080px) 50vw, 520px"
               className="object-cover"
             />
           </div>
@@ -69,13 +70,13 @@ export default async function AntiquePage({
       </div>
 
       <section className="mt-10" aria-labelledby="kinds">
-        <h2 id="kinds" className="sec-title">
+        <h2 id="kinds" className="bar-title">
           {t("antiquePage.kindsTitle")}
         </h2>
-        <table className="mt-4 w-full border-collapse text-[13px]">
+        <table className="mt-4 w-full border-collapse border-t border-line text-[14px]">
           <tbody>
             {KINDS.map((k) => (
-              <tr key={k} className="border-b border-dotted border-rule">
+              <tr key={k} className="border-b border-line">
                 <th scope="row" className="w-[9rem] py-3 pr-4 text-left align-top font-bold sm:w-[12rem]">
                   {t(`antiquePage.kinds.${k}.name`)}
                 </th>
@@ -92,14 +93,15 @@ export default async function AntiquePage({
         </div>
       )}
 
-      <p className="mt-8 flex flex-wrap justify-center gap-2">
-        <Link href="/visit" className="s-btn">
+      <p className="mt-8 flex flex-wrap gap-2">
+        <Link href="/visit" className="btn">
           {t("common.shops")}
         </Link>
-        <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="s-btn">
+        <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="btn-sub">
           {t("common.instagram")}
         </a>
       </p>
+      </div>
     </>
   );
 }

@@ -8,10 +8,10 @@
   }
 
   body {
-    @apply bg-paper text-ink font-jp;
-    font-size: 14px;
-    line-height: 2;
-    letter-spacing: 0.05em;
+    @apply bg-white text-ink font-jp;
+    font-size: 15px;
+    line-height: 1.85;
+    letter-spacing: 0.02em;
   }
 
   h1,
@@ -19,7 +19,7 @@
   h3,
   h4 {
     font-weight: 700;
-    line-height: 1.6;
+    line-height: 1.5;
   }
 
   a {
@@ -27,47 +27,50 @@
   }
 
   :focus-visible {
-    outline: 2px solid #6b4a2b;
+    outline: 3px solid #1d5e86;
     outline-offset: 2px;
   }
 }
 
 @layer components {
-  /* 見出し: 中央寄せの小さな文字に点線を引くだけ */
-  .sec-title {
-    @apply border-b border-dotted border-rule pb-2 text-center text-[15px] font-bold;
+  /* 見出し: 左に赤い帯（トレカ店のサイトでよく見る形） */
+  .bar-title {
+    @apply border-l-[5px] border-tag pl-2.5 text-[19px] font-black leading-tight sm:text-[21px];
   }
 
-  /* 小さな枠つきボタン（Google MAP / お店の行き方 など） */
-  .s-btn {
-    @apply inline-flex min-h-[40px] items-center justify-center border border-[#8A7D6E] bg-white px-4 text-[13px] leading-tight text-ink hover:bg-[#f7f4ee];
+  /* ボタン */
+  .btn {
+    @apply inline-flex min-h-[44px] items-center justify-center gap-1.5 rounded bg-ink px-5 text-[14px] font-bold text-white hover:bg-[#3a424b];
+  }
+  .btn-sub {
+    @apply inline-flex min-h-[44px] items-center justify-center gap-1.5 rounded border border-ink bg-white px-5 text-[14px] font-bold text-ink hover:bg-mist;
+  }
+
+  /* 黄色の札（「English OK」「未開封BOX」など） */
+  .hilite-tag {
+    @apply inline-block rounded-sm bg-hilite px-1.5 text-[12px] font-bold leading-[1.7] text-ink;
   }
 
   .text-link {
-    @apply text-wood underline hover:no-underline;
-  }
-
-  /* 点線の区切り */
-  .dotted {
-    @apply border-dotted border-rule;
+    @apply text-sky-deep underline hover:no-underline;
   }
 
   /* ブログ本文 */
   .blog-content {
-    @apply text-[15px];
-    line-height: 2.1;
+    @apply text-[16px];
+    line-height: 2;
   }
   .blog-content h2 {
-    @apply mb-3 mt-10 border-b border-dotted border-rule pb-1 text-[17px];
+    @apply mb-3 mt-10 border-l-[5px] border-tag pl-2.5 text-[19px] font-black;
   }
   .blog-content h3 {
-    @apply mb-2 mt-8 text-[15px];
+    @apply mb-2 mt-8 text-[17px] font-bold;
   }
   .blog-content p {
     @apply mb-5;
   }
   .blog-content a {
-    @apply text-wood underline;
+    @apply text-sky-deep underline;
   }
   .blog-content ul,
   .blog-content ol {
@@ -80,19 +83,22 @@
     list-style: decimal;
   }
   .blog-content img {
-    @apply my-6 h-auto max-w-full;
+    @apply my-6 h-auto max-w-full rounded;
   }
   .blog-content blockquote {
-    @apply my-6 border-l-2 border-rule pl-4 text-ink-soft;
+    @apply my-6 border-l-4 border-sky bg-sky-pale px-4 py-3;
   }
   .blog-content hr {
-    @apply my-10 border-dotted border-rule;
+    @apply my-10 border-line;
   }
   .blog-content table {
-    @apply my-6 w-full border-collapse text-[13px];
+    @apply my-6 w-full border-collapse text-[14px];
   }
   .blog-content th,
   .blog-content td {
-    @apply border border-rule bg-white px-3 py-2 text-left align-top;
+    @apply border border-line px-3 py-2 text-left align-top;
+  }
+  .blog-content th {
+    @apply bg-mist;
   }
 }

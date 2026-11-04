@@ -1,6 +1,6 @@
 import type { Config } from 'tailwindcss';
 
-// 京都の個人店のサイトにならって、紙のような地色・こげ茶の文字・点線の区切りだけで組む。
+// 店の看板（茶色の板・水色の顔）と、トレカ店でおなじみの赤い値札・黄色の札で組む。
 const config: Config = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -10,13 +10,20 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        paper: '#EEE9DF',
         ink: {
-          DEFAULT: '#3B332B',
-          soft: '#6B6157',
+          DEFAULT: '#1E2329',
+          soft: '#5A6169',
         },
-        rule: '#B9AE9F',
-        wood: '#6B4A2B',
+        mist: '#F3F5F7',
+        line: '#DDE1E6',
+        board: '#5A3D24',
+        sky: {
+          DEFAULT: '#AEDDF3',
+          deep: '#1D5E86',
+          pale: '#EAF6FC',
+        },
+        tag: '#D7261E',
+        hilite: '#FFD84D',
       },
       fontFamily: {
         jp: [
@@ -29,7 +36,7 @@ const config: Config = {
         ],
       },
       maxWidth: {
-        site: '920px',
+        site: '1080px',
       },
     },
   },

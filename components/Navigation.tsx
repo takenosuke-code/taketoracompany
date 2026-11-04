@@ -3,13 +3,13 @@
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Link, usePathname } from "@/i18n/routing";
+import { INSTAGRAM_URL } from "@/lib/shops";
 import taketoraLogo from "@/public/assets/taketora_logo.png";
 
 interface NavigationProps {
   locale: string;
 }
 
-/** 看板（ロゴ）を中央に置き、その下に小さな文字のメニューを1行で並べる */
 export default function Navigation({ locale }: NavigationProps) {
   const t = useTranslations("nav");
   const pathname = usePathname();
@@ -17,20 +17,18 @@ export default function Navigation({ locale }: NavigationProps) {
   const otherLocale = isJa ? "en" : "ja";
 
   const navLinks = [
-    { href: "/" as const, label: t("home") },
     { href: "/collection" as const, label: t("collection") },
-    { href: "/anime-figures" as const, label: t("animeFigures") },
     { href: "/pokemon" as const, label: t("pokemon") },
+    { href: "/anime-figures" as const, label: t("animeFigures") },
     { href: "/antique" as const, label: t("antiques") },
     { href: "/visit" as const, label: t("visit") },
     { href: "/blog" as const, label: t("blog") },
   ];
 
-  const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
+  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <header className="mx-auto max-w-site px-4 sm:px-6">
+    <header>
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-2 focus:z-50 focus:bg-white focus:px-3 focus:py-1"
@@ -38,41 +36,50 @@ export default function Navigation({ locale }: NavigationProps) {
         {t("skip")}
       </a>
 
-      <div className="flex justify-end pt-3 text-[12px]">
-        <Link href={pathname || "/"} locale={otherLocale} lang={otherLocale} className="text-link">
-          {t("switchLang")}
-        </Link>
+      {/* 営業時間の帯 */}
+      <div className="bg-board text-white">
+        <div className="mx-auto flex max-w-site items-center justify-between gap-4 px-4 py-1.5 text-[12px] sm:px-6">
+          <p>
+            {t("hoursBar")}
+            <span className="ml-3 hidden sm:inline">{t("englishOk")}</span>
+          </p>
+          <Link href={pathname || "/"} locale={otherLocale} lang={otherLocale} className="font-bold underline">
+            {t("switchLang")}
+          </Link>
+        </div>
       </div>
 
-      <Link href="/" className="mx-auto mt-1 flex w-fit flex-col items-center pb-4">
-        <Image
-          src={taketoraLogo}
-          alt=""
-          width={88}
-          height={88}
-          priority
-          className="h-[72px] w-[72px] sm:h-[88px] sm:w-[88px]"
-        />
-        <span className="mt-2 text-[18px] font-bold tracking-[0.2em]">
-          {isJa ? "アンティークショップ猛虎" : "Taketora Antiques"}
-        </span>
-        <span className="text-[11px] tracking-[0.2em] text-ink-soft">
-          {isJa ? "たけとら　京都・東山" : "Higashiyama, Kyoto"}
-        </span>
-      </Link>
+      {/* 看板 */}
+      <div className="mx-auto flex max-w-site items-center justify-between gap-4 px-4 py-3 sm:px-6">
+        <Link href="/" className="flex items-center gap-3">
+          <Image src={taketoraLogo} alt="" width={60} height={60} priority className="h-12 w-12 sm:h-[60px] sm:w-[60px]" />
+          <span className="leading-tight">
+            <span className="block text-[18px] font-black tracking-[0.06em] sm:text-[22px]">
+              {isJa ? "アンティークショップ猛虎" : "Taketora"}
+            </span>
+            <span className="mt-1 block text-[11px] font-bold text-ink-soft sm:text-[12px]">{t("tagline")}</span>
+          </span>
+        </Link>
+        <div className="hidden items-center gap-2 md:flex">
+          <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="btn-sub min-h-[40px] px-4 text-[13px]">
+            Instagram
+          </a>
+          <Link href="/visit" className="btn min-h-[40px] px-4 text-[13px]">
+            {t("visit")}
+          </Link>
+        </div>
+      </div>
 
-      <nav
-        aria-label={t("menuLabel")}
-        className="border-y border-dotted border-rule"
-      >
-        <ul className="flex flex-wrap justify-center gap-x-1 px-1 py-1 text-[13px]">
+      {/* メニュー（スマホは3列×2段） */}
+      <nav aria-label={t("menuLabel")} className="bg-sky">
+        <ul className="mx-auto grid max-w-site grid-cols-3 md:flex md:justify-center md:px-6">
           {navLinks.map((link) => (
-            <li key={link.href}>
+            <li key={link.href} className="border-b border-r border-white/70 md:border-b-0 md:border-l md:border-r-0 md:last:border-r">
               <Link
                 href={link.href}
                 aria-current={isActive(link.href) ? "page" : undefined}
-                className={`block whitespace-nowrap px-2 py-1.5 sm:px-2.5 sm:py-2 ${
-                  isActive(link.href) ? "font-bold text-ink" : "text-ink-soft hover:text-ink"
+                className={`flex min-h-[44px] items-center justify-center px-2 text-center text-[13px] font-bold leading-tight md:px-5 md:text-[14px] ${
+                  isActive(link.href) ? "bg-white text-ink" : "text-ink hover:bg-white/50"
                 }`}
               >
                 {link.label}

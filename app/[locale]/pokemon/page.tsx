@@ -48,18 +48,30 @@ export default async function PokemonPage({
           { label: t("breadcrumbs.pokemon"), href: localePath(locale, "/pokemon") },
         ]}
         title={t("pokemonPage.title")}
-        intro={<p className="text-center text-[13px]">{t("pokemonPage.intro")}</p>}
+        intro={<p>{t("pokemonPage.intro")}</p>}
       />
 
-      <div className="relative mx-auto mt-6 aspect-[4/3] max-w-[520px]">
-        <Image
-          src={PHOTOS.pokemonShelf.src}
-          alt={photoAlt(PHOTOS.pokemonShelf, locale)}
-          fill
-          priority
-          sizes="(max-width: 560px) 100vw, 520px"
-          className="object-cover"
-        />
+      <div className="mx-auto max-w-site px-4 sm:px-6">
+      <div className="mt-6 grid gap-3 sm:grid-cols-[1.4fr_1fr]">
+        <div className="relative aspect-[4/3]">
+          <Image
+            src={PHOTOS.pokemonShelf.src}
+            alt={photoAlt(PHOTOS.pokemonShelf, locale)}
+            fill
+            priority
+            sizes="(max-width: 640px) 100vw, 600px"
+            className="object-cover"
+          />
+        </div>
+        <div className="relative aspect-[4/3] bg-[#0b0b0b] sm:aspect-auto">
+          <Image
+            src={PHOTOS.pokemonBox.src}
+            alt={photoAlt(PHOTOS.pokemonBox, locale)}
+            fill
+            sizes="(max-width: 640px) 100vw, 420px"
+            className="object-contain"
+          />
+        </div>
       </div>
 
       <div className="mt-10">
@@ -67,14 +79,15 @@ export default async function PokemonPage({
           <ProductGrid products={products} locale={locale} category="pokemon" />
         ) : (
           <EmptyNote title={t("pokemonPage.emptyTitle")} body={t("pokemonPage.emptyBody")}>
-            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="s-btn">
+            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="btn-sub">
               {t("common.instagram")}
             </a>
-            <Link href="/visit" className="s-btn">
+            <Link href="/visit" className="btn-sub">
               {t("common.shops")}
             </Link>
           </EmptyNote>
         )}
+      </div>
       </div>
     </>
   );

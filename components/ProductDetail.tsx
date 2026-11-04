@@ -12,12 +12,12 @@ export default async function ProductDetail({ locale }: ProductDetailProps) {
 
   return (
     <div>
-      <p className="text-[13px]">{t("note")}</p>
+      <p className="text-[14px] text-ink-soft">{t("note")}</p>
       <p className="mt-3 flex flex-wrap gap-2">
-        <Link href="/visit" className="s-btn">
+        <Link href="/visit" className="btn">
           {t("visitStore")}
         </Link>
-        <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="s-btn">
+        <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="btn-sub">
           {t("ask")}
         </a>
       </p>

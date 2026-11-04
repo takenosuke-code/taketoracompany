@@ -42,6 +42,12 @@ export const PHOTOS = {
     altJa: "壁の棚に置いたポケモンカードの未開封BOX",
     altEn: "Sealed Pokémon card boxes on a wall shelf",
   },
+  /** 店で販売していたBOXの商品写真（黒背景） */
+  pokemonBox: {
+    src: "https://raemfaxgstoezqgbtdry.supabase.co/storage/v1/object/public/product/MegaBraveBoosterBox_15000yen.png",
+    altJa: "ポケモンカードゲーム 拡張パック「メガブレイブ」のBOX",
+    altEn: "A booster box of the Pokémon card set Mega Brave",
+  },
   windowShelf: {
     src: `${BASE}/antique2.JPG`,
     altJa: "窓ぎわの棚に並ぶ湯のみ、急須、面",

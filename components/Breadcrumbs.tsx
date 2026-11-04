@@ -27,7 +27,7 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
         <ol className="flex min-w-max items-center text-[12px] text-ink-soft">
           {items.map((item, index) => (
             <li key={item.href} className="flex items-center">
-              {index > 0 && <span aria-hidden="true" className="mx-1.5">＞</span>}
+              {index > 0 && <span aria-hidden="true" className="mx-1.5">›</span>}
               {index === items.length - 1 ? (
                 <span aria-current="page" className="max-w-[14rem] truncate" title={item.label}>
                   {item.label}

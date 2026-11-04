@@ -8,13 +8,13 @@ interface PageHeaderProps {
   children?: React.ReactNode;
 }
 
-/** 下層ページの見出し。パンくず、中央寄せの小さな見出し、短い説明だけ */
+/** 下層ページの見出し。パンくず、赤い帯の見出し、短い説明 */
 export default function PageHeader({ breadcrumbs, title, intro, children }: PageHeaderProps) {
   return (
-    <div className="pt-3">
+    <div className="mx-auto max-w-site px-4 pt-4 sm:px-6">
       <Breadcrumbs items={breadcrumbs} />
-      <h1 className="sec-title mt-6 text-[17px]">{title}</h1>
-      {intro && <div className="mx-auto mt-4 max-w-[40rem]">{intro}</div>}
+      <h1 className="bar-title mt-5 text-[22px] sm:text-[26px]">{title}</h1>
+      {intro && <div className="mt-3 max-w-[46rem] text-[14px] text-ink-soft">{intro}</div>}
       {children}
     </div>
   );

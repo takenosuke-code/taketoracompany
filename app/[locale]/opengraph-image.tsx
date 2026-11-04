@@ -25,13 +25,13 @@ export default async function OpengraphImage({
   const tagline = isJa
     ? "Antique shop in Higashiyama, Kyoto"
     : "Antique shop in Higashiyama, Kyoto";
-  const subline = "Old pottery, tea tools, anime figures and Pokemon cards";
+  const subline = "Pokemon cards, anime figures and Japanese antiques";
   // 店の看板（ロゴ）をそのまま載せる
   const logo = await fetch(
     new URL("../../public/assets/taketora_logo.png", import.meta.url)
   ).then((res) => res.arrayBuffer());
 
-  // サイトと同じ紙の地色に、看板のロゴと店名だけを置く
+  // 看板のロゴと店名に、サイトのメニュー帯と同じ水色・茶色の帯を添える
   return new ImageResponse(
     (
       <div
@@ -41,8 +41,8 @@ export default async function OpengraphImage({
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-end",
-          background: "#eee9df",
-          color: "#3b332b",
+          background: "#ffffff",
+          color: "#1e2329",
           padding: "0 80px",
           position: "relative",
         }}
@@ -58,7 +58,7 @@ export default async function OpengraphImage({
           Taketora
         </div>
         <div style={{ marginTop: 4, fontSize: 40, display: "flex" }}>{tagline}</div>
-        <div style={{ marginTop: 16, fontSize: 28, color: "#6b6157", display: "flex" }}>
+        <div style={{ marginTop: 16, fontSize: 28, color: "#5a6169", display: "flex" }}>
           {subline}
         </div>
         <div
@@ -66,8 +66,9 @@ export default async function OpengraphImage({
             marginTop: 56,
             marginLeft: -80,
             marginRight: -80,
-            height: 2,
-            borderTop: "2px dotted #b9ae9f",
+            height: 24,
+            background: "#aeddf3",
+            borderTop: "8px solid #5a3d24",
             display: "flex",
           }}
         />
@@ -78,7 +79,7 @@ export default async function OpengraphImage({
             marginRight: -80,
             padding: "0 80px",
             fontSize: 24,
-            color: "#6b6157",
+            color: "#5a6169",
             display: "flex",
             alignItems: "center",
           }}
