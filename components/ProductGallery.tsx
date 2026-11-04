@@ -9,89 +9,57 @@ interface ProductGalleryProps {
   isJa: boolean;
 }
 
-export default function ProductGallery({
-  images,
-  productName,
-  isJa,
-}: ProductGalleryProps) {
+/** 商品写真。棚の上に置いて見せる */
+export default function ProductGallery({ images, productName, isJa }: ProductGalleryProps) {
   const [activeIdx, setActiveIdx] = useState(0);
 
   if (images.length === 0) {
     return (
-      <div className="relative aspect-square w-full glass-card overflow-hidden flex items-center justify-center">
-        <span className="text-[#F2E8DC]/30 text-sm">
-          {isJa ? "画像がありません" : "No image available"}
-        </span>
+      <div>
+        <div className="flex aspect-square items-end justify-center pb-6 text-[14px] text-ink-soft">
+          {isJa ? "写真はまだありません" : "No photo yet"}
+        </div>
+        <div className="shelf" />
       </div>
     );
   }
 
   const activeImage = images[activeIdx] ?? images[0];
-  const altMain = isJa
-    ? `京都たけとら - ${productName}`
-    : `${productName} at Taketora Kyoto`;
 
   return (
-    <div className="space-y-4">
-      <div className="relative aspect-square w-full glass-card overflow-hidden group">
-        {/* Corner accents */}
-        <div className="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-[#D4AF37]/30 rounded-tl-lg z-10" />
-        <div className="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 border-[#D4AF37]/30 rounded-br-lg z-10" />
-
-        <div className="w-full h-full flex items-center justify-center p-4 sm:p-6">
+    <div>
+      <div className="relative aspect-square">
+        <div className="absolute inset-x-6 bottom-0 top-4">
           <Image
             key={activeImage}
             src={activeImage}
-            alt={altMain}
-            width={1000}
-            height={1000}
-            className="max-w-full max-h-full w-auto h-auto object-contain group-hover:scale-105 transition-transform duration-700"
+            alt={productName}
+            fill
             priority
+            className="object-contain object-bottom"
             sizes="(max-width: 1024px) 100vw, 50vw"
           />
         </div>
       </div>
+      <div className="shelf" />
 
       {images.length > 1 && (
-        <div
-          role="tablist"
-          aria-label={isJa ? "商品画像" : "Product images"}
-          className="grid grid-cols-4 gap-2 sm:gap-3"
-        >
-          {images.slice(0, 8).map((img, idx) => {
-            const isActive = idx === activeIdx;
-            return (
-              <button
-                key={`${img}-${idx}`}
-                type="button"
-                role="tab"
-                aria-selected={isActive}
-                aria-label={
-                  isJa
-                    ? `画像 ${idx + 1} を表示`
-                    : `Show image ${idx + 1}`
-                }
-                onClick={() => setActiveIdx(idx)}
-                className={`relative aspect-square glass-card overflow-hidden cursor-pointer transition-all duration-300 ${
-                  isActive
-                    ? "border-[#D4AF37] ring-1 ring-[#D4AF37]/40"
-                    : "hover:border-amber-600/40"
-                }`}
-              >
-                <Image
-                  src={img}
-                  alt={
-                    isJa
-                      ? `${productName} - 画像 ${idx + 1}`
-                      : `${productName} - View ${idx + 1}`
-                  }
-                  fill
-                  className="object-cover transition-transform duration-500 hover:scale-110"
-                  sizes="(max-width: 640px) 25vw, 12.5vw"
-                />
-              </button>
-            );
-          })}
+        <div role="tablist" aria-label={isJa ? "商品写真" : "Product photos"} className="mt-4 grid grid-cols-5 gap-2">
+          {images.slice(0, 10).map((img, idx) => (
+            <button
+              key={`${img}-${idx}`}
+              type="button"
+              role="tab"
+              aria-selected={idx === activeIdx}
+              aria-label={isJa ? `写真${idx + 1}を表示` : `Show photo ${idx + 1}`}
+              onClick={() => setActiveIdx(idx)}
+              className={`relative aspect-square border-2 ${
+                idx === activeIdx ? "border-ink" : "border-line hover:border-ink-soft"
+              }`}
+            >
+              <Image src={img} alt="" fill className="object-contain p-1" sizes="80px" />
+            </button>
+          ))}
         </div>
       )}
     </div>

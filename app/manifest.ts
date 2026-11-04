@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "京都に3店舗（高台寺・清水寺・七条）のアンティークショップ。骨董品、古道具、アニメフィギュア、ポケモンカード。Antique shop with three locations in Kyoto.",
     start_url: "/",
     display: "standalone",
-    background_color: "#fafaf7",
-    theme_color: "#1a1a2e",
+    background_color: "#ffffff",
+    theme_color: "#6b4a2b",
     icons: [
       {
         src: "/icon.png",

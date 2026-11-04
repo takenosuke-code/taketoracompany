@@ -23,59 +23,26 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
   return (
     <>
       <JsonLd data={schema} />
-      <nav aria-label="Breadcrumb" className="mb-4 overflow-x-auto">
-        <ol className="flex items-center space-x-1.5 sm:space-x-2 text-xs sm:text-sm min-w-max">
+      <nav aria-label="Breadcrumb" className="overflow-x-auto">
+        <ol className="flex min-w-max items-center text-[13px] text-ink-soft">
           {items.map((item, index) => (
-            <li key={item.href} className="flex items-center flex-shrink-0">
+            <li key={item.href} className="flex items-center">
               {index > 0 && (
-                <svg
-                  className="mx-1.5 sm:mx-2 w-3.5 h-3.5 text-[#D4AF37]/30 flex-shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
+                <span aria-hidden="true" className="mx-2 text-[#9aa0a5]">
+                  /
+                </span>
               )}
               {index === items.length - 1 ? (
                 <span
-                  className="text-[#F2E8DC]/80 font-medium truncate max-w-[180px] sm:max-w-none"
                   aria-current="page"
+                  className="max-w-[16rem] truncate font-bold text-ink"
                   title={item.label}
                 >
                   {item.label}
                 </span>
               ) : (
-                <Link
-                  href={item.href}
-                  className="text-[#F2E8DC]/40 hover:text-[#D4AF37] transition-colors duration-300 truncate max-w-[120px] sm:max-w-none font-light inline-flex items-center py-2 -my-2 px-1 -mx-1"
-                  title={item.label}
-                >
-                  {index === 0 ? (
-                    <span className="flex items-center gap-1.5">
-                      <svg
-                        className="w-3.5 h-3.5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={1.5}
-                          d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
-                        />
-                      </svg>
-                      <span className="hidden sm:inline">{item.label}</span>
-                    </span>
-                  ) : (
-                    item.label
-                  )}
+                <Link href={item.href} className="py-2 underline-offset-4 hover:text-ink hover:underline">
+                  {item.label}
                 </Link>
               )}
             </li>

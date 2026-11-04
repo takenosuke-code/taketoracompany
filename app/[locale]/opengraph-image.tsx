@@ -23,12 +23,15 @@ export default async function OpengraphImage({
 }) {
   const isJa = locale === "ja";
   const tagline = isJa
-    ? "Kyoto · Higashiyama Antique Shop"
-    : "Authentic Japanese Antiques · Kyoto";
-  const subline = isJa
-    ? "Antiques · Folk Tools · Anime Figures · Pokemon Cards"
-    : "Antiques · Folk Tools · Anime Figures · Pokemon Cards";
+    ? "Antique shop in Higashiyama, Kyoto"
+    : "Antique shop in Higashiyama, Kyoto";
+  const subline = "Old pottery, tea tools, anime figures and Pokemon cards";
+  // 店の看板（ロゴ）をそのまま載せる
+  const logo = await fetch(
+    new URL("../../public/assets/taketora_logo.png", import.meta.url)
+  ).then((res) => res.arrayBuffer());
 
+  // 店の白い壁と白木の棚、看板の水色だけで組む
   return new ImageResponse(
     (
       <div
@@ -37,66 +40,48 @@ export default async function OpengraphImage({
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          background:
-            "radial-gradient(circle at 50% 30%, #2a2622 0%, #1c1917 60%, #0c0a09 100%)",
-          color: "#f5f0e6",
-          fontFamily: "serif",
+          justifyContent: "flex-end",
+          background: "#ffffff",
+          color: "#22262a",
+          padding: "0 80px",
           position: "relative",
         }}
       >
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            height: 8,
-            background: "linear-gradient(90deg, #b8860b, #e6c66e, #b8860b)",
-          }}
+        {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
+        <img
+          src={logo as unknown as string}
+          width={150}
+          height={150}
+          style={{ position: "absolute", top: 64, left: 72 }}
         />
-        <div
-          style={{
-            fontSize: 132,
-            fontWeight: 700,
-            letterSpacing: 18,
-            color: "#e6c66e",
-            display: "flex",
-          }}
-        >
-          TAKETORA
+        <div style={{ fontSize: 128, fontWeight: 800, letterSpacing: 2, display: "flex" }}>
+          Taketora
         </div>
-        <div
-          style={{
-            marginTop: 8,
-            fontSize: 40,
-            letterSpacing: 6,
-            color: "#d6cdb8",
-            display: "flex",
-          }}
-        >
-          {tagline}
-        </div>
-        <div
-          style={{
-            marginTop: 36,
-            fontSize: 26,
-            letterSpacing: 2,
-            color: "#a89f8a",
-            display: "flex",
-          }}
-        >
+        <div style={{ marginTop: 4, fontSize: 40, display: "flex" }}>{tagline}</div>
+        <div style={{ marginTop: 16, fontSize: 28, color: "#565c62", display: "flex" }}>
           {subline}
         </div>
         <div
           style={{
-            position: "absolute",
-            bottom: 40,
-            fontSize: 24,
-            letterSpacing: 4,
-            color: "#8a8270",
+            marginTop: 56,
+            marginLeft: -80,
+            marginRight: -80,
+            height: 36,
+            background: "#d3af7c",
+            borderBottom: "10px solid #b58a52",
             display: "flex",
+          }}
+        />
+        <div
+          style={{
+            height: 64,
+            marginLeft: -80,
+            marginRight: -80,
+            padding: "0 80px",
+            fontSize: 24,
+            color: "#565c62",
+            display: "flex",
+            alignItems: "center",
           }}
         >
           taketora-antique.com

@@ -1,202 +1,187 @@
 {
   "metadata": {
     "home": {
-      "title": "Taketora｜Japanese Antique Shop in Kyoto Higashiyama",
-      "description": "Antique shop with three locations in Kyoto — near Kodaiji and Kiyomizu-dera temples. Japanese antiques, crafts, anime figures & Pokémon cards. Open daily 10AM–8PM, English spoken."
+      "title": "Taketora｜Antique Shop in Kyoto Higashiyama - Antiques, Anime Figures & Pokémon Cards",
+      "description": "Three shops in Higashiyama, Kyoto, near Kiyomizu-dera. Japanese pottery, tea ceremony tools, old tools and hanging scrolls, plus anime figures and Pokémon cards. Open every day 10:00–20:00, English spoken."
     },
     "antique": {
-      "title": "Japanese Antiques & Traditional Crafts｜Taketora Kyoto Higashiyama",
-      "description": "Discover authentic Japanese antiques in Kyoto. Ceramics, tea ceremony tools, scrolls and folk crafts, each piece hand-selected. Visit us on Gojo-zaka."
+      "title": "Japanese Antiques & Old Tools｜Taketora Kyoto Higashiyama",
+      "description": "Kiyomizu, Imari and Kutani ware, tea ceremony tools, iron kettles, old chests, hanging scrolls and ukiyo-e, sold in store at Taketora in Higashiyama, Kyoto. Walkable from Kiyomizu-dera."
     },
     "animeFigures": {
-      "title": "Anime Figures in Kyoto｜Taketora - Authentic Japanese Collectibles",
-      "description": "Buy authentic anime figures in Kyoto's Higashiyama. Premium collectibles from popular series, limited editions, original packaging. Direct from Japan."
+      "title": "Anime Figures in Kyoto｜Taketora Higashiyama",
+      "description": "Anime figures in stock at Taketora in Higashiyama, Kyoto: mostly prize figures from One Piece, Dragon Ball, Demon Slayer and more. Second-hand pieces are graded by condition."
     },
     "pokemon": {
-      "title": "Pokémon Cards in Kyoto｜Taketora - Sealed Boxes & Rare Cards",
-      "description": "Buy Japanese Pokémon cards in Kyoto. Sealed booster boxes, rare cards, Japan-exclusive products. Visit Taketora in Higashiyama, near Kiyomizu-dera."
+      "title": "Pokémon Cards in Kyoto｜Taketora Higashiyama",
+      "description": "Sealed Pokémon card booster boxes and more at Taketora in Higashiyama, Kyoto. DM us on Instagram to check stock before you visit."
     },
     "collection": {
-      "title": "All Items｜Taketora Kyoto - Antiques, Figures & Pokémon Cards",
-      "description": "Browse Taketora's full collection. Japanese antiques, anime figures, Pokémon cards and more at our Kyoto Higashiyama shop."
+      "title": "All Items｜Taketora Kyoto - Figures, Antiques & Pokémon Cards",
+      "description": "Items in stock at Taketora antique shop in Higashiyama, Kyoto, with prices and condition. Stock updates every minute."
     },
     "visit": {
-      "title": "Visit Us｜Taketora Antique Shop - 3 Shops in Kyoto (Kodaiji, Kiyomizu, Shichijo)",
-      "description": "Find Taketora's three antique shops in Kyoto — Kodaiji, Kiyomizu and Shichijo — an easy stop on the walk between Kiyomizu-dera, Yasaka Shrine and Gion. Open daily 10AM-8PM. English & Japanese spoken. Maps & directions."
+      "title": "Shops & Directions｜Taketora - 3 Shops in Kyoto (Kodaiji, Kiyomizu, Shichijo)",
+      "description": "Addresses and directions for Taketora Kodaiji, Kiyomizu and Shichijo, all in Higashiyama, Kyoto, 6 to 20 minutes' walk from Kiyomizu-dera. Open every day 10:00–20:00. English spoken."
     },
     "blog": {
-      "title": "Blog｜Taketora Kyoto - Antiques, Collectibles & Japanese Culture",
-      "description": "Stories from Taketora antique shop in Kyoto. Discover Japanese antique culture, new arrivals, and collecting tips."
+      "title": "Blog｜Taketora Kyoto Higashiyama",
+      "description": "Notes from Taketora antique shop in Kyoto: new arrivals, antiques and old tools, and the neighborhood around the shop."
     }
   },
   "nav": {
-    "collection": "Collection",
-    "animeFigures": "Anime Figures",
-    "pokemon": "Pokémon Cards",
+    "collection": "All items",
+    "animeFigures": "Figures",
+    "pokemon": "Pokémon cards",
     "antiques": "Antiques",
-    "visit": "Visit Us",
-    "about": "About",
-    "blog": "Blog"
+    "visit": "Shops & directions",
+    "blog": "Blog",
+    "switchLang": "日本語",
+    "menu": "Menu",
+    "close": "Close",
+    "menuLabel": "Main menu",
+    "skip": "Skip to content"
   },
-  "hero": {
-    "eyebrow": "Kyoto · Higashiyama · Gojo-zaka",
-    "title": "TAKETORA",
-    "subtitle": "Antique Shop in Kyoto",
-    "body": "Discover timeless treasures on Kyoto's historic Gojo-zaka slope.\nJapanese antiques, traditional crafts, anime figures & Pokémon cards —\na curated collection of Japan's finest, past and present.",
-    "cta1": "Explore Collection",
-    "cta2": "Visit Us & Directions",
-    "badges": {
-      "antiques": "Japanese Antiques",
-      "figures": "Anime Figures",
-      "pokemon": "Pokémon Cards",
-      "english": "English Spoken"
-    }
-  },
-  "story": {
-    "eyebrow": "Our Story",
-    "title": "TAKETORA",
-    "p1": "Gojo-zaka — the slope leading to the iconic Kiyomizu-dera temple — has been the heart of Kyoto's ceramics and crafts culture for centuries.",
-    "p2": "Taketora brings together the best of Japanese culture under one roof: from traditional antiques and folk crafts that embody centuries of artisanship, to anime figures and Pokémon cards that represent Japan's vibrant pop culture today.",
-    "p3": "Discover authenticity. Embrace tradition. Experience TAKETORA."
-  },
-  "antiques": {
-    "label": "Antiques & Traditional Crafts",
-    "title": "Japanese Antiques",
-    "subtitle": "Authentic antiques and traditional crafts from the heart of Kyoto.",
-    "body1": "Located on Gojo-zaka — the famed pottery slope leading to Kiyomizu-dera temple — Taketora offers a carefully curated selection of authentic Japanese antiques and traditional crafts.",
-    "body2": "From Kiyomizu-yaki ceramics and tea ceremony utensils to hanging scrolls and vintage folk art, each piece carries the spirit of Japanese craftsmanship spanning centuries. Whether you're a seasoned collector or discovering Japanese antiques for the first time, our English-speaking staff will guide you through every piece's history and significance.",
-    "cta": "Browse Antiques →",
-    "categories": {
-      "ceramics": "Ceramics & Pottery (Kiyomizu-yaki, Imari, Kutani)",
-      "tea": "Tea Ceremony Tools (chawan, natsume, mizusashi)",
-      "folk": "Folk Crafts & Vintage Items (ironware, tansu, woodwork)",
-      "art": "Art & Calligraphy (hanging scrolls, ukiyo-e, folding screens)"
+  "home": {
+    "h1": "Taketora, an antique shop in Higashiyama, Kyoto",
+    "lead": "Old pottery on one shelf.\nAnime figures on the next.",
+    "body": "We run three shops in Higashiyama, Kyoto. Right next to the shelves of Kiyomizu and Kutani ware, iron kettles and hanging scrolls, you'll find One Piece and Dragon Ball figures and boxes of Pokémon cards. Old or new, pick up anything that catches your eye.",
+    "open": "Open every day, 10:00–20:00. English spoken.",
+    "ctaShops": "Shops & directions",
+    "ctaItems": "See what's in stock",
+    "whatTitle": "What we sell",
+    "antique": {
+      "name": "Antiques & old tools",
+      "body": "Kiyomizu, Imari and Kutani ware. Tea bowls, tea caddies and other tea ceremony tools, iron kettles, old chests, hanging scrolls and ukiyo-e prints.",
+      "link": "About our antiques"
     },
-    "pageTitle": "Antique Collection",
-    "pageSubtitle": "古美術コレクション",
-    "pageDescription": "Curated selection of authentic Japanese antiques, traditional ceramics, and porcelain. Each piece embodies Japan's rich cultural heritage and timeless craftsmanship."
-  },
-  "collections": {
-    "title": "Our Collection",
-    "subtitle": "Step into our world of carefully curated antiques and collectibles, where every piece reflects the timeless beauty of Japanese craftsmanship.",
-    "anime": {
-      "title": "Anime Figures",
-      "body": "Authentic Japanese anime figures imported directly from Japan. Premium collectibles from popular series, limited editions, and exclusive releases. All genuine with original packaging."
+    "figures": {
+      "name": "Anime figures",
+      "body": "Mostly prize figures, stacked along whole walls. Second-hand pieces are graded by condition.",
+      "link": "See figures in stock"
     },
     "pokemon": {
-      "title": "Pokémon Cards",
-      "body": "Sealed booster boxes, rare cards, and Japan-exclusive products. From the latest sets to sought-after vintage cards, perfect for collectors visiting Japan."
+      "name": "Pokémon cards",
+      "body": "Sealed booster boxes and more. Looking for something specific? DM us on Instagram and we'll check.",
+      "link": "About Pokémon cards"
     },
-    "all": {
-      "title": "Full Collection",
-      "body": "Browse our complete inventory — antiques, figures, cards, and more. New arrivals added regularly."
-    }
+    "newTitle": "Just in",
+    "newNote": "Synced with our in-store stock every minute.",
+    "newAll": "See all items",
+    "shopsTitle": "Our three shops",
+    "shopsIntro": "All three are in Higashiyama, Kyoto, within walking distance of Kiyomizu-dera.",
+    "firstTitle": "Before you visit",
+    "first1": "Our staff speak English.",
+    "first2": "We can hold items or ship overseas. Ask us by Instagram DM.",
+    "first3": "Looking for a specific item? DM us to check stock before you come.",
+    "instagram": "See our Instagram"
   },
-  "about": {
-    "title": "About Taketora",
-    "p1": "Gojo-zaka — the slope leading to the iconic Kiyomizu-dera temple — has been the heart of Kyoto's ceramics and crafts culture for centuries.",
-    "p2": "Taketora brings together the best of Japanese culture under one roof: from traditional antiques and folk crafts that embody centuries of artisanship, to anime figures and Pokémon cards that represent Japan's vibrant pop culture today.",
-    "p3": "We believe in bridging Japan's rich past with its dynamic present. Our bilingual staff warmly welcomes visitors from around the world.",
-    "values": {
-      "english": {
-        "title": "English Spoken",
-        "body": "Friendly bilingual staff to assist international visitors"
+  "shops": {
+    "minWalk": "{mins} min walk from Kiyomizu-dera",
+    "walkShort": "{mins} min walk",
+    "fromKiyomizu": "From Kiyomizu-dera",
+    "directions": "Directions in Google Maps",
+    "hours": "Every day, 10:00–20:00",
+    "address": "Address",
+    "hoursLabel": "Hours"
+  },
+  "collection": {
+    "title": "All items",
+    "intro": "Items on our shelves that have been entered into our stock system. Stock updates every minute.",
+    "categories": "Browse by category",
+    "other": "Other",
+    "count": "{count} items",
+    "emptyTitle": "No items are listed online right now.",
+    "emptyBody": "Our shelves are still full. If you're after something specific, DM us on Instagram to check stock."
+  },
+  "animeFigures": {
+    "title": "Anime figures",
+    "intro": "Figures from our shelves, grouped by series. Second-hand pieces are graded S to C by condition.",
+    "emptyTitle": "No figures are listed online right now.",
+    "emptyBody": "Our shelves are still full. If you're after a particular figure, DM us on Instagram to check stock."
+  },
+  "pokemonPage": {
+    "title": "Pokémon cards",
+    "intro": "We sell sealed booster boxes and more in store.",
+    "emptyTitle": "Pokémon cards aren't listed online.",
+    "emptyBody": "Come and look in store, or DM us on Instagram to check stock."
+  },
+  "antiquePage": {
+    "title": "Antiques & old tools",
+    "intro": "Pottery, tea ceremony tools, old household tools, hanging scrolls and more.",
+    "kindsTitle": "What you'll find",
+    "kinds": {
+      "ceramics": {
+        "name": "Ceramics",
+        "examples": "Kiyomizu, Imari and Kutani ware"
       },
-      "location": {
-        "title": "Prime Location",
-        "body": "On Gojo-zaka, steps from Kiyomizu-dera — perfect for a cultural detour"
+      "tea": {
+        "name": "Tea ceremony tools",
+        "examples": "Tea bowls, tea caddies, natsume, water jars"
+      },
+      "folk": {
+        "name": "Folk crafts & old tools",
+        "examples": "Woodwork, iron kettles, old chests"
+      },
+      "art": {
+        "name": "Art & calligraphy",
+        "examples": "Hanging scrolls, ukiyo-e prints, folding screens"
       }
-    }
+    },
+    "emptyTitle": "Antiques aren't listed online.",
+    "emptyBody": "Come and see them, and pick them up, at the shop."
   },
-  "shopInfo": {
-    "title": "Visit Us",
-    "hours": "10:00 AM – 8:00 PM (Open Daily)",
-    "languages": "Japanese & English"
-  },
-  "newArrivals": {
-    "title": "New Arrivals",
-    "viewAll": "View All →"
+  "visit": {
+    "title": "Shops & directions",
+    "intro": "Taketora has three shops in Higashiyama, Kyoto, all within walking distance of Kiyomizu-dera.",
+    "videosTitle": "Inside the shop",
+    "videosIntro": "Short videos filmed inside the shop.",
+    "firstTitle": "Before you visit"
   },
   "blog": {
     "title": "Blog",
-    "subtitle": "Stories, insights, and updates from Taketora",
-    "readMore": "Read More",
-    "viewAll": "View All Posts →",
-    "backToBlog": "Back to Blog",
-    "noPosts": "No blog posts found."
-  },
-  "visit": {
-    "heroTitle": "Experience Taketora",
-    "scrollHint": "Scroll to discover our Kyoto locations",
-    "mainTitle": "Visit Taketora in Kyoto",
-    "mainBody": "Our Kyoto boutiques sit just below Kiyomizu-dera in the Higashiyama district, tucked between the temple paths, preserved stone streets, and traditional townhouses. As you make your way down from the Kiyomizu stage toward Ninenzaka, Sannenzaka, and Gion, you can easily stop by Taketora to pick up premium collectibles.",
-    "shopsTitle": "Our Kyoto Shops",
-    "openDaily": "Open Daily: 10:00 - 20:00",
-    "minWalk": "{mins} min walk from Kiyomizu-dera",
-    "getDirections": "Get walking directions",
-    "neighborhoodTitle": "Explore the Neighborhood",
-    "neighborhoodBody": "From Kiyomizu-dera to Fushimi Inari and Gion, our locations sit along the natural path most visitors walk when exploring Kyoto.",
-    "openInMaps": "Open in Google Maps"
-  },
-  "collection": {
-    "title": "Our Collection",
-    "subtitle": "Discover our complete range of authentic Japanese collectibles, from premium anime figures to rare Pokémon cards and traditional antiques.",
-    "noProducts": "No products available at this time.",
-    "productTypes": {
-      "anime-figures": "Anime Figures",
-      "pokemon": "Pokémon Cards",
-      "antique": "Antiques"
-    }
-  },
-  "animeFigures": {
-    "pageTitle": "Anime Figures",
-    "noProducts": "No anime figures available at this time."
-  },
-  "pokemonPage": {
-    "noProducts": "No Pokémon cards available at this time."
+    "intro": "Notes on new arrivals, antiques and old tools, and the neighborhood around the shop.",
+    "back": "Back to the blog",
+    "emptyTitle": "No posts yet.",
+    "emptyBody": "We also post new arrivals on Instagram."
   },
   "product": {
-    "inStock": "In Stock",
-    "outOfStock": "Out of Stock",
-    "pieces": "pieces",
-    "available": "available",
-    "visitStore": "Visit Our Store",
-    "inquireInstagram": "Inquire on Instagram",
-    "availabilityNote": "Items shown are available in-store. Contact us for reservations or international shipping inquiries.",
-    "description": "Description",
-    "specifications": "Specifications",
-    "dimensions": "Dimensions",
-    "weight": "Weight",
+    "inStock": "In stock",
+    "soldOut": "Sold out",
     "condition": "Condition",
-    "originalBox": "Original Box",
-    "copyrightSticker": "Copyright Sticker",
-    "brand": "Brand",
-    "notFound": "Product Not Found"
+    "series": "Series",
+    "character": "Character",
+    "maker": "Maker",
+    "code": "Item code",
+    "specs": "Details",
+    "visitStore": "Shops & directions",
+    "ask": "Ask on Instagram",
+    "note": "This item is sold in store. For holds or overseas shipping, DM us on Instagram.",
+    "approx": "Approximate price",
+    "approxNote": "Rough conversion at a fixed rate. Payment is in Japanese yen.",
+    "related": "More items",
+    "notFound": "Item not found",
+    "categoryName": "Anime figures",
+    "askShort": "DM on Instagram"
+  },
+  "common": {
+    "instagram": "DM us on Instagram",
+    "shops": "Shops & directions"
   },
   "footer": {
-    "brand": "TAKETORA",
-    "brandDesc": "Antique shop with three locations in Kyoto — Kodaiji, Kiyomizu and Shichijo. Japanese antiques, traditional crafts, anime figures & Pokémon cards.",
-    "collectionTitle": "Collection",
-    "infoTitle": "Information",
-    "shopInfoTitle": "Shop Info",
-    "hoursLabel": "Open Daily: 10:00 AM – 8:00 PM",
-    "englishAvailable": "English & Japanese spoken",
-    "copyright": "© {year} Taketora. All rights reserved.",
-    "switchLang": "日本語"
-  },
-  "notFound": {
-    "title": "404",
-    "subtitle": "Page Not Found",
-    "body": "The page you're looking for doesn't exist or has been moved.",
-    "backHome": "Return to Homepage"
+    "hours": "Open every day, 10:00–20:00",
+    "english": "English spoken",
+    "shopsTitle": "Shops",
+    "pagesTitle": "Pages",
+    "copyright": "© {year} Taketora"
   },
   "breadcrumbs": {
     "home": "Home",
-    "antique": "Antique Collection",
-    "animeFigures": "Anime Figures",
-    "pokemon": "Pokémon Cards",
-    "collection": "Our Collection",
-    "visit": "Visit Us",
+    "antique": "Antiques",
+    "animeFigures": "Anime figures",
+    "pokemon": "Pokémon cards",
+    "collection": "All items",
+    "visit": "Shops & directions",
     "blog": "Blog"
   }
 }

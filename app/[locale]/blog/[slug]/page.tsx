@@ -4,7 +4,6 @@ import { Link } from "@/i18n/routing";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
-import ScrollRevealSection from "@/components/ScrollRevealSection";
 import { BreadcrumbItem } from "@/types/product";
 import { localeUrl, localePath, hreflang } from "@/lib/urls";
 
@@ -152,70 +151,32 @@ export default async function BlogPostPage({
   };
 
   return (
-    <div className="min-h-screen bg-stone-950 relative">
+    <article className="mx-auto max-w-shop px-4 pb-20 pt-5 sm:px-6">
       <JsonLd data={articleSchema} />
+      <Breadcrumbs items={breadcrumbs} />
 
-      {/* Background decoration */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-20 left-10 w-40 h-40 bg-amber-500/5 rounded-full blur-3xl" />
-        <div className="absolute top-60 right-20 w-56 h-56 bg-amber-600/5 rounded-full blur-3xl" />
-      </div>
+      <div className="mx-auto mt-10 max-w-[42rem]">
+        <header className="border-b-2 border-pine pb-6">
+          {blog.date && (
+            <time dateTime={blog.date} className="text-[14px] font-bold text-ink-soft">
+              {new Date(blog.date).toLocaleDateString(isJa ? "ja-JP" : "en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </time>
+          )}
+          <h1 className="mt-2 text-[28px] font-black leading-[1.4] sm:text-[36px]">{blog.title}</h1>
+        </header>
 
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 pt-20 sm:pt-24">
-        <div className="mb-6 sm:mb-8">
-          <Breadcrumbs items={breadcrumbs} />
-        </div>
+        <div className="blog-content mt-8" dangerouslySetInnerHTML={{ __html: blog.content }} />
 
-        <ScrollRevealSection variant="fade-up">
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-2 text-[#D4AF37]/70 hover:text-[#D4AF37] transition-colors duration-300 mb-8 group"
-          >
-            <svg
-              className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-            <span className="text-sm font-light tracking-wider">{t("blog.backToBlog")}</span>
+        <div className="mt-14 border-t border-line pt-6">
+          <Link href="/blog" className="text-link text-[15px] font-bold">
+            {t("blog.back")}
           </Link>
-        </ScrollRevealSection>
-
-        <ScrollRevealSection variant="fade-up" delay={100}>
-          <article className="glass-card p-8 sm:p-10 lg:p-14 relative overflow-hidden">
-            {/* Corner accents */}
-            <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-[#D4AF37]/15 rounded-tl-xl" />
-            <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-[#D4AF37]/15 rounded-br-xl" />
-
-            <header className="mb-8 sm:mb-10">
-              {blog.date && (
-                <p className="text-[#D4AF37]/60 text-xs sm:text-sm font-light mb-4 tracking-[0.2em] uppercase">
-                  {new Date(blog.date).toLocaleDateString(
-                    isJa ? "ja-JP" : "en-US",
-                    { year: "numeric", month: "long", day: "numeric" }
-                  )}
-                </p>
-              )}
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-[#F2E8DC] leading-tight tracking-wide mb-6">
-                {blog.title}
-              </h1>
-              <div className="gold-line" />
-            </header>
-
-            <div
-              className="blog-content max-w-none"
-              dangerouslySetInnerHTML={{ __html: blog.content }}
-            />
-          </article>
-        </ScrollRevealSection>
+        </div>
       </div>
-    </div>
+    </article>
   );
 }

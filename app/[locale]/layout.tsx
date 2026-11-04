@@ -2,33 +2,22 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
-import { Cinzel_Decorative, Noto_Sans_JP, Noto_Serif_JP } from "next/font/google";
+import { Zen_Maru_Gothic } from "next/font/google";
 import Script from "next/script";
 import { locales } from "@/i18n/request";
 import { localeUrl, hreflang } from "@/lib/urls";
 import { SHOPS, OPENING_HOURS } from "@/lib/shops";
 import Navigation from "@/components/Navigation";
 import SiteFooter from "@/components/SiteFooter";
-import LoadingScreen from "@/components/LoadingScreen";
 import JsonLd from "@/components/JsonLd";
 import "../globals.css";
 
-const cinzel = Cinzel_Decorative({
-  weight: ["400", "700"],
+// 看板の手描き文字に近い、丸みのあるゴシック1書体で全体を組む
+const maru = Zen_Maru_Gothic({
+  weight: ["400", "500", "700", "900"],
   subsets: ["latin"],
-  variable: "--font-cinzel",
-});
-
-const notoSans = Noto_Sans_JP({
-  weight: ["300", "400", "500", "600"],
-  subsets: ["latin"],
-  variable: "--font-noto",
-});
-
-const notoSerif = Noto_Serif_JP({
-  weight: ["400", "600", "700"],
-  subsets: ["latin"],
-  variable: "--font-noto-serif",
+  variable: "--font-maru",
+  display: "swap",
 });
 
 const BASE_URL = "https://taketora-antique.com";
@@ -222,20 +211,17 @@ export default async function LocaleLayout({
       </Script>
 
       <body
-        className={`${cinzel.variable} ${notoSans.variable} ${notoSerif.variable} font-sans antialiased bg-stone-950`}
+        className={`${maru.variable} font-maru bg-wall text-ink`}
       >
         <NextIntlClientProvider messages={messages}>
           {/* Structured Data */}
           <JsonLd data={structuredData} />
 
-          {/* Loading Screen (first visit only) */}
-          <LoadingScreen />
-
           {/* Navigation */}
           <Navigation locale={locale} />
 
           {/* Main Content */}
-          <main className="min-h-screen">{children}</main>
+          <main id="main" className="min-h-[60vh]">{children}</main>
 
           {/* Footer */}
           <SiteFooter locale={locale} />

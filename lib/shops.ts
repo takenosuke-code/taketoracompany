@@ -32,6 +32,8 @@ export interface Shop {
    */
   geo?: { latitude: number; longitude: number };
   walkMinsFromKiyomizu: number;
+  /** Googleマップに登録されている店名（地図の埋め込み・検索に使う） */
+  mapsPlaceName: string;
   // TODO(店舗確認): 電話番号が確認でき次第 telephone フィールドを追加し、
   // JSON-LD（app/[locale]/layout.tsx）にも反映する。
 }
@@ -41,6 +43,16 @@ export interface Shop {
  * TODO(店舗確認): 10:00〜20:00・年中無休は要確認（店舗ごとに異なる可能性あり）。
  */
 export const OPENING_HOURS = { opens: "10:00", closes: "20:00" } as const;
+
+/** 店の公式Instagram。問い合わせ・取り置き・海外発送の相談窓口として案内している */
+export const INSTAGRAM_URL = "https://www.instagram.com/taketora_antiques/";
+
+/** 住所から埋め込み用のGoogleマップURLを組み立てる（APIキー不要の埋め込み） */
+export function mapsEmbedUrl(shop: Shop, locale = "ja"): string {
+  // 住所で検索すると同じ番地の別の店にピンが立つことがあるため、Googleマップの登録名で検索する
+  const q = shop.mapsPlaceName;
+  return `https://www.google.com/maps?q=${encodeURIComponent(q)}&hl=${locale}&z=16&output=embed`;
+}
 
 /** 住所からGoogleマップの検索URLを組み立てる（公式リンクが無い店舗のフォールバック） */
 export function mapsSearchUrl(shop: Shop, locale = "en"): string {
@@ -71,6 +83,7 @@ export const SHOPS: Shop[] = [
     // 上記共有リンクの解決先（Googleマップ掲載名「アンティークショップ猛虎 高台寺店」）から取得
     geo: { latitude: 34.9995044, longitude: 135.7786915 },
     walkMinsFromKiyomizu: 6,
+    mapsPlaceName: "アンティークショップ猛虎 高台寺店",
   },
   {
     id: "kiyomizu",
@@ -83,10 +96,13 @@ export const SHOPS: Shop[] = [
     streetAddressEn: "6 Chome-539-49 Gojobashihigashi",
     addressLocalityJa: "京都市東山区",
     addressLocalityEn: "Higashiyama Ward, Kyoto",
-    // TODO(店舗確認): 公式の共有リンク取得後に差し替え（現状は住所検索URL）
+    // TODO(店舗確認): 公式の共有リンク取得後に差し替え（現状はGoogleマップ登録名での検索URL）
     mapsUrl:
-      "https://www.google.com/maps/search/?api=1&query=Taketora%20Kiyomizu%206%20Chome-539-49%20Gojobashihigashi%2C%20Higashiyama%20Ward%2C%20Kyoto%2C%20605-0848%2C%20Japan",
+      "https://www.google.com/maps/search/?api=1&query=" +
+      encodeURIComponent("アンティークショップ猛虎 清水店"),
     walkMinsFromKiyomizu: 12,
+    // Googleマップ上の登録名は「清水店」（サイト表記は「清水寺店」）
+    mapsPlaceName: "アンティークショップ猛虎 清水店",
   },
   {
     id: "shichijo",
@@ -99,11 +115,13 @@ export const SHOPS: Shop[] = [
     streetAddressEn: "6 Chome-2-3 Honmachi",
     addressLocalityJa: "京都市東山区",
     addressLocalityEn: "Higashiyama Ward, Kyoto",
-    // TODO(店舗確認): 公式の共有リンク取得後に差し替え（現状は住所検索URL）
+    // TODO(店舗確認): 公式の共有リンク取得後に差し替え（現状はGoogleマップ登録名での検索URL）
     mapsUrl:
-      "https://www.google.com/maps/search/?api=1&query=Taketora%20Shichijo%206%20Chome-2-3%20Honmachi%2C%20Higashiyama%20Ward%2C%20Kyoto%2C%20605-0981%2C%20Japan",
+      "https://www.google.com/maps/search/?api=1&query=" +
+      encodeURIComponent("アンティークショップ猛虎 七条店"),
     // TODO(店舗確認): 七条店（本町6丁目）までの清水寺からの徒歩時間は要確認
     walkMinsFromKiyomizu: 20,
+    mapsPlaceName: "アンティークショップ猛虎 七条店",
   },
 ];
 
